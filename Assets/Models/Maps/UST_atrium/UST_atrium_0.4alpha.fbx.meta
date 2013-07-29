@@ -25,6 +25,10 @@ ModelImporter:
     4300002: main_building
     4300004: columns
     4300006: 1_8m_block
+    6400000: 1_8m_block
+    6400002: columns
+    6400004: fire_chicken
+    6400006: main_building
     9500000: //RootNode
   materials:
     importMaterials: 1
