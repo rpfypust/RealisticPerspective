@@ -1,0 +1,11 @@
+=====0.4alpha=====
+
+Changes:
+Entry towards Concourse added
+Entry towards Amenities Service Counter added
+Fire chicken added
+Platform of the fire chicken added
+Tablet added(with only three entries, more will be added later)
+Position of the rod of the fire chicken is corrected
+Topology optimization
+Vectors of faces' normals are corrected
