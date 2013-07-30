@@ -1,0 +1,9 @@
+# ignore files with the following extensions
+*.csproj
+*.pidb
+*.unityproj
+*.sln
+
+# ignore the following directories
+Library/
+Temp/
