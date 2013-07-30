@@ -4,9 +4,10 @@
 //走路速度、跑步速度、跳躍速度、重力值、旋轉速度 : 浮點數值
 //主角移動方向 : 3維數值(x, y, z)(隱匿宣告)
 
-var WalkSpeed : float = 2.0;
-var RunSpeed : float = 6.0;
-var JumpSpeed : float = 10.0;
+var WalkSpeed : float = 5.0;
+var RunSpeed : float = 10.0;
+var SlowSpeed : float = 3.0;
+var JumpSpeed : float = 8.0;
 var Gravity : float = 20.0;
 private var MoveDirection : Vector3 = Vector3.zero;
 var cam : Camera;
@@ -15,23 +16,27 @@ var cam : Camera;
 function Update() 
 {
 	//宣告主角控制器為自身的控制器元件。   
-     var Char : CharacterController = GetComponent(CharacterController);
+     var playerController : CharacterController = GetComponent(CharacterController);
    
    //如果主角在地面時
-    if (Char.isGrounded) 
+    if (playerController.isGrounded) 
     {
         //主角移動方向的Z軸數值，由輸入設定中的垂直鍵(WS鍵或上下鍵)來進行輸入。
         //主角移動方向由自身座標轉換為世界座標(維持旋轉後的控制方向正確)。
         //主角移動方向的量乘以行走速度。
         MoveDirection = Vector3(Input.GetAxis ("Horizontal"), 0,Input.GetAxis("Vertical"));
-        //MoveDirection = transform.TransformDirection(MoveDirection);
-        MoveDirection *= WalkSpeed;
         
         //如果按下跑步鍵 --> 移動方向的量乘以跑步速度。
-       if(Input.GetButton("Run"))
+       /*if(Input.GetButton("Run"))
        {
        		MoveDirection *= RunSpeed;
-       } 
+       } */
+       if(Input.GetButton("Slow"))
+       {
+       	MoveDirection *= SlowSpeed;
+       }else{
+       	
+        MoveDirection *= WalkSpeed;
         
         //面向，smooth地轉面向的方向
         if(MoveDirection != Vector3(0,0,0)){
@@ -42,13 +47,15 @@ function Update()
         {
             MoveDirection.y = JumpSpeed;
         }
+        
+       }
     }
 
     //主角移動方向的Y軸數值，每秒持續減去重力值。
     MoveDirection.y -= Gravity * Time.deltaTime;
     
 	//每秒持續移動主角 。
-    Char.Move(MoveDirection * Time.deltaTime);
+    playerController.Move(MoveDirection * Time.deltaTime);
     
 }
 
@@ -62,10 +69,9 @@ function OnGUI()
 	position = Vector2(position.x, Screen.height - position.y);
 
 	var nameSize : Vector2;
-	var tempStr : String = MoveDirection.ToString();
-	nameSize = GUI.skin.label.CalcSize(GUIContent(tempStr));
-	GUI.color  = Color.red;
-	GUI.Label(Rect(position.x - (nameSize.x/2),position.y - nameSize.y ,nameSize.x,nameSize.y), tempStr);
+	nameSize = GUI.skin.label.CalcSize(GUIContent("test"));
+	GUI.color  = Color.blue;
+	GUI.Label(Rect(position.x - (nameSize.x/2),position.y ,nameSize.x,nameSize.y), "test");
 
 }
 

@@ -5,7 +5,7 @@
 //投射的 z 軸及 y 軸速度值 : 整數值
 //投射聲 : 聲音檔
 var Bullet : Rigidbody;
-var PowerZ: int = 10;
+var PowerZ = 10.0;
 var ThrowerSound : AudioClip;
 
 /* 功能 : 持續執行 (投射) */
@@ -15,19 +15,30 @@ function Update ()
 {
 	//if(_11_Trigger_MagicStage.FireStatus == true)
 	//{
-		if(Time.frameCount%1==0)
+		if(Time.frameCount%2==0)
 		{
-			var temp = Mathf.Sin(Time.frameCount/40.0);
-			var angle = temp*720.0/180.0*Mathf.PI;
+			var temp = Mathf.Sin(Time.frameCount/50.0);
+			var angle = (temp*1640.0 +90.0)/180.0*Mathf.PI;
+			var result = PowerZ;
 			
 			var AxeA : Rigidbody = Instantiate(Bullet, transform.position, transform.rotation);
-			AxeA.velocity = transform.TransformDirection( Vector3(PowerZ*Mathf.Cos(angle), 0, PowerZ*Mathf.Sin(angle)) );
+			AxeA.velocity = transform.TransformDirection( Vector3(result*Mathf.Cos(angle), 0, result*Mathf.Sin(angle)) );
 			AxeA.useGravity = false;
-    		AxeA.detectCollisions = false;
+			
+			AxeA = Instantiate(Bullet, transform.position, transform.rotation);
+			AxeA.velocity = transform.TransformDirection( Vector3(-result*Mathf.Cos(angle), 0, -result*Mathf.Sin(angle)) );
+			AxeA.useGravity = false;
+    		//AxeA.detectCollisions = false;
+    		
+    		result /= 2.0;
     		var AxeB : Rigidbody = Instantiate(Bullet, transform.position, transform.rotation);
-			AxeB.velocity = transform.TransformDirection( Vector3(-PowerZ*Mathf.Cos(angle), 0, -PowerZ*Mathf.Sin(angle)) );
+			AxeB.velocity = transform.TransformDirection( Vector3(result*Mathf.Sin(angle), 0, result*Mathf.Cos(angle)) );
 			AxeB.useGravity = false;
-    		AxeB.detectCollisions = false;
+			
+			AxeB  = Instantiate(Bullet, transform.position, transform.rotation);
+			AxeB.velocity = transform.TransformDirection( Vector3(-result*Mathf.Sin(angle), 0, -result*Mathf.Cos(angle)) );
+			AxeB.useGravity = false;
+    		//AxeB.detectCollisions = false;
 			//audio.PlayOneShot(ThrowerSound);
 		}
 	//}

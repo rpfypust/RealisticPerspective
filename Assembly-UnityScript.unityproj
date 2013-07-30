@@ -45,8 +45,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Attack Pattern(Temp)\A01_FishAttackPattern.js" />
+     <Compile Include="Assets\Scripts\Attack Pattern(Temp)\C01_HitBullet.js" />
      <Compile Include="Assets\Scripts\Character Controller(Temp)\_01_CharacterMoveControl.js" />
      <Compile Include="Assets\Scripts\Character Controller(Temp)\_02_CharachterAnimControl.js" />
+     <Compile Include="Assets\Scripts\_07_Func_KillAxe.js" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Models\Maps\UST_atrium\Changelog.txt" />
      <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
