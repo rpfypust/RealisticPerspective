@@ -1,6 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Character Controller(Temp)\_01_CharacterMoveControl.js">
+    <Files>
+      <File FileName="Assets\Scripts\Character Controller(Temp)\_01_CharacterMoveControl.js" Line="15" Column="16" />
+      <File FileName="Assets\Scripts\Attack Pattern(Temp)\A01_FishAttackPattern.js" Line="38" Column="26" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
