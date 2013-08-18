@@ -61,17 +61,27 @@ function Update()
 
 function OnGUI()
 {
-
-	var worldPosition : Vector3;
-	worldPosition = Vector3(transform.position.x , transform.position.y ,transform.position.z);
-	var position : Vector2;
-	position = cam.WorldToScreenPoint(worldPosition);
-	position = Vector2(position.x, Screen.height - position.y);
-
 	var nameSize : Vector2;
-	nameSize = GUI.skin.label.CalcSize(GUIContent("test"));
-	GUI.color  = Color.blue;
-	GUI.Label(Rect(position.x - (nameSize.x/2),position.y ,nameSize.x,nameSize.y), "test");
+	
+	var showString : String = (Mathf.Round((10/Time.deltaTime))/10.0).ToString() + "fps";
+	nameSize = GUI.skin.label.CalcSize(GUIContent(showString));
+	GUI.color = Color.red;
+	GUI.Label(Rect(0,0,nameSize.x,nameSize.y), showString);
+	
+	showString = Time.frameCount.ToString() + " frames passed";
+	nameSize = GUI.skin.label.CalcSize(GUIContent(showString));
+	GUI.color = Color.red;
+	GUI.Label(Rect(0,nameSize.y,nameSize.x,nameSize.y), showString);
+	
+	showString = (Mathf.Round(1000*Time.time)/1000.0).ToString() + " seconds passed";
+	nameSize = GUI.skin.label.CalcSize(GUIContent(showString));
+	GUI.color = Color.red;
+	GUI.Label(Rect(0,nameSize.y*2,nameSize.x,nameSize.y), showString);
+	
+	showString = (Mathf.Round(10.0*Time.frameCount/Time.time)/10.0).ToString() + "fps";
+	nameSize = GUI.skin.label.CalcSize(GUIContent(showString));
+	GUI.color = Color.red;
+	GUI.Label(Rect(0,nameSize.y*3,nameSize.x,nameSize.y), showString);
 
 }
 
