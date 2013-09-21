@@ -37,13 +37,14 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Attack Pattern(Temp)\A01_B1.js" />
      <Compile Include="Assets\Scripts\Attack Pattern(Temp)\A01_FishAttackPattern.js" />
      <Compile Include="Assets\Scripts\Attack Pattern(Temp)\C01_HitBullet.js" />
      <Compile Include="Assets\Scripts\Bullet Property(Temp)\Bullet.js" />

@@ -1,9 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Character Controller(Temp)\_01_CharacterMoveControl.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Attack Pattern(Temp)\A01_FishAttackPattern.js">
     <Files>
-      <File FileName="Assets\Scripts\Character Controller(Temp)\_01_CharacterMoveControl.js" Line="63" Column="2" />
-      <File FileName="Assets\Scripts\Attack Pattern(Temp)\A01_FishAttackPattern.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Attack Pattern(Temp)\A01_FishAttackPattern.js" Line="30" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
