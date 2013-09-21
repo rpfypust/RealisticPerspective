@@ -23,7 +23,7 @@ function FixedUpdate ()
 	//if(_11_Trigger_MagicStage.FireStatus == true)
 	//{
 	
-		if((Time.time-lastTime)>1/20.0)
+		if((Time.time-lastTime)>1/25.0)
 		{
 			var temp = Mathf.Sin(Time.frameCount/50.0);
 			var angle = (temp*1640.0 +90.0)/180.0*Mathf.PI;
