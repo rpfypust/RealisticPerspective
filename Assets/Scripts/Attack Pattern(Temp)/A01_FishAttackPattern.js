@@ -9,6 +9,7 @@ var PowerZ = 10.0;
 var ThrowerSound : AudioClip;
 var startTime = 0.0;
 var lastTime = 0.0;
+var lastTime2 = 0.0;
 var j = 0;
 
 /* 功能 : 持續執行 (投射) */
@@ -23,12 +24,12 @@ function FixedUpdate ()
 	//if(_11_Trigger_MagicStage.FireStatus == true)
 	//{
 	
+		var BulletX : Rigidbody;
 		if((Time.time-lastTime)>1/25.0)
 		{
 			var temp = Mathf.Sin(Time.frameCount/50.0);
 			var angle = (temp*1640.0 +90.0)/180.0*Mathf.PI;
 			var result = PowerZ;
-			var BulletX : Rigidbody;
 			for(i=0;i<6;i++){
 				angle = Mathf.PI/36.0*(i*6+j) + j/100.0;
 				BulletX = Instantiate(Bullet, transform.position, transform.rotation);
@@ -44,6 +45,14 @@ function FixedUpdate ()
     		//AxeA.detectCollisions = false;
     		
 			//audio.PlayOneShot(ThrowerSound);
+		}
+		if((Time.time-lastTime2)>1/1.4)
+		{
+			var direction = GameObject.Find("CharacterController").transform.position - transform.position;
+			BulletX = Instantiate(Bullet, transform.position, transform.rotation);
+			BulletX.velocity = direction/2.5;
+			BulletX.useGravity = false;
+			lastTime2 = Time.time;
 		}
 	//}
 }
