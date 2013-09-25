@@ -35,6 +35,23 @@ function FixedUpdate ()
 				BulletX = Instantiate(Bullet, transform.position, transform.rotation);
 				BulletX.gameObject.AddComponent("A01_B1");
 				BulletX.gameObject.GetComponent("A01_B1").startTime = Time.time;
+				BulletX.gameObject.GetComponent("A01_B1").vx = result * Mathf.Sin(angle*Mathf.Sin(angle));
+				BulletX.gameObject.GetComponent("A01_B1").vz = -result * Mathf.Cos(angle*Mathf.Cos(angle));
+				BulletX.gameObject.GetComponent("A01_B1").oriPos = transform.position;
+				BulletX.useGravity = false;
+			j++;
+			}
+			lastTime = Time.time;
+		}
+		/*if((Time.time-lastTime)>1/25.0)
+		{
+			var angle = (temp*1640.0 +90.0)/180.0*Mathf.PI;
+			var result = PowerZ;
+			for(i=0;i<6;i++){
+				angle = Mathf.PI/36.0*(i*6+j) + j/100.0;
+				BulletX = Instantiate(Bullet, transform.position, transform.rotation);
+				BulletX.gameObject.AddComponent("A01_B1");
+				BulletX.gameObject.GetComponent("A01_B1").startTime = Time.time;
 				BulletX.gameObject.GetComponent("A01_B1").vx = result * Mathf.Cos(angle);
 				BulletX.gameObject.GetComponent("A01_B1").vz = result * Mathf.Sin(angle);
 				BulletX.gameObject.GetComponent("A01_B1").oriPos = transform.position;
@@ -46,14 +63,17 @@ function FixedUpdate ()
     		
 			//audio.PlayOneShot(ThrowerSound);
 		}
-		if((Time.time-lastTime2)>1/1.4)
+		if((Time.time-lastTime2)>1/2.5)
 		{
 			var direction = GameObject.Find("CharacterController").transform.position - transform.position;
-			BulletX = Instantiate(Bullet, transform.position, transform.rotation);
-			BulletX.velocity = direction/2.5;
-			BulletX.useGravity = false;
+			direction = direction/direction.magnitude;
+			for (k=-4;k<=4;k++){
+				BulletX = Instantiate(Bullet, transform.position, transform.rotation);
+				BulletX.velocity = Quaternion.AngleAxis(k*15, Vector3.up) * (direction * 4.0);
+				BulletX.useGravity = false;
+			}
 			lastTime2 = Time.time;
-		}
+		}*/
 	//}
 }
 
