@@ -2,7 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Attack Pattern(Temp)\A01_FishAttackPattern.js">
     <Files>
-      <File FileName="Assets\Scripts\Attack Pattern(Temp)\A01_FishAttackPattern.js" Line="30" Column="33" />
+      <File FileName="Assets\Scripts\Attack Pattern(Temp)\A01_FishAttackPattern.js" Line="26" Column="31" />
+      <File FileName="Assets\Scripts\Attack Pattern(Temp)\A01_B1.js" Line="14" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
