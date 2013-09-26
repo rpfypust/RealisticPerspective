@@ -18,6 +18,7 @@ function OnGUI() {
 	
 	if (GUILayout.Button("Start Game")) {
 		print("game started");
+		Application.LoadLevel("testing_use");
 	}
 	if (GUILayout.Button("Load Game")) {
 		print("game loaded");
