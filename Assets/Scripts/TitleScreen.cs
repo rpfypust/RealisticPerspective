@@ -17,7 +17,7 @@ public class TitleScreen : MonoBehaviour {
 		GUILayout.BeginArea(new Rect(areaX, areaY, areaWidth, areaHeight));
 		GUILayout.BeginVertical();
 		if (GUILayout.Button("Play Game")) {
-			Debug.Log("game started");
+			Application.LoadLevel("testing_use");
 		}
 		if (GUILayout.Button("Load Game")) {
 			Debug.Log("game loaded");
