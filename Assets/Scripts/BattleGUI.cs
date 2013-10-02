@@ -5,30 +5,21 @@ public class BattleGUI : MonoBehaviour
 {
 	private static int nativeWidth = 1280;
 	private static int nativeHeight = 720;
+	private static string[] keys = {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p"};
 	private Vector3 scaleVector;
 	
 	// rects
-	private Rect bossHealthBarRect;
-	private Rect healthBarRect;
-	private Rect manaBarRect;
-	private Rect timeRect;
-	private Rect shortcutRect;
+	private Rect barGroup;
+	private Rect timeGroup;
+	private Rect shortcutArea;
 	private Rect skillRect;
 	private Rect scoreRect;
 	
 	// textures
-	private Texture2D emptyBar;
-	private Texture2D fullBossHealthBar;
-	private Texture2D fullHealthBar;
-	private Texture2D fullManaBar;
-	
-	// parameters
-	private int leftPadding = 10;
-	private int topPadding = 10;
-	private int spacing = 5;
-	private int bossHealthBarLength = Mathf.RoundToInt(nativeWidth * 0.8f);
-	private int barLength = Mathf.RoundToInt(nativeWidth * 0.6f);
-	private int barHeight = 20;
+	private Texture2D barBackground;
+	private Texture2D bossBarForeground;
+	private Texture2D healthBarForeground;
+	private Texture2D manaBarForground;
 	
 	// references
 	private Player player;
@@ -48,16 +39,15 @@ public class BattleGUI : MonoBehaviour
 		scaleVector = new Vector3(scaleFactor, scaleFactor, 1.0f);
 		
 		// initialize rects
-		bossHealthBarRect = new Rect(leftPadding, topPadding, bossHealthBarLength, barHeight);
-		healthBarRect = new Rect(leftPadding, topPadding + barHeight + spacing, barLength, barHeight);
-		manaBarRect = new Rect(leftPadding, topPadding + 2 * (barHeight + spacing), barLength, barHeight);
-		timeRect = new Rect(1180, topPadding, 50, 50);
+		barGroup = new Rect(10, 10, 1000, 80);
+		timeGroup = new Rect(1180, 10, 90, 50);
+		shortcutArea = new Rect(5, 600, 480, 90);
 		
 		// initialize textures
-		emptyBar = makeTexture(bossHealthBarLength, barHeight, Color.black);
-		fullBossHealthBar = makeTexture(bossHealthBarLength, barHeight, Color.red);
-		fullHealthBar = makeTexture(barLength, barHeight, Color.red);
-		fullManaBar = makeTexture(barLength, barHeight, Color.blue);
+		barBackground = makeTexture(980, 20, Color.black);
+		bossBarForeground = makeTexture(980, 20, Color.red);
+		healthBarForeground = makeTexture(600, 20, Color.red);
+		manaBarForground = makeTexture(600, 20, Color.blue);
 	}
 	
 	void OnGUI()
@@ -68,12 +58,36 @@ public class BattleGUI : MonoBehaviour
 		GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scaleVector);
 		
 		// Draw the bars
-		drawBar(bossHealthBarRect, emptyBar, fullBossHealthBar, player.currentHealthPercent());
-		drawBar(healthBarRect, emptyBar, fullHealthBar, player.currentHealthPercent());
-		drawBar(manaBarRect, emptyBar, fullManaBar, player.currentHealthPercent());
+		GUI.BeginGroup(barGroup, GUI.skin.box);
+		drawBar(new Rect(0, 0, 980, 20), barBackground, bossBarForeground, player.currentHealthPercent());
+		drawBar(new Rect(0, 25, 600, 20), barBackground, healthBarForeground, player.currentHealthPercent());
+		drawBar(new Rect(0, 50, 600, 20), barBackground, manaBarForground, player.currentHealthPercent());
+		GUI.EndGroup();
 		
 		// Draw the time
-		GUI.Box(timeRect, timeCounter.Time.ToString());
+		GUI.BeginGroup(timeGroup, GUI.skin.box);
+		drawTime(new Rect(0, 0, 90, 50), timeCounter.Time);
+		GUI.EndGroup();
+		
+		GUILayout.BeginArea(shortcutArea, GUI.skin.box);
+		GUILayout.BeginVertical();
+		
+		GUILayout.BeginHorizontal();
+		for (int i = 1; i < 11; ++i) {
+			GUILayout.Box(i.ToString(), GUILayout.Width(32), GUILayout.Height(32));
+		}
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+		
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		for (int i = 0; i < 10; ++i) {
+			GUILayout.Box(keys[i], GUILayout.Width(32), GUILayout.Height(32));
+		}
+		GUILayout.EndHorizontal();
+		
+		GUILayout.EndVertical();
+		GUILayout.EndArea();
 		
 		// restore the matrix
 		GUI.matrix = backupMatrix;
@@ -101,8 +115,21 @@ public class BattleGUI : MonoBehaviour
 		return new Rect(rect.x, rect.y, width, rect.height);
 	}
 	
-	void drawBar(Rect rect, Texture2D empty, Texture2D full, float percent) {
-		GUI.DrawTexture(rect, empty);
-		GUI.DrawTexture(clipBar(rect, percent), full);
+	void drawBar(Rect rect, Texture2D background, Texture2D foreground, float percent) {
+		GUI.DrawTexture(rect, background);
+		GUI.DrawTexture(clipBar(rect, percent), foreground);
+	}
+	
+	void drawTime(Rect rect, int time) {
+		int minute = time / 60;
+		int second = time % 60;
+		string displayTime = (minute < 10) ? "0" : "";
+		displayTime += minute.ToString() + ":";
+		displayTime += (second < 10) ? "0" : "";
+		displayTime += second.ToString();
+		GUIStyle style = new GUIStyle(GUI.skin.label);
+		style.fontSize = Mathf.RoundToInt(nativeHeight * 0.04f);
+		style.alignment = TextAnchor.UpperRight;
+		GUI.Label(rect, displayTime, style);
 	}
 }
