@@ -12,8 +12,8 @@ public class BattleGUI : MonoBehaviour
 	private Rect barGroup;
 	private Rect timeGroup;
 	private Rect shortcutArea;
-	private Rect skillRect;
-	private Rect scoreRect;
+	private Rect skillArea;
+	private Rect scoreGroup;
 	
 	// textures
 	private Texture2D barBackground;
@@ -41,7 +41,9 @@ public class BattleGUI : MonoBehaviour
 		// initialize rects
 		barGroup = new Rect(10, 10, 1000, 80);
 		timeGroup = new Rect(1180, 10, 90, 50);
-		shortcutArea = new Rect(5, 600, 480, 90);
+		shortcutArea = new Rect(20, 620, 380, 80);
+		skillArea = new Rect(534, 644, 212, 56);
+		scoreGroup = new Rect(1060, 666, 200, 34);
 		
 		// initialize textures
 		barBackground = makeTexture(980, 20, Color.black);
@@ -69,6 +71,7 @@ public class BattleGUI : MonoBehaviour
 		drawTime(new Rect(0, 0, 90, 50), timeCounter.Time);
 		GUI.EndGroup();
 		
+		// Draw the shortcut
 		GUILayout.BeginArea(shortcutArea, GUI.skin.box);
 		GUILayout.BeginVertical();
 		
@@ -88,6 +91,20 @@ public class BattleGUI : MonoBehaviour
 		
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
+		
+		// Draw the skills
+		GUILayout.BeginArea(skillArea, GUI.skin.box);
+		GUILayout.BeginHorizontal();
+		for (int i = 0; i < 4; ++i) {
+			GUILayout.Box(i.ToString(), GUILayout.Width(48), GUILayout.Height(48));
+		}
+		GUILayout.EndHorizontal();
+		GUILayout.EndArea();
+		
+		// Draw the score
+		GUI.BeginGroup(scoreGroup, GUI.skin.box);
+		drawScore(new Rect(0, 0, 200, 50), 88888888);
+		GUI.EndGroup();
 		
 		// restore the matrix
 		GUI.matrix = backupMatrix;
@@ -131,5 +148,27 @@ public class BattleGUI : MonoBehaviour
 		style.fontSize = Mathf.RoundToInt(nativeHeight * 0.04f);
 		style.alignment = TextAnchor.UpperRight;
 		GUI.Label(rect, displayTime, style);
+	}
+	
+	void drawScore(Rect rect, int score) {
+		// the score is of magnitude 10^8
+		int numOfDigits = countDigits(score);
+		string displayScore = "";
+		for (int i = 0; i < 8 - numOfDigits; i++)
+			displayScore += "0";
+		displayScore += score.ToString();
+		GUIStyle style = new GUIStyle(GUI.skin.label);
+		style.fontSize = Mathf.RoundToInt(nativeHeight * 0.04f);
+		style.alignment = TextAnchor.UpperRight;
+		GUI.Label(rect, displayScore, style);
+	}
+	
+	int countDigits(int number) {
+		int digits = 0;
+		while (number > 0) {
+			number /= 10;
+			digits++;
+		}
+		return digits;
 	}
 }
