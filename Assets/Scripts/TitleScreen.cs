@@ -11,6 +11,12 @@ public class TitleScreen : MonoBehaviour {
 	private Vector3 scaleVector;
 	private int fontSize;
 	
+	private Fader fader;
+	
+	void Awake() {
+		fader = GameObject.Find("ScreenFader").GetComponent<Fader>();
+	}
+	
 	void Start() {
 		// calculate the scale vector
 		float widthRatio = ((float) Screen.width) / nativeWidth;
@@ -44,7 +50,8 @@ public class TitleScreen : MonoBehaviour {
 		GUILayout.BeginArea(buttonArea);
 		GUILayout.BeginVertical();
 		if (GUILayout.Button("Play Game", buttonStyle, GUILayout.ExpandHeight(true))) {
-			Application.LoadLevel("testing_use");
+			fader.LoadLevel(1);
+			//Application.LoadLevel("testing_use");
 		}
 		if (GUILayout.Button("Load Game", buttonStyle, GUILayout.ExpandHeight(true))) {
 			Debug.Log("game loaded");
