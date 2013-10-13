@@ -5,8 +5,6 @@ public class TitleScreen : MonoBehaviour {
 	
 	public Texture2D backgroundImage;
 	
-	private int nativeWidth = 1280;
-	private int nativeHeight = 720;
 	private Rect buttonArea;
 	private Vector3 scaleVector;
 	private int fontSize;
@@ -19,20 +17,20 @@ public class TitleScreen : MonoBehaviour {
 	
 	void Start() {
 		// calculate the scale vector
-		float widthRatio = ((float) Screen.width) / nativeWidth;
-		float heightRatio = ((float) Screen.height) / nativeHeight;
+		float widthRatio = Screen.width / 1920f;
+		float heightRatio = Screen.height / 1080f;
 		float scaleFactor = (widthRatio > heightRatio) ? heightRatio : widthRatio;
-		scaleVector = new Vector3(scaleFactor, scaleFactor, 1.0f);
+		scaleVector = new Vector3(scaleFactor, scaleFactor, 1f);
 		
 		// initialize the button area
-		int areaWidth = Mathf.RoundToInt(nativeWidth / 3.0f);
-		int areaHeight = Mathf.RoundToInt(nativeHeight * 0.6f);
-		int areaX = nativeWidth / 2 - areaWidth / 2;
-		int areaY = Mathf.RoundToInt(nativeHeight * 0.2f);
+		int areaWidth = 640;
+		int areaHeight = 648;
+		int areaX = 640;
+		int areaY = 216;
 		buttonArea = new Rect(areaX, areaY, areaWidth, areaHeight);
 		
 		// initialize the font style
-		fontSize = Mathf.RoundToInt(nativeHeight * 0.04f);
+		fontSize = 43;
 	}
 	
 	void OnGUI() {
@@ -42,7 +40,7 @@ public class TitleScreen : MonoBehaviour {
 		GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scaleVector);
 		
 		// Draw the background image
-		GUI.DrawTexture(new Rect(0, 0, nativeWidth, nativeHeight), backgroundImage, ScaleMode.StretchToFill);
+		GUI.DrawTexture(new Rect(0, 0, 1920, 1080), backgroundImage, ScaleMode.StretchToFill);
 		
 		GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
 		buttonStyle.fontSize = fontSize;
@@ -54,6 +52,7 @@ public class TitleScreen : MonoBehaviour {
 			//Application.LoadLevel("testing_use");
 		}
 		if (GUILayout.Button("Load Game", buttonStyle, GUILayout.ExpandHeight(true))) {
+			fader.LoadLevel(2);
 			Debug.Log("game loaded");
 		}
 		if (GUILayout.Button("Options", buttonStyle, GUILayout.ExpandHeight(true))) {

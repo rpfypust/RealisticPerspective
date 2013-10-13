@@ -3,8 +3,6 @@ using System.Collections;
 
 public class BattleGUI : MonoBehaviour
 {
-	private static int nativeWidth = 1280;
-	private static int nativeHeight = 720;
 	private static string[] keys = {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p"};
 	private Vector3 scaleVector;
 	
@@ -33,23 +31,23 @@ public class BattleGUI : MonoBehaviour
 	void Start()
 	{
 		// calculate the scale vector
-		float widthRatio = ((float) Screen.width) / nativeWidth;
-		float heightRatio = ((float) Screen.height) / nativeHeight;
+		float widthRatio = Screen.width / 1920f;
+		float heightRatio = Screen.height / 1080f;
 		float scaleFactor = (widthRatio > heightRatio) ? heightRatio : widthRatio;
 		scaleVector = new Vector3(scaleFactor, scaleFactor, 1.0f);
 		
 		// initialize rects
-		barGroup = new Rect(10, 10, 1000, 80);
-		timeGroup = new Rect(1180, 10, 90, 50);
-		shortcutArea = new Rect(20, 620, 380, 80);
-		skillArea = new Rect(534, 644, 212, 56);
-		scoreGroup = new Rect(1060, 666, 200, 34);
+		barGroup = new Rect(30, 30, 1500, 120);
+		timeGroup = new Rect(1770, 30, 135, 75);
+		shortcutArea = new Rect(30, 930, 570, 120);
+		skillArea = new Rect(801, 966, 318, 84);
+		scoreGroup = new Rect(1590, 999, 300, 51);
 		
 		// initialize textures
-		barBackground = makeTexture(980, 20, Color.black);
-		bossBarForeground = makeTexture(980, 20, Color.red);
-		healthBarForeground = makeTexture(600, 20, Color.red);
-		manaBarForground = makeTexture(600, 20, Color.blue);
+		barBackground = makeTexture(1470, 30, Color.black);
+		bossBarForeground = makeTexture(1470, 30, Color.red);
+		healthBarForeground = makeTexture(900, 30, Color.red);
+		manaBarForground = makeTexture(900, 30, Color.blue);
 	}
 	
 	void OnGUI()
@@ -61,14 +59,14 @@ public class BattleGUI : MonoBehaviour
 		
 		// Draw the bars
 		GUI.BeginGroup(barGroup, GUI.skin.box);
-		drawBar(new Rect(0, 0, 980, 20), barBackground, bossBarForeground, player.currentHealthPercent());
-		drawBar(new Rect(0, 25, 600, 20), barBackground, healthBarForeground, player.currentHealthPercent());
-		drawBar(new Rect(0, 50, 600, 20), barBackground, manaBarForground, player.currentHealthPercent());
+		drawBar(new Rect(0, 0, 1470, 30), barBackground, bossBarForeground, player.currentHealthPercent());
+		drawBar(new Rect(0, 40, 900, 30), barBackground, healthBarForeground, player.currentHealthPercent());
+		drawBar(new Rect(0, 80, 600, 30), barBackground, manaBarForground, player.currentHealthPercent());
 		GUI.EndGroup();
 		
 		// Draw the time
 		GUI.BeginGroup(timeGroup, GUI.skin.box);
-		drawTime(new Rect(0, 0, 90, 50), timeCounter.Time);
+		drawTime(new Rect(0, 0, 135, 75), timeCounter.Time);
 		GUI.EndGroup();
 		
 		// Draw the shortcut
@@ -77,7 +75,7 @@ public class BattleGUI : MonoBehaviour
 		
 		GUILayout.BeginHorizontal();
 		for (int i = 1; i < 11; ++i) {
-			GUILayout.Box(i.ToString(), GUILayout.Width(32), GUILayout.Height(32));
+			GUILayout.Box(i.ToString(), GUILayout.Width(48), GUILayout.Height(48));
 		}
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
@@ -85,7 +83,7 @@ public class BattleGUI : MonoBehaviour
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
 		for (int i = 0; i < 10; ++i) {
-			GUILayout.Box(keys[i], GUILayout.Width(32), GUILayout.Height(32));
+			GUILayout.Box(keys[i], GUILayout.Width(48), GUILayout.Height(48));
 		}
 		GUILayout.EndHorizontal();
 		
@@ -96,14 +94,14 @@ public class BattleGUI : MonoBehaviour
 		GUILayout.BeginArea(skillArea, GUI.skin.box);
 		GUILayout.BeginHorizontal();
 		for (int i = 0; i < 4; ++i) {
-			GUILayout.Box(i.ToString(), GUILayout.Width(48), GUILayout.Height(48));
+			GUILayout.Box(i.ToString(), GUILayout.Width(72), GUILayout.Height(72));
 		}
 		GUILayout.EndHorizontal();
 		GUILayout.EndArea();
 		
 		// Draw the score
 		GUI.BeginGroup(scoreGroup, GUI.skin.box);
-		drawScore(new Rect(0, 0, 200, 50), 88888888);
+		drawScore(new Rect(0, 0, 300, 75), 88888888);
 		GUI.EndGroup();
 		
 		// restore the matrix
@@ -145,7 +143,7 @@ public class BattleGUI : MonoBehaviour
 		displayTime += (second < 10) ? "0" : "";
 		displayTime += second.ToString();
 		GUIStyle style = new GUIStyle(GUI.skin.label);
-		style.fontSize = Mathf.RoundToInt(nativeHeight * 0.04f);
+		style.fontSize = 43;
 		style.alignment = TextAnchor.UpperRight;
 		GUI.Label(rect, displayTime, style);
 	}
@@ -158,12 +156,12 @@ public class BattleGUI : MonoBehaviour
 			displayScore += "0";
 		displayScore += score.ToString();
 		GUIStyle style = new GUIStyle(GUI.skin.label);
-		style.fontSize = Mathf.RoundToInt(nativeHeight * 0.04f);
+		style.fontSize = 43;
 		style.alignment = TextAnchor.UpperRight;
 		GUI.Label(rect, displayScore, style);
 	}
 	
-	int countDigits(int number) {
+	private int countDigits(int number) {
 		int digits = 0;
 		while (number > 0) {
 			number /= 10;
