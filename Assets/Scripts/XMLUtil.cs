@@ -6,7 +6,7 @@ using System.Text;
 
 public static class XMLUtil {
 	
-	// some helper functions
+	/* private helper functions */
 	private static string UTF8ByteArrayToString(byte[] chars) {
 		return (new UTF8Encoding()).GetString(chars);
 	}
@@ -15,20 +15,21 @@ public static class XMLUtil {
 		return (new UTF8Encoding()).GetBytes(s);
 	}
 	
-	public static string Serialize(object o) {
+	private static string Serialize(object o) {
 		XmlSerializer serializer = new XmlSerializer(o.GetType());
 		XmlTextWriter writer = new XmlTextWriter(new MemoryStream(), Encoding.UTF8);
 		serializer.Serialize(writer, o);
 		return UTF8ByteArrayToString(((MemoryStream) writer.BaseStream).ToArray());
 	}
 	
-	public static T Deserialize<T>(string s) {
+	private static T Deserialize<T>(string s) {
 		XmlSerializer serializer = new XmlSerializer(typeof(T));
 		MemoryStream stream = new MemoryStream(StringToUTF8ByteArray(s));
 		XmlTextReader reader = new XmlTextReader(stream);
 		return (T) serializer.Deserialize(reader);
 	}
 	
+	/* save/load functions */
 	public static void SaveXML(string path, object o) {
 		// overwrite the existing file with the same path
 		StreamWriter file = new StreamWriter(path, false, Encoding.UTF8);
