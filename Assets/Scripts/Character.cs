@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
-public class Character {
+public class Character
+{
 	/* constructor */
-	public Character() {
+	public Character()
+	{
 		
 	}
 	
@@ -23,7 +25,11 @@ public class Character {
 		get { 
 			return max_hp;
 		}
+		set {
+			max_hp = value;
+		}
 	}
+
 	public float HP {
 		get {
 			return hp;
@@ -32,6 +38,7 @@ public class Character {
 			hp = Mathf.Min(max_hp, Mathf.Max(0.0f, value));
 		}
 	}
+
 	public float MaxMP {
 		get {
 			return max_mp;
@@ -40,6 +47,7 @@ public class Character {
 			max_mp = value;
 		}
 	}
+
 	public float MP {
 		get {
 			return mp;
@@ -48,6 +56,7 @@ public class Character {
 			mp = Mathf.Min(max_mp, Mathf.Max(0.0f, value));
 		}
 	}
+
 	public float ATK {
 		get {
 			return atk;
@@ -56,6 +65,7 @@ public class Character {
 			atk = value;
 		}
 	}
+
 	public float Resistance {
 		get {
 			return resistance;
@@ -63,5 +73,11 @@ public class Character {
 		set {
 			resistance = value;
 		}
+	}
+	
+	/* functions modifying stats */
+	public void Apply(Consumable c)
+	{
+		c.Apply(this);
 	}
 }

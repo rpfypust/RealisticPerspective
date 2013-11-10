@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 
-public class Accessory : Item {
-	public void Equip() {
-		
-	}
-	public void Unequip() {
-		
-	}
+public abstract class Accessory : Item {
+	public abstract void Equip(Character c);
+	public abstract void Unequip(Character c);
 }
