@@ -26,20 +26,22 @@ public class CharControl : MonoBehaviour
 	}
 	
 	void Update() {
-		moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+		moveDirection = new Vector3(Input.GetAxis("Horizontal"), moveDirection.y, Input.GetAxis("Vertical"));
 		
 		// Rotate to face forward
 		if (moveDirection != Vector3.zero && !Input.GetButton ("Slow"))
-			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), turnSpeed * Time.deltaTime);
+			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(moveDirection.x, 0.0f, moveDirection.z)), turnSpeed * Time.deltaTime);
 		
 		if (controller.isGrounded) {
 			moveSpeed = (Input.GetButton("Slow"))? slowSpeed : walkSpeed;
+			moveDirection.y = 0.0f;
 			if (Input.GetButton("Jump")) {
 				moveDirection.y = jumpSpeed;
 			}
 		}
 		
-		moveDirection *= moveSpeed;
+		moveDirection.x *= moveSpeed;
+		moveDirection.z *= moveSpeed;
 		
 		// This is necessary because it makes controller grounded
 		moveDirection.y -= (gravity * Time.deltaTime);
