@@ -11,6 +11,7 @@ public class CharControl : MonoBehaviour
 	public float turnSpeed = 10.0f;
 	public float gravity = 20.0f;
 	private Vector3 moveDirection;
+	private float moveSpeed;
 	private CharacterController controller;
 	
 	void Awake()
@@ -21,24 +22,24 @@ public class CharControl : MonoBehaviour
 	void Start()
 	{
 		moveDirection = Vector3.zero;
+		moveSpeed = 0.0f;
 	}
 	
-	void Update()
-	{
-		// Direction on the 2D surface
-		Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+	void Update() {
+		moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
 		
 		// Rotate to face forward
-		if (direction != Vector2.zero)
-			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0.0f, direction.y)), turnSpeed * Time.deltaTime);
+		if (moveDirection != Vector3.zero && !Input.GetButton ("Slow"))
+			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), turnSpeed * Time.deltaTime);
 		
 		if (controller.isGrounded) {
-			moveDirection = new Vector3(direction.x, 0.0f, direction.y);
-			moveDirection *= (Input.GetButton("Slow")) ? slowSpeed : walkSpeed;
+			moveSpeed = (Input.GetButton("Slow"))? slowSpeed : walkSpeed;
 			if (Input.GetButton("Jump")) {
 				moveDirection.y = jumpSpeed;
 			}
 		}
+		
+		moveDirection *= moveSpeed;
 		
 		// This is necessary because it makes controller grounded
 		moveDirection.y -= (gravity * Time.deltaTime);
