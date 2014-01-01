@@ -38,7 +38,7 @@ public class Boss_Test : MonoBehaviour
 				j++;
 			}
 			lastTime = Time.time;
-			transform.position=transform.position+new Vector3(0.8f*Mathf.Cos(angle/8f),0,0);
+			transform.position=transform.position+new Vector3(0.6f*Mathf.Cos(angle/8f),0,0.6f*Mathf.Sin(angle/8f));
 		}
 		/*if((Time.time-lastTime)>1/25.0)
 		{
