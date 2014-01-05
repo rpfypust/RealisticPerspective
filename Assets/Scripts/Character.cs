@@ -2,25 +2,21 @@
 
 public class Character
 {
-	/* constructor */
 	public Character()
 	{
 		
 	}
-	
-	/* stats of character */
+
 	private float max_hp = 100.0f;
 	private float hp = 100.0f;
 	private float max_mp = 100.0f;
 	private float mp = 100.0f;
 	private float atk = 1.0f; /* dummy value */
 	private float resistance = 0.0f;
-	
-	/* consumables and equipment */
+
 	private Consumable[] consumables = new Consumable[30];
 	private Accessory[] accessories = new Accessory[12];
-	
-	/* accessors */
+
 	public float MaxHP { 
 		get { 
 			return max_hp;
@@ -74,10 +70,13 @@ public class Character
 			resistance = value;
 		}
 	}
-	
-	/* functions modifying stats */
-	public void Apply(Consumable c)
+
+	public bool Apply(Consumable c)
 	{
-		c.Apply(this);
+		return c.Apply(this);
+	}
+
+	public bool Equip(Accessory a) {
+		return a.Equip(this);
 	}
 }
