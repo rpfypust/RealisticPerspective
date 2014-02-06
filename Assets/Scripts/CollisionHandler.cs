@@ -1,13 +1,23 @@
-using System;
+using UnityEngine;
+using System.Collections;
 
-namespace AssemblyCSharp
+public class CollisionHandler : MonoBehaviour
 {
-	public class CollisionHandler
+	
+	void OnCollisionEnter (Collision collision)
 	{
-		//中彈判定
-		public CollisionHandler ()
-		{
+		//if(collision.gameObject.tag == TagName)
+		//{
+		
+		//get damage
+		/*float damage = collision.gameObject.GetComponent<BulletInfo>().Damage;
+		transform.gameObject.GetComponent<Status>().HealthPoint -= damage;
+		
+		if (transform.gameObject.GetComponent<Status>().HealthPoint <= 0) {
+			//handling death
 		}
+		Destroy (collision.gameObject);*/
+		//}
 	}
 }
 
