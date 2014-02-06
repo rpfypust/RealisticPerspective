@@ -1,13 +1,13 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class DialogueManager : MonoBehaviour {
+public class DialogManager : MonoBehaviour {
 	private Vector3 scaleVector;
 	private Vector2 scrollPosition;
 
 	public int characterPerSecond = 30;
 
-	private Dialogue[] dialogues;
+	private Dialog[] dialogues;
 	private int currentDialogue;
 	private int currentLength;
 	private bool isPrinting;
@@ -22,7 +22,6 @@ public class DialogueManager : MonoBehaviour {
 		float heightRatio = Screen.height / 1080f;
 		float scaleFactor = (widthRatio > heightRatio) ? heightRatio : widthRatio;
 		scaleVector = new Vector3(scaleFactor, scaleFactor, 1.0f);
-		GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scaleVector);
 		
 		scrollPosition = Vector2.zero;
 	}
@@ -63,7 +62,7 @@ public class DialogueManager : MonoBehaviour {
 		}
 	}
 
-	public void showDialogue(Dialogue[] _dialogues) {
+	public void showDialogue(Dialog[] _dialogues) {
 		dialogues = _dialogues;
 		currentDialogue = 0;
 		this.enabled = true;

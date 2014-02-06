@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TestDialog : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Dialogue[] d = {new Dialogue("speaker", "I am speakerI am speakerI am speakerI am speakerI am speakerI am speakerI am speakerI am speakerI am speaker")};
-		DialogueManager dm = transform.gameObject.GetComponent<DialogueManager>();
+		Dialog[] d = {new Dialog("speaker", "I am speakerI am speakerI am speakerI am speakerI am speakerI am speakerI am speakerI am speakerI am speaker")};
+		DialogManager dm = transform.gameObject.GetComponent<DialogManager>();
 		dm.showDialogue(d);
 	}
 	
