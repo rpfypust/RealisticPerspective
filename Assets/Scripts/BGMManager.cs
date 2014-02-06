@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(AudioSource))]
 public class BGMManager : MonoBehaviour {
 
-	/* reference to all BGMs used in game */
+	/* references to all BGMs */
 	public AudioClip[] bgms;
 
 	public void PlayBGM(int index) {
