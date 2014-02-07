@@ -59,7 +59,7 @@ function Update()
     
 }
 
-function OnGUI()
+/*function OnGUI()
 {
 	var nameSize : Vector2;
 	
@@ -83,7 +83,7 @@ function OnGUI()
 	GUI.color = Color.red;
 	GUI.Label(Rect(0,nameSize.y*3,nameSize.x,nameSize.y), showString);
 
-}
+}*/
 
 /* 附加腳本時自動生成CharacterController元件 */
 @script RequireComponent(CharacterController)

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Status {
+public class Status : MonoBehaviour {
 
-	//Player，monster同boss既status(parent)
+	//Player，monster & boss's status(parent)
 	
 	public float MaxHealthPoint = 1000.0f;
-	public float HealthPoint = 1000.0f;
+    public float HealthPoint = 1000.0f;
+    public bool isInvicible = false;
 	
 }
