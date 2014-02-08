@@ -26,10 +26,14 @@ public class A01_BS_Error : MonoBehaviour
             if (!isPassedPlayer)
             {
                 target = GameObject.FindWithTag("Player");
-
                 speed = (target.transform.position - transform.position).normalized * velocity;
                 speed.y=0.0f;
 
+            }
+            if(speed.magnitude==0){
+                target = GameObject.FindWithTag("Player");
+                speed = (target.transform.position - transform.position).normalized * velocity;
+                speed.y=0.0f;
             }
             
             transform.position = transform.position + speed * deltaTime;
@@ -40,9 +44,9 @@ public class A01_BS_Error : MonoBehaviour
 
     void OnTriggerExit(Collider collider){
         if(collider.gameObject.name=="Boss_Test"){ //Tell boss this area already leave boss
-            boss.GetComponent<Boss_Test>().k++;
+            boss.GetComponent<Boss_Test>().k=94;
         }else if(collider.gameObject.tag=="Tag_Wall"){ // Tell boss this area already leave the stage
-            boss.GetComponent<Boss_Test>().k++;
+            boss.GetComponent<Boss_Test>().k=95;
             Destroy(gameObject,2.0f);
         }
     }

@@ -57,8 +57,7 @@ public class Boss_Test : MonoBehaviour
                             BulletX.gameObject.GetComponent<A01_B1>().vx = speed * Mathf.Sin(angle);
                             BulletX.gameObject.GetComponent<A01_B1>().vz = -speed * Mathf.Cos(angle);
                             BulletX.gameObject.GetComponent<A01_B1>().oriPos = transform.position;
-                            BulletX.gameObject.AddComponent("Suiside");
-                            BulletX.gameObject.GetComponent<Suiside>().DestroyTime = 8.0f;
+                            Destroy(BulletX.gameObject,8.0f);
                             BulletX.rigidbody.useGravity = false;
                             j++;
                         }
@@ -98,8 +97,7 @@ public class Boss_Test : MonoBehaviour
 
                         Vector3 temp = new Vector3(speed * 0.8f * Mathf.Sin(angle), 0, speed * 0.8f * Mathf.Cos(angle));
                         BulletX.rigidbody.velocity = temp;
-                        BulletX.gameObject.AddComponent("Suiside");
-                        BulletX.gameObject.GetComponent<Suiside>().DestroyTime = 8.0f;
+                        Destroy(BulletX.gameObject,8.0f);
                         BulletX.rigidbody.useGravity = false;
                     }
                     k++;
@@ -166,8 +164,6 @@ public class Boss_Test : MonoBehaviour
                     BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionZ = 5.0f * Mathf.Cos(angle);
                     BulletX.gameObject.GetComponent<A01_Error_B1>().lastFor = 1.5f;
                     BulletX.gameObject.GetComponent<A01_Error_B1>().oriPos = transform.position;
-                    BulletX.gameObject.AddComponent("Suiside");
-                    BulletX.gameObject.GetComponent<Suiside>().DestroyTime = 999.0f;
                     BulletX.rigidbody.useGravity = false;
                     j++;
                     if (j >= 36)
@@ -188,8 +184,6 @@ public class Boss_Test : MonoBehaviour
                     BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionZ = distance;
                     BulletX.gameObject.GetComponent<A01_Error_B1>().lastFor = 1.5f;
                     BulletX.gameObject.GetComponent<A01_Error_B1>().oriPos = transform.position;
-                    BulletX.gameObject.AddComponent("Suiside");
-                    BulletX.gameObject.GetComponent<Suiside>().DestroyTime = 999.0f;
                     BulletX.rigidbody.useGravity = false;
 
                     BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
@@ -201,8 +195,6 @@ public class Boss_Test : MonoBehaviour
                     BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionZ = distance;
                     BulletX.gameObject.GetComponent<A01_Error_B1>().lastFor = 1.5f;
                     BulletX.gameObject.GetComponent<A01_Error_B1>().oriPos = transform.position;
-                    BulletX.gameObject.AddComponent("Suiside");
-                    BulletX.gameObject.GetComponent<Suiside>().DestroyTime = 999.0f;
                     BulletX.rigidbody.useGravity = false;
 
                     j++;
@@ -234,8 +226,7 @@ public class Boss_Test : MonoBehaviour
                         BulletX.gameObject.GetComponent<A01_Error_B2>().vx = speed * Mathf.Sin(angle);
                         BulletX.gameObject.GetComponent<A01_Error_B2>().vz = speed * Mathf.Cos(angle);
                         BulletX.gameObject.GetComponent<A01_Error_B2>().oriPos = transform.position;
-                        BulletX.gameObject.AddComponent("Suiside");
-                        BulletX.gameObject.GetComponent<Suiside>().DestroyTime = 8.0f;
+                        Destroy(BulletX.gameObject,6.0f);
                         BulletX.rigidbody.useGravity = false;
                     }
                 }
