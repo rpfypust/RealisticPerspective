@@ -7,9 +7,10 @@ public class CollisionHandler : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
-        if (!transform.gameObject.GetComponent<Status>().isInvicible)
+
+        if (collision.gameObject.tag == TagName)
         {
-            if (collision.gameObject.tag == TagName)
+            if (!transform.gameObject.GetComponent<Status>().isInvicible)
             {
                 //get damage
                 float damage = collision.gameObject.GetComponent<BulletInfo>().Damage;
@@ -21,10 +22,10 @@ public class CollisionHandler : MonoBehaviour
                     Destroy(transform.gameObject);
                     //handling death
                 }
-                Destroy(collision.gameObject);
             }
+            Destroy(collision.gameObject);
         }
-        //}
+        
     }
 }
 

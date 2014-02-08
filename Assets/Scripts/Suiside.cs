@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Suiside : MonoBehaviour
 {
-	public int DestroyTime = 8;
+	public float DestroyTime = 16.0f;
 	void Awake () 
 	{
 		Destroy(gameObject, DestroyTime);

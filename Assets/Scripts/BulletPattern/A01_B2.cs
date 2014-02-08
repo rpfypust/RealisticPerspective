@@ -36,6 +36,7 @@ public class A01_B2 : MonoBehaviour
             {
                 target = GameObject.FindWithTag("Player");
                 speed = (target.transform.position - rigidbody.position).normalized * speed.magnitude * 1.5f;
+
                 vx = speed.x;
                 vz = speed.z;
                 alreadyCollided = true;

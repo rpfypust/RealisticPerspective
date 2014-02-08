@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 
 public static class Util {
 
@@ -10,4 +11,10 @@ public static class Util {
 		}
 		return digits;
 	}
+
+    public static void removeAllBulletsbyTag(string tagName){
+        foreach(GameObject bullet in GameObject.FindGameObjectsWithTag(tagName)){
+            GameObject.Destroy(bullet);
+        }
+    }
 }

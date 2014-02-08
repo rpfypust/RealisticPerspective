@@ -18,7 +18,7 @@ public class BossStatus : Status
 		Vector2 nameSize;
 		string showString = Mathf.Round (HealthPoint).ToString () + "/" + Mathf.Round (MaxHealthPoint).ToString ();
 		nameSize = GUI.skin.label.CalcSize (new GUIContent (showString));
-		GUI.color = Color.blue;
+		GUI.color = Color.green;
 		GUI.Label (new Rect (0, nameSize.y * 4, nameSize.x, nameSize.y), showString);
 	}
 	
