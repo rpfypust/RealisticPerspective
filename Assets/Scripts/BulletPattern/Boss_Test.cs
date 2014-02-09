@@ -7,13 +7,11 @@ public class Boss_Test : MonoBehaviour
     public GameObject BulletB; //green
     public GameObject BulletC; //blue
     public GameObject BulletD;
-    public float speed = 10.0f;
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
-    private float lastTime2 = 0.0f;
-    private int j = 0; //angle counter
-    public int k = 0; //stage counter
     private float localStartTime = 0.0f;
+    private int j = 0; //angle counter
+    public int k = 0; //step counter
     private GameObject BulletX; //bullets are using this to be created
     private GameObject BulletSet_Error; //trigger area for the 2nd skill
 
@@ -37,7 +35,7 @@ public class Boss_Test : MonoBehaviour
                 Util.removeAllBulletsbyTag("Tag_Bullet");
             } else //Start this sill
             {                
-                if (k >= 120) //Reset to Stage A
+                if (k >= 120) //Reset to step A
                 {
                     k = 0;
                 }
@@ -54,8 +52,8 @@ public class Boss_Test : MonoBehaviour
 
                             BulletX.gameObject.AddComponent("A01_B1");
                             BulletX.gameObject.GetComponent<A01_B1>().startTime = Time.time;
-                            BulletX.gameObject.GetComponent<A01_B1>().vx = speed * Mathf.Sin(angle);
-                            BulletX.gameObject.GetComponent<A01_B1>().vz = -speed * Mathf.Cos(angle);
+                            BulletX.gameObject.GetComponent<A01_B1>().vx = 10.0f * Mathf.Sin(angle);
+                            BulletX.gameObject.GetComponent<A01_B1>().vz = -10.0f * Mathf.Cos(angle);
                             BulletX.gameObject.GetComponent<A01_B1>().oriPos = transform.position;
                             Destroy(BulletX.gameObject,8.0f);
                             BulletX.rigidbody.useGravity = false;
@@ -77,8 +75,8 @@ public class Boss_Test : MonoBehaviour
 
                             BulletX.gameObject.AddComponent("A01_B2");
                             BulletX.gameObject.GetComponent<A01_B2>().startTime = Time.time;
-                            BulletX.gameObject.GetComponent<A01_B2>().vx = speed * 0.8f * Mathf.Sin(angle);
-                            BulletX.gameObject.GetComponent<A01_B2>().vz = speed * 0.8f * Mathf.Cos(angle);
+                            BulletX.gameObject.GetComponent<A01_B2>().vx = 8.0f * Mathf.Sin(angle);
+                            BulletX.gameObject.GetComponent<A01_B2>().vz = 8.0f * Mathf.Cos(angle);
                             BulletX.gameObject.GetComponent<A01_B2>().oriPos = transform.position;
                             BulletX.rigidbody.useGravity = false;
                         }
@@ -95,7 +93,7 @@ public class Boss_Test : MonoBehaviour
                         float angle = (i * 3f) / 180.0f * Mathf.PI;
                         BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
 
-                        Vector3 temp = new Vector3(speed * 0.8f * Mathf.Sin(angle), 0, speed * 0.8f * Mathf.Cos(angle));
+                        Vector3 temp = new Vector3(8.0f * Mathf.Sin(angle), 0, 8.0f * Mathf.Cos(angle));
                         BulletX.rigidbody.velocity = temp;
                         Destroy(BulletX.gameObject,8.0f);
                         BulletX.rigidbody.useGravity = false;

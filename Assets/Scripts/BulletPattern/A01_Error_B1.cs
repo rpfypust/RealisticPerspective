@@ -10,7 +10,6 @@ public class A01_Error_B1 : MonoBehaviour
     public Vector3 oriPos;
     public float lastTime = 0.0f;
     public float deltaTime = 0.0f;
-    private int j = 0;
 
     void FixedUpdate ()
     {

@@ -12,7 +12,6 @@ public class A01_BS_Error : MonoBehaviour
     public bool canStartMoving = false;
     public bool isPassedPlayer = false;
     public GameObject boss;
-    private int j = 0;
     private GameObject target;
     private Vector3 speed = Vector3.zero;
 
