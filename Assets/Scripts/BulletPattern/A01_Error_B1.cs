@@ -8,8 +8,8 @@ public class A01_Error_B1 : MonoBehaviour
     public float finalPositionZ = 0.0f;
     public float lastFor = 2.0f;
     public Vector3 oriPos;
-    public float lastTime = 0.0f;
-    public float deltaTime = 0.0f;
+	private float lastTime = 0.0f;
+	private float deltaTime = 0.0f;
 
     void FixedUpdate ()
     {

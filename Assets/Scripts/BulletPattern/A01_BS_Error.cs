@@ -7,8 +7,8 @@ public class A01_BS_Error : MonoBehaviour
     public float startTime = Time.time;
     public float velocity = 2.0f;
     public Vector3 oriPos;
-    public float lastTime = 0.0f;
-    public float deltaTime = 0.0f;
+	private float lastTime = 0.0f;
+	private float deltaTime = 0.0f;
     public bool canStartMoving = false;
     public bool isPassedPlayer = false;
     public GameObject boss;
@@ -46,7 +46,7 @@ public class A01_BS_Error : MonoBehaviour
             boss.GetComponent<Boss_Test>().k=94;
         }else if(collider.gameObject.tag=="Tag_Wall"){ // Tell boss this area already leave the stage
             boss.GetComponent<Boss_Test>().k=95;
-            Destroy(gameObject,2.0f);
+            Destroy(gameObject);
         }
     }
 

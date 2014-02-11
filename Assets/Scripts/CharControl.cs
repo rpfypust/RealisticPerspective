@@ -10,24 +10,25 @@ public class CharControl : MonoBehaviour
 	public float runSpeed = 5.0f;
 	public float jumpSpeed = 10.0f;
 	public float gravity = 9.81f;
-
 	private float vSpeed;
-
 	private Animator animator;
 	private CharacterController charController;
 	private HashIDs hash;
 
-	void Awake() {
+	void Awake()
+	{
 		animator = GetComponent<Animator>();
 		charController = GetComponent<CharacterController>();
 		hash = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<HashIDs>();
 	}
 
-	void Start() {
+	void Start()
+	{
 		vSpeed = 0f;
 	}
 
-	void Update() {
+	void Update()
+	{
 		float h = Input.GetAxis("Horizontal");
 		float v = Input.GetAxis("Vertical");
 		bool slow = Input.GetButton("Slow");
@@ -37,19 +38,23 @@ public class CharControl : MonoBehaviour
 		Move(h, v, slow, jump);
 	}
 
-	void Move(float h, float v, bool slow, bool jump) {
+	void Move(float h, float v, bool slow, bool jump)
+	{
 		h *= slow ? slowSpeed : runSpeed;
 		v *= slow ? slowSpeed : runSpeed;
-		if (charController.isGrounded) {
-			vSpeed = jump? jumpSpeed : 0f;
+		if (charController.isGrounded)
+		{
+			vSpeed = jump ? jumpSpeed : 0f;
 		}
 		vSpeed -= gravity * Time.deltaTime;
 		Vector3 moveDirection = new Vector3(h, vSpeed, v);
 		charController.Move(moveDirection * Time.deltaTime);
 	}
 
-	void Rotate(float h, float v, bool slow) {
-		if (!slow && (h != 0f || v != 0f)) {
+	void Rotate(float h, float v, bool slow)
+	{
+		if (!slow && (h != 0f || v != 0f))
+		{
 			Vector3 targetDirection = new Vector3(h, 0f, v);
 			Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 			Quaternion newRotation = Quaternion.Lerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
@@ -57,20 +62,24 @@ public class CharControl : MonoBehaviour
 		}
 	}
 
-	void AnimationHandle(float h, float v, bool slow) {
-		if (!slow && (h != 0f || v != 0f)) {
+	void AnimationHandle(float h, float v, bool slow)
+	{
+		if (!slow && (h != 0f || v != 0f))
+		{
 			animator.SetBool(hash.walkingBool, false);
 			animator.SetBool(hash.runningBool, true);
-		} else if (slow && (h != 0f || v != 0f)) {
+		} else if (slow && (h != 0f || v != 0f))
+		{
 			animator.SetBool(hash.walkingBool, true);
 			animator.SetBool(hash.runningBool, false);
-		} else {
+		} else
+		{
 			animator.SetBool(hash.walkingBool, false);
 			animator.SetBool(hash.runningBool, false);
 		}
 	}
 	
-    /*
+	/*
     public float slowSpeed = 3.0f;
     public float walkSpeed = 5.0f;
     public float runSpeed = 10.0f;
