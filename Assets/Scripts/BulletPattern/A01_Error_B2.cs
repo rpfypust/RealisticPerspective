@@ -7,10 +7,10 @@ public class A01_Error_B2 : MonoBehaviour
     public float vx = 0.0f;
     public float vz = 0.0f;
     public Vector3 oriPos;
-    public float lastTime = 0.0f;
-    public float deltaTime = 0.0f;
+	private float lastTime = 0.0f;
+	private float deltaTime = 0.0f;
     private GameObject target;
-    private Vector3 speed;
+	private Vector3 speed;
     
     void FixedUpdate ()
     {
