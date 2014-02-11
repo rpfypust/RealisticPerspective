@@ -51,6 +51,10 @@ public class CharControl : MonoBehaviour
 		charController.Move(moveDirection * Time.deltaTime);
 	}
 
+	void OnGUI() {
+		GUI.Label(new Rect (500, 500, 100, 100), vSpeed.ToString ());
+	}
+
 	void Rotate(float h, float v, bool slow)
 	{
 		if (!slow && (h != 0f || v != 0f))
