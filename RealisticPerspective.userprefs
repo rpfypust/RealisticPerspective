@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BulletPattern\A01_BS_Error.cs">
+    <Files>
+      <File FileName="Assets\Scripts\BulletPattern\Boss_Test.cs" Line="274" Column="41" />
+      <File FileName="Assets\Scripts\CollisionHandler.cs" Line="22" Column="34" />
+      <File FileName="Assets\Scripts\BulletPattern\A01_BS_Error.cs" Line="46" Column="43" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -42,7 +42,7 @@ public class A01_BS_Error : MonoBehaviour
     }
 
     void OnTriggerExit(Collider collider){
-        if(collider.gameObject.name=="Boss_Test"){ //Tell boss this area already leave boss
+        if(collider.transform.parent.gameObject.name=="Boss_Test"){ //Tell boss this area already leave boss
             boss.GetComponent<Boss_Test>().k=94;
         }else if(collider.gameObject.tag=="Tag_Wall"){ // Tell boss this area already leave the stage
             boss.GetComponent<Boss_Test>().k=95;

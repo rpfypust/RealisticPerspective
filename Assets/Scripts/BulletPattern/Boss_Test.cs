@@ -14,13 +14,19 @@ public class Boss_Test : MonoBehaviour
     public int k = 0; //step counter
     private GameObject BulletX; //bullets are using this to be created
     private GameObject BulletSet_Error; //trigger area for the 2nd skill
-    private Vector3 StageRefPoint;
     private bool bossSettedUp = true;
+    
+    private Vector3 StageRefPoint;
+    private BossStatus status;
+    private Transform boss;
+
 
     void Awake()
     {
         startTime = Time.time;
         j = 0;
+        status = transform.parent.gameObject.GetComponent<BossStatus>();
+        boss = transform.parent;
         StageRefPoint = GameObject.FindGameObjectWithTag("StageRefPoint").transform.position;
     }
 
@@ -28,13 +34,13 @@ public class Boss_Test : MonoBehaviour
     {
     
         //First Skill
-        if (gameObject.GetComponent<BossStatus>().BulletPatternState == 0)
+        if (status.BulletPatternState == 0)
         {   
             //Check HP and jump to next skill
-            if (gameObject.GetComponent<BossStatus>().HealthPoint <= 4900.0f)
+            if (status.HealthPoint <= 4900.0f)
             {
-                gameObject.GetComponent<BossStatus>().BulletPatternState = 1;
-                gameObject.GetComponent<BossStatus>().isInvicible = true;
+                status.BulletPatternState = 1;
+                status.isInvicible = true;
                 Util.removeAllBulletsbyTag("Tag_Bullet");
                 bossSettedUp = false;
             } else
@@ -54,18 +60,18 @@ public class Boss_Test : MonoBehaviour
                             angle = Mathf.PI / 36.0f * (i * 6f + j) + j / 100.0f;
                             BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
 
-                            BulletX.gameObject.AddComponent("A01_B1");
-                            BulletX.gameObject.GetComponent<A01_B1>().startTime = Time.time;
-                            BulletX.gameObject.GetComponent<A01_B1>().vx = 10.0f * Mathf.Sin(angle);
-                            BulletX.gameObject.GetComponent<A01_B1>().vz = -10.0f * Mathf.Cos(angle);
-                            BulletX.gameObject.GetComponent<A01_B1>().oriPos = transform.position;
+                            BulletX.AddComponent("A01_B1");
+                            BulletX.GetComponent<A01_B1>().startTime = Time.time;
+                            BulletX.GetComponent<A01_B1>().vx = 10.0f * Mathf.Sin(angle);
+                            BulletX.GetComponent<A01_B1>().vz = -10.0f * Mathf.Cos(angle);
+                            BulletX.GetComponent<A01_B1>().oriPos = transform.position;
                             Destroy(BulletX.gameObject, 8.0f);
                             BulletX.rigidbody.useGravity = false;
                             j++;
                         }
                         lastTime = Time.time;
                         //move boss
-                        transform.position = transform.position + new Vector3(0.2f * Mathf.Cos(angle / 8f), 0, 0.2f * Mathf.Sin(angle / 8f));
+                        boss.position = boss.position + new Vector3(0.2f * Mathf.Cos(angle / 8f), 0, 0.2f * Mathf.Sin(angle / 8f));
                         k++;
                     }
                 } else if (k <= 38)
@@ -77,11 +83,11 @@ public class Boss_Test : MonoBehaviour
                             float angle = (i * 20.0f) / 180.0f * Mathf.PI;
                             BulletX = (GameObject)Instantiate(BulletB, transform.position, transform.rotation);
                             BulletX.layer = 15;
-                            BulletX.gameObject.AddComponent("A01_B2");
-                            BulletX.gameObject.GetComponent<A01_B2>().startTime = Time.time;
-                            BulletX.gameObject.GetComponent<A01_B2>().vx = 8.0f * Mathf.Sin(angle);
-                            BulletX.gameObject.GetComponent<A01_B2>().vz = 8.0f * Mathf.Cos(angle);
-                            BulletX.gameObject.GetComponent<A01_B2>().oriPos = transform.position;
+                            BulletX.AddComponent("A01_B2");
+                            BulletX.GetComponent<A01_B2>().startTime = Time.time;
+                            BulletX.GetComponent<A01_B2>().vx = 8.0f * Mathf.Sin(angle);
+                            BulletX.GetComponent<A01_B2>().vz = 8.0f * Mathf.Cos(angle);
+                            BulletX.GetComponent<A01_B2>().oriPos = transform.position;
                             BulletX.rigidbody.useGravity = false;
                         }
                         lastTime = Time.time;
@@ -136,35 +142,35 @@ public class Boss_Test : MonoBehaviour
                     k++;
                 }
             }
-        } else if (gameObject.GetComponent<BossStatus>().BulletPatternState == 1)
+        } else if (status.BulletPatternState == 1)
         { //Second Skill   
             //Check is just starting this skill
             if (!bossSettedUp)
             {
-                gameObject.GetComponent<BossStatus>().isInvicible = false;
+                status.isInvicible = false;
                 bossSettedUp = true;
                 k = 0;
             } else
             //Check HP and jump to next skill
-            if (gameObject.GetComponent<BossStatus>().HealthPoint <= 4800.0f)
+            if (status.HealthPoint <= 4800.0f)
             {
-                gameObject.GetComponent<BossStatus>().BulletPatternState = 2;
-                gameObject.GetComponent<BossStatus>().isInvicible = true;
+                status.BulletPatternState = 2;
+                status.isInvicible = true;
                 Util.removeAllBulletsbyTag("Tag_Bullet");
                 Util.removeAllBulletsbyTag("Tag_BulletSet");
                 bossSettedUp = false;
-                if (GetComponent <BossRandomMoveInArea>())
+                if (boss.gameObject.GetComponent <BossRandomMoveInArea>())
                 {
-                    Destroy(GetComponent <BossRandomMoveInArea>());
+                    Destroy(boss.gameObject.GetComponent <BossRandomMoveInArea>());
                 }
             } else
             { //Start this sill
                 if (k >= 95)
                 { //Reset to Stage A
                     k = 0;
-                    if (GetComponent <BossRandomMoveInArea>())
+                    if (boss.gameObject.GetComponent <BossRandomMoveInArea>())
                     {
-                        Destroy(GetComponent <BossRandomMoveInArea>());
+                        Destroy(boss.gameObject.GetComponent <BossRandomMoveInArea>());
                     }
                 }
                 if (k < 1)
@@ -197,12 +203,12 @@ public class Boss_Test : MonoBehaviour
                     BulletX = (GameObject)Instantiate(BulletC, transform.position, transform.rotation);
                     BulletX.transform.parent = BulletSet_Error.transform;
 
-                    BulletX.gameObject.AddComponent("A01_Error_B1");
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().startTime = Time.time;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionX = 5.0f * Mathf.Sin(angle);
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionZ = 5.0f * Mathf.Cos(angle);
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().lastFor = 1.5f;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().oriPos = transform.position;
+                    BulletX.AddComponent("A01_Error_B1");
+                    BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
+                    BulletX.GetComponent<A01_Error_B1>().finalPositionX = 5.0f * Mathf.Sin(angle);
+                    BulletX.GetComponent<A01_Error_B1>().finalPositionZ = 5.0f * Mathf.Cos(angle);
+                    BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
+                    BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;
                     BulletX.rigidbody.useGravity = false;
                     j++;
                     if (j >= 36)
@@ -217,23 +223,23 @@ public class Boss_Test : MonoBehaviour
                     BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
                     BulletX.transform.parent = BulletSet_Error.transform;
                     
-                    BulletX.gameObject.AddComponent("A01_Error_B1");
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().startTime = Time.time;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionX = distance;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionZ = distance;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().lastFor = 1.5f;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().oriPos = transform.position;
+                    BulletX.AddComponent("A01_Error_B1");
+                    BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
+                    BulletX.GetComponent<A01_Error_B1>().finalPositionX = distance;
+                    BulletX.GetComponent<A01_Error_B1>().finalPositionZ = distance;
+                    BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
+                    BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;
                     BulletX.rigidbody.useGravity = false;
 
                     BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
                     BulletX.transform.parent = BulletSet_Error.transform;
                     
-                    BulletX.gameObject.AddComponent("A01_Error_B1");
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().startTime = Time.time;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionX = -distance;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionZ = distance;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().lastFor = 1.5f;
-                    BulletX.gameObject.GetComponent<A01_Error_B1>().oriPos = transform.position;
+                    BulletX.AddComponent("A01_Error_B1");
+                    BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
+                    BulletX.GetComponent<A01_Error_B1>().finalPositionX = -distance;
+                    BulletX.GetComponent<A01_Error_B1>().finalPositionZ = distance;
+                    BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
+                    BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;
                     BulletX.rigidbody.useGravity = false;
 
                     j++;
@@ -251,17 +257,17 @@ public class Boss_Test : MonoBehaviour
                 { //move the bullet, wait for the bullet leave boss
                     BulletSet_Error.name = "BulletSet_Error";
                     BulletSet_Error.GetComponent<A01_BS_Error>().canStartMoving = true;
-                    if (!GetComponent<BossRandomMoveInArea>())
+                    if (!boss.gameObject.GetComponent<BossRandomMoveInArea>())
                     {
-                        gameObject.AddComponent("BossRandomMoveInArea");
-                        gameObject.GetComponent<BossRandomMoveInArea>().startTime = Time.time;
-                        gameObject.GetComponent<BossRandomMoveInArea>().localStartTime = Time.time;
-                        gameObject.GetComponent<BossRandomMoveInArea>().x1 = StageRefPoint.x + 12.0f;
-                        gameObject.GetComponent<BossRandomMoveInArea>().z1 = StageRefPoint.z + 28.0f;
-                        gameObject.GetComponent<BossRandomMoveInArea>().x2 = StageRefPoint.x + 24.0f;
-                        gameObject.GetComponent<BossRandomMoveInArea>().z2 = StageRefPoint.z + 36.0f;
-                        gameObject.GetComponent<BossRandomMoveInArea>().r = 4.0f;
-                        gameObject.GetComponent<BossRandomMoveInArea>().oriPos = transform.position;
+                        boss.gameObject.AddComponent("BossRandomMoveInArea");
+                        boss.gameObject.GetComponent<BossRandomMoveInArea>().startTime = Time.time;
+                        boss.gameObject.GetComponent<BossRandomMoveInArea>().localStartTime = Time.time;
+                        boss.gameObject.GetComponent<BossRandomMoveInArea>().x1 = StageRefPoint.x + 12.0f;
+                        boss.gameObject.GetComponent<BossRandomMoveInArea>().z1 = StageRefPoint.z + 28.0f;
+                        boss.gameObject.GetComponent<BossRandomMoveInArea>().x2 = StageRefPoint.x + 24.0f;
+                        boss.gameObject.GetComponent<BossRandomMoveInArea>().z2 = StageRefPoint.z + 36.0f;
+                        boss.gameObject.GetComponent<BossRandomMoveInArea>().r = 4.0f;
+                        boss.gameObject.GetComponent<BossRandomMoveInArea>().oriPos = transform.position;
                     }
                     
                 } else if (k < 95)
@@ -271,41 +277,41 @@ public class Boss_Test : MonoBehaviour
                         float angle = Random.value * 2.0f * Mathf.PI;
                         float speed = Random.value * 8.0f + 6.0f;
                         BulletX = (GameObject)Instantiate(BulletB, transform.position, transform.rotation);
-                        BulletX.gameObject.AddComponent("A01_Error_B2");
-                        BulletX.gameObject.GetComponent<A01_Error_B2>().startTime = Time.time;
-                        BulletX.gameObject.GetComponent<A01_Error_B2>().vx = speed * Mathf.Sin(angle);
-                        BulletX.gameObject.GetComponent<A01_Error_B2>().vz = speed * Mathf.Cos(angle);
-                        BulletX.gameObject.GetComponent<A01_Error_B2>().oriPos = transform.position;
+                        BulletX.AddComponent("A01_Error_B2");
+                        BulletX.GetComponent<A01_Error_B2>().startTime = Time.time;
+                        BulletX.GetComponent<A01_Error_B2>().vx = speed * Mathf.Sin(angle);
+                        BulletX.GetComponent<A01_Error_B2>().vz = speed * Mathf.Cos(angle);
+                        BulletX.GetComponent<A01_Error_B2>().oriPos = transform.position;
                         Destroy(BulletX.gameObject, 6.0f);
                         BulletX.rigidbody.useGravity = false;
                     }
                 }
             }
-        } else if (gameObject.GetComponent<BossStatus>().BulletPatternState == 2)
+        } else if (status.BulletPatternState == 2)
         { //Second Skill   
             //Check is just starting this skill
             if (!bossSettedUp)
             {
-                if (!gameObject.GetComponent<BossMoveToSpecPos>())
+                if (!boss.gameObject.GetComponent<BossMoveToSpecPos>())
                 {
-                    gameObject.AddComponent("BossMoveToSpecPos");
-                    gameObject.GetComponent<BossMoveToSpecPos>().x = StageRefPoint.x + 18.0f;
-                    gameObject.GetComponent<BossMoveToSpecPos>().z = StageRefPoint.z + 38.5f;
-                    gameObject.GetComponent<BossMoveToSpecPos>().moveTime = 4.0f;
-                    gameObject.GetComponent<BossMoveToSpecPos>().oriPos = transform.position;
-                } else if (gameObject.GetComponent<BossMoveToSpecPos>().isFinished)
+                    boss.gameObject.AddComponent("BossMoveToSpecPos");
+                    boss.gameObject.GetComponent<BossMoveToSpecPos>().x = StageRefPoint.x + 18.0f;
+                    boss.gameObject.GetComponent<BossMoveToSpecPos>().z = StageRefPoint.z + 38.5f;
+                    boss.gameObject.GetComponent<BossMoveToSpecPos>().moveTime = 4.0f;
+                    boss.gameObject.GetComponent<BossMoveToSpecPos>().oriPos = transform.position;
+                } else if (boss.gameObject.GetComponent<BossMoveToSpecPos>().isFinished)
                 {
-                    Destroy(gameObject.GetComponent<BossMoveToSpecPos>());
-                    gameObject.GetComponent<BossStatus>().isInvicible = false;
+                    Destroy(boss.gameObject.GetComponent<BossMoveToSpecPos>());
+                    status.isInvicible = false;
                     k = 0;
                     bossSettedUp = true;
                 }
             } else
                 //Check HP and jump to next skill
-                if (gameObject.GetComponent<BossStatus>().HealthPoint <= 3500.0f)
+                if (status.HealthPoint <= 3500.0f)
             {
-                gameObject.GetComponent<BossStatus>().BulletPatternState = 3;
-                gameObject.GetComponent<BossStatus>().isInvicible = true;
+                status.BulletPatternState = 3;
+                status.isInvicible = true;
                 Util.removeAllBulletsbyTag("Tag_Bullet");
                 bossSettedUp = false;
             } else
@@ -316,47 +322,47 @@ public class Boss_Test : MonoBehaviour
                 }
                 if (k < 1)
                 { //move boss
-                    if (!gameObject.GetComponent<A01_WhileTrue_Boss>())
+                    if (!boss.gameObject.GetComponent<A01_WhileTrue_Boss>())
                     {
-                        gameObject.AddComponent("A01_WhileTrue_Boss");
-                        gameObject.GetComponent<A01_WhileTrue_Boss>().center = StageRefPoint + new Vector3(18.0f, 0.0f, 22.5f);
-                        gameObject.GetComponent<A01_WhileTrue_Boss>().center.y = transform.position.y;
-                        gameObject.GetComponent<A01_WhileTrue_Boss>().moveTime = 4.0f;
-                        gameObject.GetComponent<A01_WhileTrue_Boss>().fadeTime = 1.0f;
-                        gameObject.GetComponent<A01_WhileTrue_Boss>().r = 16.0f;
-                        gameObject.GetComponent<A01_WhileTrue_Boss>().round = 8.0f;
-                        gameObject.GetComponent<A01_WhileTrue_Boss>().oriPos = transform.position;
+                        boss.gameObject.AddComponent("A01_WhileTrue_Boss");
+                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().center = StageRefPoint + new Vector3(18.0f, 0.0f, 22.5f);
+                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().center.y = transform.position.y;
+                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().moveTime = 4.0f;
+                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().fadeTime = 1.0f;
+                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().r = 16.0f;
+                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().round = 8.0f;
+                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().oriPos = transform.position;
                     } else
                     {
                         //setting bullet
-                        if (gameObject.GetComponent<A01_WhileTrue_Boss>().currentAngular < 2 * Mathf.PI)
+                        if (boss.gameObject.GetComponent<A01_WhileTrue_Boss>().currentAngular < 2 * Mathf.PI)
                         {
                             BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
                             
-                            /*BulletX.gameObject.AddComponent("A01_Error_B1");
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().startTime = Time.time;
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionX = distance;
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionZ = distance;
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().lastFor = 1.5f;
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().oriPos = transform.position;*/
+                            /*BulletX.AddComponent("A01_Error_B1");
+                            BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
+                            BulletX.GetComponent<A01_Error_B1>().finalPositionX = distance;
+                            BulletX.GetComponent<A01_Error_B1>().finalPositionZ = distance;
+                            BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
+                            BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;*/
                             
                             BulletX.rigidbody.useGravity = false;
                         } else
                         {
                             BulletX = (GameObject)Instantiate(BulletB, transform.position, transform.rotation);
                             
-                            /*BulletX.gameObject.AddComponent("A01_Error_B1");
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().startTime = Time.time;
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionX = distance;
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().finalPositionZ = distance;
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().lastFor = 1.5f;
-                            BulletX.gameObject.GetComponent<A01_Error_B1>().oriPos = transform.position;*/
+                            /*BulletX.AddComponent("A01_Error_B1");
+                            BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
+                            BulletX.GetComponent<A01_Error_B1>().finalPositionX = distance;
+                            BulletX.GetComponent<A01_Error_B1>().finalPositionZ = distance;
+                            BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
+                            BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;*/
                             
                             BulletX.rigidbody.useGravity = false;
                         }
-                        if (gameObject.GetComponent<A01_WhileTrue_Boss>().isFinished)
+                        if (boss.gameObject.GetComponent<A01_WhileTrue_Boss>().isFinished)
                         {
-                            Destroy(gameObject.GetComponent<A01_WhileTrue_Boss>());
+                            Destroy(boss.gameObject.GetComponent<A01_WhileTrue_Boss>());
                             k ++;
                         }
                     }
