@@ -10,16 +10,14 @@ public class Boss_Test : MonoBehaviour
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
     private float localStartTime = 0.0f;
-    private int j = 0; //angle counter
+    private int j = 0; //angle/bullet counter
     public int k = 0; //step counter
     private GameObject BulletX; //bullets are using this to be created
     private GameObject BulletSet_Error; //trigger area for the 2nd skill
     private bool bossSettedUp = true;
-    
     private Vector3 StageRefPoint;
     private BossStatus status;
     private Transform boss;
-
 
     void Awake()
     {
@@ -332,33 +330,39 @@ public class Boss_Test : MonoBehaviour
                         boss.gameObject.GetComponent<A01_WhileTrue_Boss>().r = 16.0f;
                         boss.gameObject.GetComponent<A01_WhileTrue_Boss>().round = 8.0f;
                         boss.gameObject.GetComponent<A01_WhileTrue_Boss>().oriPos = transform.position;
+                        j=0;
                     } else
                     {
-                        //setting bullet
-                        if (boss.gameObject.GetComponent<A01_WhileTrue_Boss>().currentAngular < 2 * Mathf.PI)
-                        {
-                            BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
-                            
-                            /*BulletX.AddComponent("A01_Error_B1");
+                        //setting the bullet
+                        while(j*2.0f * Mathf.PI/120.0f<=boss.gameObject.GetComponent<A01_WhileTrue_Boss>().currentAngular){
+                            Vector3 bulletPos = new Vector3(16.0f*Mathf.Sin (j*2.0f * Mathf.PI/120.0f),0,16.0f*Mathf.Cos (j*2.0f * Mathf.PI/120.0f));
+                            bulletPos = boss.gameObject.GetComponent<A01_WhileTrue_Boss>().center+bulletPos;
+                            if (j*2.0f * Mathf.PI/120.0f < 2.0f * Mathf.PI)
+                            {
+                                BulletX = (GameObject)Instantiate(BulletA, bulletPos, transform.rotation);
+                                
+                                /*BulletX.AddComponent("A01_Error_B1");
                             BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
                             BulletX.GetComponent<A01_Error_B1>().finalPositionX = distance;
                             BulletX.GetComponent<A01_Error_B1>().finalPositionZ = distance;
                             BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
                             BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;*/
-                            
-                            BulletX.rigidbody.useGravity = false;
-                        } else
-                        {
-                            BulletX = (GameObject)Instantiate(BulletB, transform.position, transform.rotation);
-                            
-                            /*BulletX.AddComponent("A01_Error_B1");
+                                
+                                BulletX.rigidbody.useGravity = false;
+                            } else
+                            {
+                                BulletX = (GameObject)Instantiate(BulletB, bulletPos, transform.rotation);
+                                
+                                /*BulletX.AddComponent("A01_Error_B1");
                             BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
                             BulletX.GetComponent<A01_Error_B1>().finalPositionX = distance;
                             BulletX.GetComponent<A01_Error_B1>().finalPositionZ = distance;
                             BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
                             BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;*/
-                            
-                            BulletX.rigidbody.useGravity = false;
+                                
+                                BulletX.rigidbody.useGravity = false;
+                            }
+                            j++;
                         }
                         if (boss.gameObject.GetComponent<A01_WhileTrue_Boss>().isFinished)
                         {
