@@ -9,6 +9,7 @@ public class CS_mechanics : MonoBehaviour
     public int iceRinkHeight;
     public int unitLength;
     public GameObject obstacle;
+    public GameObject[] doors;
     public Vector2[] obstacleSet1;
     public Vector2[] obstacleSet2;
     public Vector2[] obstacleSet3;
@@ -60,5 +61,9 @@ public class CS_mechanics : MonoBehaviour
     public void ChangeSetNumber(int n) {
         currentSetNumber = n;
         InitializeObstacles();
+    }
+
+    public void OpenDoor(int n) {
+        Destroy(doors[n - 1]);
     }
 }
