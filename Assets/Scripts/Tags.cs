@@ -6,4 +6,5 @@ public class Tags : MonoBehaviour {
 	public const string gameController = "GameController";
     public const string wall = "Tag_Wall";
     public const string stageObstacle = "Tag_StageObstacle";
+    public const string door = "Tag_Door";
 }
