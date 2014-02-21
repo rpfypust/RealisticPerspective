@@ -18,6 +18,12 @@ public class CS_mechanics : MonoBehaviour
     private Vector2[] currentSet;
     private int currentSetNumber;
     private ArrayList obstacles;
+
+    private CameraManager camManager;
+
+    void Awake() {
+        camManager = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CameraManager>();
+    }
     
     void Start()
     {
@@ -63,7 +69,17 @@ public class CS_mechanics : MonoBehaviour
         InitializeObstacles();
     }
 
-    public void OpenDoor(int n) {
+    public IEnumerator OpenDoor(int n) {
+        camManager.BeginCutScene();
+        Vector3 targetBackup = camManager.target.position;
+        yield return StartCoroutine(camManager.MoveCamera(doors[n - 1].transform.position, 1.0f));
+        // freeze any moving objects
+        // move camera to the door being opened
         Destroy(doors[n - 1]);
+        yield return new WaitForSeconds(1.0f);
+        // move camera back to original target
+        yield return StartCoroutine(camManager.MoveCamera(targetBackup, 1.0f));
+        // un-freeze frozen objects
+        camManager.EndCutScene();
     }
 }

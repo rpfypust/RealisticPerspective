@@ -14,7 +14,7 @@ public class CS_trigger : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         mechanicsManger.ChangeSetNumber(setToChange);
-        mechanicsManger.OpenDoor(doorToOpen);
+        StartCoroutine(mechanicsManger.OpenDoor(doorToOpen));
         collider.enabled = false;
     }
 }
