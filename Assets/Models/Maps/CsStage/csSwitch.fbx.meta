@@ -1,28 +1,19 @@
 fileFormatVersion: 2
-guid: da590f6fef58f4f43be036f9bb7fd3f8
+guid: d187f2468ff8ee042acea596cbc7736d
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: Armature
-    100002: Bone
-    100004: Bone_001
-    100006: Icosphere
-    100008: //RootNode
-    400000: Armature
-    400002: Bone
-    400004: Bone_001
-    400006: Icosphere
-    400008: //RootNode
-    4300000: Icosphere
-    7400000: Default Take
-    7400002: forward
-    7400004: forward
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Sphere
+    7400000: Disappear
     9500000: //RootNode
-    13700000: Icosphere
   materials:
     importMaterials: 1
     materialName: 0
-    materialSearch: 2
+    materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -35,10 +26,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: forward
-      takeName: forward
-      firstFrame: 0
-      lastFrame: 19
+      name: Disappear
+      takeName: Default Take
+      firstFrame: -1
+      lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -59,14 +50,6 @@ ModelImporter:
       events: []
       transformMask:
       - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Bone
-        weight: 1
-      - path: Armature/Bone_001
-        weight: 1
-      - path: Icosphere
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
