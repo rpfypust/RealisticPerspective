@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(StageCameraView))]
+[RequireComponent(typeof(Letterbox))]
 public class CameraManager : MonoBehaviour {
 
     public Transform target;
