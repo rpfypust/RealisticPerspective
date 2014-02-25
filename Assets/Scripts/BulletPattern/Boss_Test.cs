@@ -337,9 +337,10 @@ public class Boss_Test : MonoBehaviour
                         while(j*2.0f * Mathf.PI/120.0f<=boss.gameObject.GetComponent<A01_WhileTrue_Boss>().currentAngular){
                             Vector3 bulletPos = new Vector3(16.0f*Mathf.Sin (j*2.0f * Mathf.PI/120.0f),0,16.0f*Mathf.Cos (j*2.0f * Mathf.PI/120.0f));
                             bulletPos = boss.gameObject.GetComponent<A01_WhileTrue_Boss>().center+bulletPos;
-                            if (j*2.0f * Mathf.PI/120.0f < 2.0f * Mathf.PI)
+							float temp = j*2.0f * Mathf.PI/120.0f / (2.0f * Mathf.PI);
+                            if (temp < 1.0f)
                             {
-                                BulletX = (GameObject)Instantiate(BulletA, bulletPos, transform.rotation);
+                                BulletX = (GameObject)Instantiate(BulletA, bulletPos+new Vector3(0,3.5f-Mathf.Floor (temp)*0.5f,0), transform.rotation);
                                 
                                 /*BulletX.AddComponent("A01_Error_B1");
                             BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
@@ -351,7 +352,7 @@ public class Boss_Test : MonoBehaviour
                                 BulletX.rigidbody.useGravity = false;
                             } else
                             {
-                                BulletX = (GameObject)Instantiate(BulletB, bulletPos, transform.rotation);
+								BulletX = (GameObject)Instantiate(BulletB, bulletPos+new Vector3(0,3.5f-Mathf.Floor (temp)*0.5f,0), transform.rotation);
                                 
                                 /*BulletX.AddComponent("A01_Error_B1");
                             BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
