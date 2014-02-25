@@ -56,9 +56,11 @@ public class CharControl : MonoBehaviour
 		if (!slow && (h != 0f || v != 0f))
 		{
 			Vector3 targetDirection = new Vector3(h, 0f, v);
-			Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-			Quaternion newRotation = Quaternion.Lerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-			transform.rotation = newRotation;
+            if (targetDirection != Vector3.zero) {
+                Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                Quaternion newRotation = Quaternion.Lerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+                transform.rotation = newRotation;
+            }
 		}
 	}
 
