@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(CameraManager))]
 public class StageCameraView : MonoBehaviour {
 
     [Range(10, 15)]
