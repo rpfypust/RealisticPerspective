@@ -33,7 +33,7 @@ public class PlayerBullet_Homing : MonoBehaviour
 			if (target != null)
 			{
 				displacement = target.transform.position - transform.position;
-				direction = direction * Mathf.Min(Mathf.Max(3.0f, displacement.sqrMagnitude), 10.0f) + displacement.normalized;
+				direction = direction * Mathf.Min(Mathf.Max(3.0f, displacement.sqrMagnitude/2.0f), 7.0f) + displacement.normalized;
 				direction.y = displacement.y;
 				direction = direction.normalized;
 			}

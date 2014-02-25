@@ -1,13 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BulletPattern\Boss_Test.cs">
     <Files>
-      <File FileName="RealisticPerspective.sln" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BulletPattern\Boss_Test.cs" Line="343" Column="104" />
-      <File FileName="Assets\Scripts\BulletPattern\Boss_Test.cs" Line="343" Column="104" />
-      <File FileName="Assets\Scripts\CollisionHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BulletPattern\Boss_Test.cs" Line="24" Column="28" />
       <File FileName="Assets\Scripts\BulletPattern\A01_WhileTrue_Boss.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BulletPattern\A01_BS_Error.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BulletPattern\A01_WhileTrue_B1.cs" Line="5" Column="2" />
+      <File FileName="Assets\Scripts\BulletPattern\A01_WhileTrue_BSelfDes.cs" Line="17" Column="49" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
