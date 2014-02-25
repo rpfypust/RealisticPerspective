@@ -10,14 +10,17 @@ public class CS_trigger : MonoBehaviour {
 
     private CS_mechanics mechanicsManger;
     private CameraManager cameraManager;
+    private GameObject player;
 
     void Awake() {
         mechanicsManger = GameObject.Find("MechanicsManager").GetComponent<CS_mechanics>();
         cameraManager = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CameraManager>();
+        player = GameObject.FindGameObjectWithTag(Tags.player);
     }
 
     void OnTriggerEnter(Collider other) {
-        StartCoroutine(HandleSwitchOn());
+        if (other.collider.gameObject == player)
+            StartCoroutine(HandleSwitchOn());
     }
 
     IEnumerator HandleSwitchOn() {
