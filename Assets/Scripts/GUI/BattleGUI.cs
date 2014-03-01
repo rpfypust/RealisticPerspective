@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class BattleGUI : MonoBehaviour
@@ -66,7 +66,7 @@ public class BattleGUI : MonoBehaviour
 		
 		// Draw the time
 		GUI.BeginGroup(timeGroup, GUI.skin.box);
-		drawTime(new Rect(0, 0, 135, 75), timeCounter.Time);
+		drawTime(new Rect(0, 0, 135, 75), timeCounter.getCurrentTime);
 		GUI.EndGroup();
 		
 		// Draw the shortcut
@@ -135,17 +135,14 @@ public class BattleGUI : MonoBehaviour
 		GUI.DrawTexture(clipBar(rect, percent), foreground);
 	}
 	
-	void drawTime(Rect rect, int time) {
-		int minute = time / 60;
-		int second = time % 60;
-		string displayTime = (minute < 10) ? "0" : "";
-		displayTime += minute.ToString() + ":";
-		displayTime += (second < 10) ? "0" : "";
-		displayTime += second.ToString();
+	void drawTime(Rect rect, float time) {
+        int minute = Mathf.FloorToInt(time / 60);
+        float second = time - minute * 60;
+        string timeString = string.Format("{0}:{1}", minute.ToString("00"), second.ToString("00.000"));
 		GUIStyle style = new GUIStyle(GUI.skin.label);
 		style.fontSize = 43;
 		style.alignment = TextAnchor.UpperRight;
-		GUI.Label(rect, displayTime, style);
+		GUI.Label(rect, timeString, style);
 	}
 	
 	void drawScore(Rect rect, int score) {

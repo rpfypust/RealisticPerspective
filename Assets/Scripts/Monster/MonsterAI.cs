@@ -5,6 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(NavMeshAgent))]
 public class MonsterAI : MonoBehaviour {
+
     public float sightAngle = 120f;
     public Transform spawnPoint;
 
@@ -18,8 +19,9 @@ public class MonsterAI : MonoBehaviour {
     private GameObject player;
     private Layers layers;
 
-    public bool isInSight;
+    private bool isInSight;
     private Vector3 playerLastSeenPosition;
+	private LayerMask mask;
 
     void Awake() {
         sphereCollider = GetComponent<SphereCollider>();
@@ -32,6 +34,7 @@ public class MonsterAI : MonoBehaviour {
     void Start() {
         isInSight = false;
         playerLastSeenPosition = playerResetPosition;
+		mask = 1 << layers.player;
 //        agent.stoppingDistance = 2 * (capsuleCollider.radius + 
 //                                      player.transform.parent.GetComponent<CharacterController>().radius);
         // precious stoppingDistance should be set in inspector
@@ -62,7 +65,6 @@ public class MonsterAI : MonoBehaviour {
             Vector3 direction = other.transform.position - transform.position;
             float angle = Vector3.Angle(transform.forward, direction);
             if (angle < sightAngle * 0.5f) {
-                LayerMask mask = 1 << layers.player;
                 if (Physics.Raycast(transform.position, direction, sphereCollider.radius, mask)) {
                     return true;
                 }

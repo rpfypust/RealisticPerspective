@@ -3,22 +3,27 @@ using System.Collections;
 
 public class TimeCounter : MonoBehaviour {
 	
-	private int time;
+	private float time;
 	
 	void Start () {
-		time = 0;
-		InvokeRepeating("countUp", 0.0f, 1.0f);
+		time = 0.0f;
 	}
+
+    void Update() {
+        time += Time.deltaTime;
+    }
+
+    public void startTimer() {
+        time = 0.0f;
+        this.enabled = true;
+    }
+
+    public float stopTimer() {
+        this.enabled = false;
+        return time;
+    }
 	
-	void OnDestroy() {
-		CancelInvoke("countUp");
-	}
-	
-	void countUp() {
-		time += 1;
-	}
-	
-	public int Time {
+	public float getCurrentTime {
 		get {
 			return time;
 		}		
