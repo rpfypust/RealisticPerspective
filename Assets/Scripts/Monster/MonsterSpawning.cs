@@ -22,6 +22,7 @@ public class MonsterSpawning : MonoBehaviour {
 		if (other.gameObject.layer == layers.player) {
 			// player enters the spawning area
             Debug.Log("player enters");
+			spawn();
 		}
 	}
 
@@ -37,13 +38,11 @@ public class MonsterSpawning : MonoBehaviour {
     
     private Vector3 randomPosition() {
         Vector2 p = Random.insideUnitCircle * spawningRadius;
-        Debug.Log(p.ToString());
         return transform.TransformPoint(new Vector3(p.x, 0f, p.y));
 	}
     
     private Quaternion randomOrientation() {
         Quaternion q = Quaternion.AngleAxis(Random.Range(0f, 359f), Vector3.up);
-        Debug.Log(q.ToString());
         return q;
 	}
 

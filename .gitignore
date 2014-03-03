@@ -3,6 +3,7 @@
 *.pidb
 *.unityproj
 *.sln
+*.userprefs
 
 # ignore the following directories
 Library/
