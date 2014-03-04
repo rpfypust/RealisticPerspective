@@ -1,75 +1,106 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(SphereCollider))]
-[RequireComponent(typeof(CapsuleCollider))]
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Monster))]
 public class MonsterAI : MonoBehaviour {
 
-    public float sightAngle = 120f;
-    public Transform spawnPoint;
+	enum ActionState {
+		idling,
+		patrolling,
+		chasing,
+		attacking
+	};
 
-    // a point representing nowhere
-    private Vector3 playerResetPosition = new Vector3(-999, -999, -999);
+	public float sightAngle = 120f;
+	public float patrollingInterval = 2f;
+	public Rect movementBounds;
 
-    private SphereCollider sphereCollider;
-    private CapsuleCollider capsuleCollider;
-    private NavMeshAgent agent;
-
-    private GameObject player;
-    private Layers layers;
-
-    private bool isInSight;
-    private Vector3 playerLastSeenPosition;
+	private SphereCollider alertAreaCollider;
+	private Monster monster;
+	private GameObject player;
+	private Layers layers;
 	private LayerMask mask;
+	private bool isAlerted;
+	private Vector3 playerLastSeenPosition;
+	private Vector3 patrolDestination;
+	private ActionState state;
 
-    void Awake() {
-        sphereCollider = GetComponent<SphereCollider>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
-        agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag(Tags.player);
-        layers = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<Layers>();
-    }
+	void Awake() {
+		alertAreaCollider = GetComponent<SphereCollider>();
+		monster = GetComponent<Monster>();
+		player = GameObject.FindGameObjectWithTag(Tags.player);
+		layers = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<Layers>();
+	}
 
-    void Start() {
-        isInSight = false;
-        playerLastSeenPosition = playerResetPosition;
+	void Start() {
+		state = ActionState.idling;
+		isAlerted = false;
 		mask = 1 << layers.player;
 //        agent.stoppingDistance = 2 * (capsuleCollider.radius + 
 //                                      player.transform.parent.GetComponent<CharacterController>().radius);
-        // precious stoppingDistance should be set in inspector
-        // after experiments
-    }
+		// precious stoppingDistance should be set in inspector
+		// after experiments
+	}
 
-    void OnTriggerStay(Collider other) {
-        isInSight = (!isInSight) ? isHeroInSight(other) : isInSight;
-        playerLastSeenPosition = (isInSight) ? player.transform.position : playerLastSeenPosition;
-    }
+	void OnTriggerStay(Collider other) {
+		isAlerted = (!isAlerted) ? isHeroInSight(other) : isAlerted;
+		playerLastSeenPosition = (isAlerted) ? player.transform.position : playerLastSeenPosition;
+	}
 
-    void OnTriggerExit(Collider other) {
-        if (other.gameObject == player) {
-            isInSight = false;
-        }
-    }
+	void OnTriggerExit(Collider other) {
+		if (other.gameObject == player) {
+			isAlerted = false;
+		}
+	}
 
-    void Update() {
-        if (playerLastSeenPosition != playerResetPosition) {
-            agent.SetDestination(playerLastSeenPosition);
-        } else {
-            agent.Stop();
-        }
-    }
+	void Update() {
+		updateAIState();
+		switch (state) {
+		case ActionState.idling:
+			if (!IsInvoking("startPatrolling"))
+				Invoke("startPatrolling", 2f);
+			break;
+		case ActionState.chasing:
+			if (IsInvoking("startPatrolling"))
+				CancelInvoke("startPatrolling");
+			monster.startMoving(playerLastSeenPosition);
+			break;
+		case ActionState.patrolling:
+			monster.startMoving(patrolDestination);
+			break;
+		default:
+			break;
+		}
+	}
 
-    private bool isHeroInSight(Collider other) {
-        if (other.gameObject == player) {
-            Vector3 direction = other.transform.position - transform.position;
-            float angle = Vector3.Angle(transform.forward, direction);
-            if (angle < sightAngle * 0.5f) {
-                if (Physics.Raycast(transform.position, direction, sphereCollider.radius, mask)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+	private bool isHeroInSight(Collider other) {
+		if (other.gameObject == player) {
+			Vector3 direction = other.transform.position - transform.position;
+			float angle = Vector3.Angle(transform.forward, direction);
+			if (angle < sightAngle * 0.5f) {
+				if (Physics.Raycast(transform.position, direction, alertAreaCollider.radius, mask)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private void updateAIState() {
+		if (isAlerted) {
+			state = ActionState.chasing;
+		} else if (ActionState.chasing == state) {
+			state = ActionState.idling;
+		} else if (ActionState.patrolling == state &&
+			monster.hasFinishedMoving()) {
+			state = ActionState.idling;
+		}
+	}
+
+	private void startPatrolling() {
+		Vector2 p = Util.randomInsideRect(movementBounds);
+		patrolDestination = p.toVector3XZ();
+		state = ActionState.patrolling;
+		monster.startMoving(patrolDestination);
+	}
 }

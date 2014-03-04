@@ -1,35 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(BoxCollider))]
 public class MonsterSpawning : MonoBehaviour {
     public int maxNumMonsters = 1;
-    public float spawningRadius = 1f;
-    public GameObject monster;
+    public GameObject monsterPrefab;
 
+	private BoxCollider collider;
+	public Rect spawningRect;
     private Layers layers;
     private ArrayList monsters;
 
 	void Awake() {
+		collider = GetComponent<BoxCollider>();
 		layers = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<Layers>();
 	}
     
     void Start() {
         monsters = new ArrayList(maxNumMonsters);
+		spawningRect = calculateBoundingRect();
     }
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.layer == layers.player) {
-			// player enters the spawning area
-            Debug.Log("player enters");
 			spawn();
 		}
 	}
 
 	void OnTriggerExit(Collider other) {
         if (other.gameObject.layer == layers.player) {
-            // player exits the spawning area
-            Debug.Log("player exits");
 			destoryAll();
         } else if (other.gameObject.layer == layers.enemy) {
             Debug.Log("monster exits");
@@ -37,21 +36,17 @@ public class MonsterSpawning : MonoBehaviour {
 	}
     
     private Vector3 randomPosition() {
-        Vector2 p = Random.insideUnitCircle * spawningRadius;
-        return transform.TransformPoint(new Vector3(p.x, 0f, p.y));
+		return Util.randomInsideRect(spawningRect).toVector3XZ();
 	}
     
     private Quaternion randomOrientation() {
-        Quaternion q = Quaternion.AngleAxis(Random.Range(0f, 359f), Vector3.up);
-        return q;
+        return Quaternion.AngleAxis(Random.Range(0f, 359f), Vector3.up);
 	}
 
-	public bool spawn() {
+	public void spawn() {
 		if (monsters.Count < monsters.Capacity) {
-			monsters.Add(Instantiate(monster, randomPosition(), randomOrientation()));
-			return true;
+			monsters.Add(MonsterFactory.createMonster(monsterPrefab, randomPosition(), randomOrientation(), spawningRect));
 		}
-		return false;
 	}
 
 	public void destoryAll() {
@@ -59,5 +54,13 @@ public class MonsterSpawning : MonoBehaviour {
 			Destroy(m);
 		}
 		monsters.Clear();
+	}
+
+	private Rect calculateBoundingRect() {
+		float x = transform.position.x + collider.center.x - collider.size.x / 2;
+		float y = transform.position.z + collider.center.z - collider.size.z / 2;
+		float width = collider.size.x;
+		float height = collider.size.z;
+		return new Rect(x, y, width, height);
 	}
 }
