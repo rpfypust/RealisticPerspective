@@ -6,13 +6,13 @@ public class MonsterSpawning : MonoBehaviour {
     public int maxNumMonsters = 1;
     public GameObject monsterPrefab;
 
-	private BoxCollider collider;
+	private BoxCollider boxCollider;
 	public Rect spawningRect;
     private Layers layers;
     private ArrayList monsters;
 
 	void Awake() {
-		collider = GetComponent<BoxCollider>();
+		boxCollider = GetComponent<BoxCollider>();
 		layers = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<Layers>();
 	}
     
@@ -57,10 +57,10 @@ public class MonsterSpawning : MonoBehaviour {
 	}
 
 	private Rect calculateBoundingRect() {
-		float x = transform.position.x + collider.center.x - collider.size.x / 2;
-		float y = transform.position.z + collider.center.z - collider.size.z / 2;
-		float width = collider.size.x;
-		float height = collider.size.z;
+		float x = transform.position.x + boxCollider.center.x - boxCollider.size.x / 2;
+		float y = transform.position.z + boxCollider.center.z - boxCollider.size.z / 2;
+		float width = boxCollider.size.x;
+		float height = boxCollider.size.z;
 		return new Rect(x, y, width, height);
 	}
 }

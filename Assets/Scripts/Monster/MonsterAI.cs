@@ -1,29 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Monster))]
 public class MonsterAI : MonoBehaviour {
 
-	enum ActionState {
+	public enum ActionState {
 		idling,
-		patrolling,
-		chasing,
-		attacking
+		pending
 	};
 
-	public float sightAngle = 120f;
-	public float patrollingInterval = 2f;
-	public Rect movementBounds;
+	public float sightDepth = 5f;            // how far can this monster see normaly
+	public float alertedDepth = 7f;          // how far can alerted monster see
+	public float sightAngle = 120f;          // how wide can this monster see, in degrees
+	public float patrollingInterval = 2f;    // interval between two patrols
+	public float attackInterval = 2f;        // interval between two attacks
+	public Rect movementBounds;              // area the monster resides
 
 	private SphereCollider alertAreaCollider;
 	private Monster monster;
 	private GameObject player;
 	private Layers layers;
 	private LayerMask mask;
+
 	private bool isAlerted;
-	private Vector3 playerLastSeenPosition;
-	private Vector3 patrolDestination;
-	private ActionState state;
+	public float patrollingTimer;
+	public float attackingTimer;
+	private Vector3 destination;
+	public ActionState state;
 
 	void Awake() {
 		alertAreaCollider = GetComponent<SphereCollider>();
@@ -35,41 +39,46 @@ public class MonsterAI : MonoBehaviour {
 	void Start() {
 		state = ActionState.idling;
 		isAlerted = false;
+		patrollingTimer = 0f;
+		attackingTimer = 0f;
 		mask = 1 << layers.player;
-//        agent.stoppingDistance = 2 * (capsuleCollider.radius + 
-//                                      player.transform.parent.GetComponent<CharacterController>().radius);
-		// precious stoppingDistance should be set in inspector
-		// after experiments
 	}
 
 	void OnTriggerStay(Collider other) {
-		isAlerted = (!isAlerted) ? isHeroInSight(other) : isAlerted;
-		playerLastSeenPosition = (isAlerted) ? player.transform.position : playerLastSeenPosition;
+		if (!isAlerted) {
+			isAlerted = isHeroInSight(other);
+		}
+		if (isAlerted) {
+			destination = player.transform.position;
+			alertAreaCollider.radius = alertedDepth;
+		}
 	}
 
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject == player) {
 			isAlerted = false;
+			alertAreaCollider.radius = sightDepth;
 		}
 	}
 
 	void Update() {
-		updateAIState();
 		switch (state) {
 		case ActionState.idling:
-			if (!IsInvoking("startPatrolling"))
-				Invoke("startPatrolling", 2f);
+			takeAction();
 			break;
-		case ActionState.chasing:
-			if (IsInvoking("startPatrolling"))
-				CancelInvoke("startPatrolling");
-			monster.startMoving(playerLastSeenPosition);
-			break;
-		case ActionState.patrolling:
-			monster.startMoving(patrolDestination);
+		case ActionState.pending:
+			if (monster.finishedCurrentMove) {
+				state = ActionState.idling;
+			}
 			break;
 		default:
 			break;
+		}
+		if (Monster.ActionType.patrolling != monster.actionType) {
+			patrollingTimer += Time.deltaTime;
+		}
+		if (Monster.ActionType.attacking != monster.actionType) {
+			attackingTimer += Time.deltaTime;
 		}
 	}
 
@@ -86,21 +95,22 @@ public class MonsterAI : MonoBehaviour {
 		return false;
 	}
 
-	private void updateAIState() {
-		if (isAlerted) {
-			state = ActionState.chasing;
-		} else if (ActionState.chasing == state) {
-			state = ActionState.idling;
-		} else if (ActionState.patrolling == state &&
-			monster.hasFinishedMoving()) {
-			state = ActionState.idling;
+	private void takeAction() {
+		if (isAlerted && attackingTimer >= attackInterval) {
+			attackingTimer = 0;
+			state = ActionState.pending;
+			monster.attack(destination);
+		} else if (isAlerted && attackingTimer < attackInterval) {
+			state = ActionState.pending;
+			monster.chase(destination);
+		} else if (!isAlerted && patrollingTimer >= patrollingInterval) {
+			patrollingTimer = 0;
+			state = ActionState.pending;
+			monster.patrolTo(destination = patrollingDestination());
 		}
 	}
 
-	private void startPatrolling() {
-		Vector2 p = Util.randomInsideRect(movementBounds);
-		patrolDestination = p.toVector3XZ();
-		state = ActionState.patrolling;
-		monster.startMoving(patrolDestination);
+	private Vector3 patrollingDestination() {
+		return Util.randomInsideRect(movementBounds).toVector3XZ();
 	}
 }
