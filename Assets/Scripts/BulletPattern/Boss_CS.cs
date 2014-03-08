@@ -7,6 +7,7 @@ public class Boss_CS : MonoBehaviour
     public GameObject BulletGreen; //green
     public GameObject BulletBlue; //blue
     public GameObject BulletD;
+    public GameObject BossObject_Tower;
 
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
@@ -147,7 +148,7 @@ public class Boss_CS : MonoBehaviour
                 }
                 break;
             case 3:
-                    if (status.HealthPoint <= 3500.0f)
+                if (status.HealthPoint <= 4700.0f)
                 {
                     if (gameObject.GetComponent<CS1_WhileTrue>())
                     {
@@ -158,6 +159,25 @@ public class Boss_CS : MonoBehaviour
                     bossState = -3;
                 }
                 break;
+            case -3:
+                boss.rigidbody.MovePosition(StageRefPoint + new Vector3(18.0f,-5.0f,22.5f));
+                GameObject.FindWithTag("Tag_Enemy").tag = "Tag_LostFocusEnemy";
+
+                //Add CS1_Antivirus.cs
+                gameObject.AddComponent("CS1_Antivirus");
+                gameObject.GetComponent<CS1_Antivirus>().BulletRed = BulletRed;
+                gameObject.GetComponent<CS1_Antivirus>().BulletGreen = BulletGreen;
+                gameObject.GetComponent<CS1_Antivirus>().BulletBlue = BulletBlue;
+                gameObject.GetComponent<CS1_Antivirus>().BulletD = BulletD;
+                gameObject.GetComponent<CS1_Antivirus>().BossObject_Tower = BossObject_Tower;
+                
+                gameObject.GetComponent<CS1_Antivirus>().StageRefPoint = StageRefPoint;
+                gameObject.GetComponent<CS1_Antivirus>().status = status;
+                gameObject.GetComponent<CS1_Antivirus>().boss = boss;
+
+                bossState = 4;
+                break;
+
         }
     }
 }

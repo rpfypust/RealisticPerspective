@@ -14,10 +14,8 @@ public class CS1_0 : MonoBehaviour
 
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
-    private float localStartTime = 0.0f;
 
     public int j = 0; //angle/bullet counter
-    public int l = 0; //destroyed bullet counter
     public int step = 0; //step counter
 
     private GameObject BulletX; //bullets are using this to be created
