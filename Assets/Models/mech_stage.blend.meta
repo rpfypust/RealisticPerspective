@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b342ca4526b153644b0853e29607e04f
+guid: 88a54a6f2f930dd43951913a4d2fa755
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -7,12 +7,12 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cube_001
+    4300000: Plane
     7400000: Default Take
     9500000: //RootNode
   materials:
     importMaterials: 1
-    materialName: 1
+    materialName: 0
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
