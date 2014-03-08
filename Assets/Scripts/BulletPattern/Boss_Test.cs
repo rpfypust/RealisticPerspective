@@ -3,16 +3,16 @@ using System.Collections;
 
 public class Boss_Test : MonoBehaviour
 {
-    public GameObject BulletA; //red
-    public GameObject BulletB; //green
-    public GameObject BulletC; //blue
+    public GameObject BulletRed; //red
+    public GameObject BulletGreen; //green
+    public GameObject BulletBlue; //blue
     public GameObject BulletD;
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
     private float localStartTime = 0.0f;
     public int j = 0; //angle/bullet counter
     public int l = 0; //destroyed bullet counter
-    public int k = 0; //step counter
+    public int step = 0; //step counter
     private GameObject BulletX; //bullets are using this to be created
     private GameObject BulletSet_Error; //trigger area for the 2nd skill
     private Vector3 normRadius; // temp value for the 3rd skill
@@ -47,11 +47,11 @@ public class Boss_Test : MonoBehaviour
                 bossSettedUp = false;
             } else
             { //Start this sill                
-                if (k >= 130)
+                if (step >= 130)
                 { //Reset to step A
-                    k = 0;
+                    step = 0;
                 }
-                if (k <= 23)
+                if (step <= 23)
                 { //first red bullet
                     if ((Time.time - lastTime) > 1 / 25.0f)
                     {
@@ -60,13 +60,13 @@ public class Boss_Test : MonoBehaviour
                         for (int i=0; i<6; i++)
                         {
                             angle = Mathf.PI / 36.0f * (i * 6f + j) + j / 100.0f;
-                            BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
+                            BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
 
                             BulletX.AddComponent("A01_B1");
-                            BulletX.GetComponent<A01_B1>().startTime = Time.time;
-                            BulletX.GetComponent<A01_B1>().vx = 10.0f * Mathf.Sin(angle);
-                            BulletX.GetComponent<A01_B1>().vz = -10.0f * Mathf.Cos(angle);
-                            BulletX.GetComponent<A01_B1>().oriPos = transform.position;
+                            BulletX.GetComponent<CS1_0_B1>().startTime = Time.time;
+                            BulletX.GetComponent<CS1_0_B1>().vx = 10.0f * Mathf.Sin(angle);
+                            BulletX.GetComponent<CS1_0_B1>().vz = -10.0f * Mathf.Cos(angle);
+                            BulletX.GetComponent<CS1_0_B1>().oriPos = transform.position;
                             Destroy(BulletX.gameObject, 8.0f);
                             BulletX.rigidbody.useGravity = false;
                             j++;
@@ -74,38 +74,38 @@ public class Boss_Test : MonoBehaviour
                         lastTime = Time.time;
                         //move boss
                         boss.position = boss.position + new Vector3(0.2f * Mathf.Cos(angle / 8f), 0, 0.2f * Mathf.Sin(angle / 8f));
-                        k++;
+                        step++;
                     }
-                } else if (k <= 38)
+                } else if (step <= 38)
                 { //player-homing green laser
                     if ((Time.time - lastTime) > 1 / 60.0f)
                     {
                         for (int i=-3; i<=3; i++)
                         {
                             float angle = (i * 20.0f) / 180.0f * Mathf.PI;
-                            BulletX = (GameObject)Instantiate(BulletB, transform.position, transform.rotation);
+                            BulletX = (GameObject)Instantiate(BulletGreen, transform.position, transform.rotation);
                             BulletX.layer = 15;
                             BulletX.AddComponent("A01_B2");
-                            BulletX.GetComponent<A01_B2>().startTime = Time.time;
-                            BulletX.GetComponent<A01_B2>().vx = 8.0f * Mathf.Sin(angle);
-                            BulletX.GetComponent<A01_B2>().vz = 8.0f * Mathf.Cos(angle);
-                            BulletX.GetComponent<A01_B2>().oriPos = transform.position;
+                            BulletX.GetComponent<CS1_0_B2>().startTime = Time.time;
+                            BulletX.GetComponent<CS1_0_B2>().vx = 8.0f * Mathf.Sin(angle);
+                            BulletX.GetComponent<CS1_0_B2>().vz = 8.0f * Mathf.Cos(angle);
+                            BulletX.GetComponent<CS1_0_B2>().oriPos = transform.position;
                             BulletX.rigidbody.useGravity = false;
                         }
                         lastTime = Time.time;
-                        k++;
+                        step++;
                     }
-                } else if (k <= 73)
+                } else if (step <= 73)
                 { //waiting
-                    k++;
-                } else if (k <= 76)
+                    step++;
+                } else if (step <= 76)
                 { //all-direction red bullet
                     if ((Time.time - lastTime) > 1 / 5.0f)
                     {
                         for (int i=0; i<120; i++)
                         {
-                            float angle = (i * 3f + k * 0.5f) / 180.0f * Mathf.PI;
-                            BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
+                            float angle = (i * 3f + step * 0.5f) / 180.0f * Mathf.PI;
+                            BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
 
                             Vector3 temp = new Vector3(8.0f * Mathf.Sin(angle), 0, 8.0f * Mathf.Cos(angle));
                             BulletX.rigidbody.velocity = temp;
@@ -113,23 +113,23 @@ public class Boss_Test : MonoBehaviour
                             BulletX.rigidbody.useGravity = false;
                         }
                         lastTime = Time.time;
-                        k++;
+                        step++;
                     }
-                } else if (k <= 77)
+                } else if (step <= 77)
                 { //all-direction red bullet
                     if ((Time.time - lastTime) > 1 / 2.0f)
                     {
                         lastTime = Time.time;
-                        k++;
+                        step++;
                     }
-                } else if (k <= 80)
+                } else if (step <= 80)
                 { //all-direction red bullet
                     if ((Time.time - lastTime) > 1 / 5.0f)
                     {
                         for (int i=0; i<120; i++)
                         {
-                            float angle = (i * 3f + k * 0.5f) / 180.0f * Mathf.PI;
-                            BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
+                            float angle = (i * 3f + step * 0.5f) / 180.0f * Mathf.PI;
+                            BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                         
                             Vector3 temp = new Vector3(8.0f * Mathf.Sin(angle), 0, 8.0f * Mathf.Cos(angle));
                             BulletX.rigidbody.velocity = temp;
@@ -137,11 +137,11 @@ public class Boss_Test : MonoBehaviour
                             BulletX.rigidbody.useGravity = false;
                         }
                         lastTime = Time.time;
-                        k++;
+                        step++;
                     }
                 } else
                 { //wait
-                    k++;
+                    step++;
                 }
             }
         } else if (status.BulletPatternState == 1)
@@ -151,7 +151,7 @@ public class Boss_Test : MonoBehaviour
             {
                 status.isInvicible = false;
                 bossSettedUp = true;
-                k = 0;
+                step = 0;
             } else
             //Check HP and jump to next skill
             if (status.HealthPoint <= 4800.0f)
@@ -167,23 +167,23 @@ public class Boss_Test : MonoBehaviour
                 }
             } else
             { //Start this sill
-                if (k >= 95)
+                if (step >= 95)
                 { //Reset to Stage A
-                    k = 0;
+                    step = 0;
                     if (boss.gameObject.GetComponent <BossRandomMoveInArea>())
                     {
                         Destroy(boss.gameObject.GetComponent <BossRandomMoveInArea>());
                     }
                 }
-                if (k < 1)
+                if (step < 1)
                 { //set up trigger area
                     BulletSet_Error = new GameObject("BulletSet_ErrorTemp");
                     BulletSet_Error.tag = "Tag_BulletSet";
                     BulletSet_Error.transform.position = transform.position;
                     BulletSet_Error.layer = 0;
                     BulletSet_Error.AddComponent("A01_BS_Error");
-                    BulletSet_Error.GetComponent<A01_BS_Error>().velocity = 4.0f;
-                    BulletSet_Error.GetComponent<A01_BS_Error>().boss = gameObject;
+                    BulletSet_Error.GetComponent<CS1_Error_BulletSet>().velocity = 4.0f;
+                    BulletSet_Error.GetComponent<CS1_Error_BulletSet>().boss = gameObject;
 
                     CapsuleCollider BulletSetTriggerArea = new CapsuleCollider();
                     BulletSetTriggerArea = BulletSet_Error.AddComponent("CapsuleCollider") as CapsuleCollider;
@@ -197,68 +197,68 @@ public class Boss_Test : MonoBehaviour
                     BulletSetRigidbody.useGravity = false;
 
                     j = 0;
-                    k++;
+                    step++;
 
-                } else if (k < 2)
+                } else if (step < 2)
                 { //Drawing the circle
                     float angle = (j * -10.0f) / 180.0f * Mathf.PI;
-                    BulletX = (GameObject)Instantiate(BulletC, transform.position, transform.rotation);
+                    BulletX = (GameObject)Instantiate(BulletBlue, transform.position, transform.rotation);
                     BulletX.transform.parent = BulletSet_Error.transform;
 
                     BulletX.AddComponent("A01_Error_B1");
-                    BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
-                    BulletX.GetComponent<A01_Error_B1>().finalPositionX = 5.0f * Mathf.Sin(angle);
-                    BulletX.GetComponent<A01_Error_B1>().finalPositionZ = 5.0f * Mathf.Cos(angle);
-                    BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
-                    BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;
+                    BulletX.GetComponent<CS1_Error_B1>().startTime = Time.time;
+                    BulletX.GetComponent<CS1_Error_B1>().finalPositionX = 5.0f * Mathf.Sin(angle);
+                    BulletX.GetComponent<CS1_Error_B1>().finalPositionZ = 5.0f * Mathf.Cos(angle);
+                    BulletX.GetComponent<CS1_Error_B1>().lastFor = 1.5f;
+                    BulletX.GetComponent<CS1_Error_B1>().oriPos = transform.position;
                     BulletX.rigidbody.useGravity = false;
                     j++;
                     if (j >= 36)
                     {
-                        k++;
+                        step++;
                         j = 0;
                     }
-                } else if (k < 3)
+                } else if (step < 3)
                 { // drawing the X
                     float distance = Mathf.Sqrt(6.125f) - 2 * Mathf.Sqrt(6.125f) * j / 16.0f;
 
-                    BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
+                    BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                     BulletX.transform.parent = BulletSet_Error.transform;
                     
                     BulletX.AddComponent("A01_Error_B1");
-                    BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
-                    BulletX.GetComponent<A01_Error_B1>().finalPositionX = distance;
-                    BulletX.GetComponent<A01_Error_B1>().finalPositionZ = distance;
-                    BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
-                    BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;
+                    BulletX.GetComponent<CS1_Error_B1>().startTime = Time.time;
+                    BulletX.GetComponent<CS1_Error_B1>().finalPositionX = distance;
+                    BulletX.GetComponent<CS1_Error_B1>().finalPositionZ = distance;
+                    BulletX.GetComponent<CS1_Error_B1>().lastFor = 1.5f;
+                    BulletX.GetComponent<CS1_Error_B1>().oriPos = transform.position;
                     BulletX.rigidbody.useGravity = false;
 
-                    BulletX = (GameObject)Instantiate(BulletA, transform.position, transform.rotation);
+                    BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                     BulletX.transform.parent = BulletSet_Error.transform;
                     
                     BulletX.AddComponent("A01_Error_B1");
-                    BulletX.GetComponent<A01_Error_B1>().startTime = Time.time;
-                    BulletX.GetComponent<A01_Error_B1>().finalPositionX = -distance;
-                    BulletX.GetComponent<A01_Error_B1>().finalPositionZ = distance;
-                    BulletX.GetComponent<A01_Error_B1>().lastFor = 1.5f;
-                    BulletX.GetComponent<A01_Error_B1>().oriPos = transform.position;
+                    BulletX.GetComponent<CS1_Error_B1>().startTime = Time.time;
+                    BulletX.GetComponent<CS1_Error_B1>().finalPositionX = -distance;
+                    BulletX.GetComponent<CS1_Error_B1>().finalPositionZ = distance;
+                    BulletX.GetComponent<CS1_Error_B1>().lastFor = 1.5f;
+                    BulletX.GetComponent<CS1_Error_B1>().oriPos = transform.position;
                     BulletX.rigidbody.useGravity = false;
 
                     j++;
                     if (j >= 17)
                     {
-                        k++;
+                        step++;
                         j = 0;
                     }
-                } else if (k < 93)
+                } else if (step < 93)
                 { //wait for the bullet is setted up
 
-                    k++;
+                    step++;
 
-                } else if (k < 94)
+                } else if (step < 94)
                 { //move the bullet, wait for the bullet leave boss
                     BulletSet_Error.name = "BulletSet_Error";
-                    BulletSet_Error.GetComponent<A01_BS_Error>().canStartMoving = true;
+                    BulletSet_Error.GetComponent<CS1_Error_BulletSet>().canStartMoving = true;
                     if (!boss.gameObject.GetComponent<BossRandomMoveInArea>())
                     {
                         boss.gameObject.AddComponent("BossRandomMoveInArea");
@@ -272,18 +272,18 @@ public class Boss_Test : MonoBehaviour
                         boss.gameObject.GetComponent<BossRandomMoveInArea>().oriPos = transform.position;
                     }
                     
-                } else if (k < 95)
+                } else if (step < 95)
                 { // start random bullet
                     for (int i=0; i<=2; i++)
                     {
                         float angle = Random.value * 2.0f * Mathf.PI;
                         float speed = Random.value * 8.0f + 6.0f;
-                        BulletX = (GameObject)Instantiate(BulletB, transform.position, transform.rotation);
+                        BulletX = (GameObject)Instantiate(BulletGreen, transform.position, transform.rotation);
                         BulletX.AddComponent("A01_Error_B2");
-                        BulletX.GetComponent<A01_Error_B2>().startTime = Time.time;
-                        BulletX.GetComponent<A01_Error_B2>().vx = speed * Mathf.Sin(angle);
-                        BulletX.GetComponent<A01_Error_B2>().vz = speed * Mathf.Cos(angle);
-                        BulletX.GetComponent<A01_Error_B2>().oriPos = transform.position;
+                        BulletX.GetComponent<CS1_Error_B2>().startTime = Time.time;
+                        BulletX.GetComponent<CS1_Error_B2>().vx = speed * Mathf.Sin(angle);
+                        BulletX.GetComponent<CS1_Error_B2>().vz = speed * Mathf.Cos(angle);
+                        BulletX.GetComponent<CS1_Error_B2>().oriPos = transform.position;
                         Destroy(BulletX.gameObject, 6.0f);
                         BulletX.rigidbody.useGravity = false;
                     }
@@ -305,7 +305,7 @@ public class Boss_Test : MonoBehaviour
                 {
                     Destroy(boss.gameObject.GetComponent<BossMoveToSpecPos>());
                     status.isInvicible = false;
-                    k = 0;
+                    step = 0;
                     l = 960;
                     bossSettedUp = true;
                 }
@@ -325,89 +325,89 @@ public class Boss_Test : MonoBehaviour
                 {
                     Destroy(boss.gameObject.GetComponent <BossMoveToSpecPos>());
                 }
-                if (boss.gameObject.GetComponent <A01_WhileTrue_Boss>())
+                if (boss.gameObject.GetComponent <CS1_WhileTrue_Boss>())
                 {
-                    Destroy(boss.gameObject.GetComponent <A01_WhileTrue_Boss>());
+                    Destroy(boss.gameObject.GetComponent <CS1_WhileTrue_Boss>());
                 }
             } else
             { //Start this sill
-                if (k >= 3)
+                if (step >= 3)
                 { //Reset to Stage A
-                    k = 0;
+                    step = 0;
                 }
-                if (k < 1)
+                if (step < 1)
                 { //move boss
-                    if (!boss.gameObject.GetComponent<A01_WhileTrue_Boss>())
+                    if (!boss.gameObject.GetComponent<CS1_WhileTrue_Boss>())
                     {
                         boss.gameObject.AddComponent("A01_WhileTrue_Boss");
-                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().center = StageRefPoint + new Vector3(18.0f, 0.0f, 22.5f);
-                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().center.y = transform.position.y;
-                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().moveTime = 4.0f;
-                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().fadeTime = 1.0f;
-                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().r = 16.0f;
-                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().round = 8.0f;
-                        boss.gameObject.GetComponent<A01_WhileTrue_Boss>().oriPos = transform.position;
+                        boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().center = StageRefPoint + new Vector3(18.0f, 0.0f, 22.5f);
+                        boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().center.y = transform.position.y;
+                        boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().moveTime = 4.0f;
+                        boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().fadeTime = 1.0f;
+                        boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().r = 16.0f;
+                        boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().round = 8.0f;
+                        boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().oriPos = transform.position;
                         j = 0;
                         temp0 = Time.time;
                     } else
                     {
                         //setting the bullet
-                        while (j*2.0f * Mathf.PI/120.0f<=boss.gameObject.GetComponent<A01_WhileTrue_Boss>().currentAngular)
+                        while (j*2.0f * Mathf.PI/120.0f<=boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().currentAngular)
                         {
                             Vector3 bulletPos = new Vector3(16.0f * Mathf.Sin(j * 2.0f * Mathf.PI / 120.0f), 0, 16.0f * Mathf.Cos(j * 2.0f * Mathf.PI / 120.0f));
-                            bulletPos = boss.gameObject.GetComponent<A01_WhileTrue_Boss>().center + bulletPos;
+                            bulletPos = boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().center + bulletPos;
                             float temp = j * 2.0f * Mathf.PI / 120.0f / (2.0f * Mathf.PI);
                             if (temp < 1.0f)
                             {
-                                BulletX = (GameObject)Instantiate(BulletA, bulletPos + new Vector3(0, 3.5f - Mathf.Floor(temp) * 0.5f, 0), transform.rotation);
+                                BulletX = (GameObject)Instantiate(BulletRed, bulletPos + new Vector3(0, 3.5f - Mathf.Floor(temp) * 0.5f, 0), transform.rotation);
                                 
                                 BulletX.AddComponent("A01_WhileTrue_B1");
-                                BulletX.GetComponent<A01_WhileTrue_B1>().refTime = temp0;
+                                BulletX.GetComponent<CS1_WhileTrue_B1>().refTime = temp0;
 
-                                normRadius = boss.gameObject.GetComponent<A01_WhileTrue_Boss>().center - bulletPos;
+                                normRadius = boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().center - bulletPos;
                                 theta = Mathf.Asin(2.0f / normRadius.magnitude);
                                 Debug.Log(j);
                                 normRadius = Vector3.Normalize(normRadius);
 
-                                BulletX.GetComponent<A01_WhileTrue_B1>().vx = 4.0f * (normRadius.x * Mathf.Cos(theta) + normRadius.z * Mathf.Sin(theta));
-                                BulletX.GetComponent<A01_WhileTrue_B1>().vz = 4.0f * (-normRadius.x * Mathf.Sin(theta) + normRadius.z * Mathf.Cos(theta));
-                                BulletX.GetComponent<A01_WhileTrue_B1>().startAfter = 5.0f;
+                                BulletX.GetComponent<CS1_WhileTrue_B1>().vx = 4.0f * (normRadius.x * Mathf.Cos(theta) + normRadius.z * Mathf.Sin(theta));
+                                BulletX.GetComponent<CS1_WhileTrue_B1>().vz = 4.0f * (-normRadius.x * Mathf.Sin(theta) + normRadius.z * Mathf.Cos(theta));
+                                BulletX.GetComponent<CS1_WhileTrue_B1>().startAfter = 5.0f;
                                 
                                 BulletX.rigidbody.useGravity = false;
 
                                 BulletX.AddComponent("A01_WhileTrue_BSelfDes");
-                                BulletX.GetComponent<A01_WhileTrue_BSelfDes>().destroyColTime=2;
-                                BulletX.GetComponent<A01_WhileTrue_BSelfDes>().boss = gameObject;
+                                BulletX.GetComponent<CS1_WhileTrue_BulletSelfDestroy>().destroyColTime=2;
+                                BulletX.GetComponent<CS1_WhileTrue_BulletSelfDestroy>().boss = gameObject;
                             } else
                             {
-                                BulletX = (GameObject)Instantiate(BulletB, bulletPos + new Vector3(0, 3.5f - Mathf.Floor(temp) * 0.5f, 0), transform.rotation);
+                                BulletX = (GameObject)Instantiate(BulletGreen, bulletPos + new Vector3(0, 3.5f - Mathf.Floor(temp) * 0.5f, 0), transform.rotation);
                                 
                                 BulletX.AddComponent("A01_WhileTrue_B1");
-                                BulletX.GetComponent<A01_WhileTrue_B1>().refTime = temp0;
+                                BulletX.GetComponent<CS1_WhileTrue_B1>().refTime = temp0;
                                 
-                                normRadius = Vector3.Normalize(bulletPos - boss.gameObject.GetComponent<A01_WhileTrue_Boss>().center);
+                                normRadius = Vector3.Normalize(bulletPos - boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().center);
                                 
-                                BulletX.GetComponent<A01_WhileTrue_B1>().vx = normRadius.x * 4.0f;
-                                BulletX.GetComponent<A01_WhileTrue_B1>().vz = normRadius.z * 4.0f;
-                                BulletX.GetComponent<A01_WhileTrue_B1>().startAfter = 5.0f;
+                                BulletX.GetComponent<CS1_WhileTrue_B1>().vx = normRadius.x * 4.0f;
+                                BulletX.GetComponent<CS1_WhileTrue_B1>().vz = normRadius.z * 4.0f;
+                                BulletX.GetComponent<CS1_WhileTrue_B1>().startAfter = 5.0f;
                                 
                                 BulletX.rigidbody.useGravity = false;
                                 
                                 BulletX.AddComponent("A01_WhileTrue_BSelfDes");
-                                BulletX.GetComponent<A01_WhileTrue_BSelfDes>().destroyColTime=3;
-                                BulletX.GetComponent<A01_WhileTrue_BSelfDes>().boss = gameObject;
+                                BulletX.GetComponent<CS1_WhileTrue_BulletSelfDestroy>().destroyColTime=3;
+                                BulletX.GetComponent<CS1_WhileTrue_BulletSelfDestroy>().boss = gameObject;
                             }
                             j++;
                         }
                         //setting up finished
-                        if (boss.gameObject.GetComponent<A01_WhileTrue_Boss>().isFinished)
+                        if (boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().isFinished)
                         {
-                            Destroy(boss.gameObject.GetComponent<A01_WhileTrue_Boss>());
-                            k ++;
+                            Destroy(boss.gameObject.GetComponent<CS1_WhileTrue_Boss>());
+                            step ++;
                             l = l - 960; // destroyed bullet counter
                         }
                     }
-                }else if (k<2){
+                }else if (step<2){
                     //boss random moving
                     if (!boss.gameObject.GetComponent<BossRandomMoveInArea>())
                     {
@@ -422,9 +422,9 @@ public class Boss_Test : MonoBehaviour
                         boss.gameObject.GetComponent<BossRandomMoveInArea>().oriPos = transform.position;
                     }
                     if(l>550){
-                        k++;
+                        step++;
                     }
-                }else if(k<3){
+                }else if(step<3){
                     //destroy it
                     if (boss.gameObject.GetComponent <BossRandomMoveInArea>())
                     {
@@ -441,7 +441,7 @@ public class Boss_Test : MonoBehaviour
                     } else if (boss.gameObject.GetComponent<BossMoveToSpecPos>().isFinished)
                     {
                         Destroy(boss.gameObject.GetComponent<BossMoveToSpecPos>());
-                        k ++;
+                        step ++;
                     }
                 }
                 
