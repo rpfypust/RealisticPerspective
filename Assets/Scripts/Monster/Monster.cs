@@ -3,8 +3,11 @@ using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Monster : MonoBehaviour {
+
 	public GameObject bornEffect;
 	public GameObject dieEffect;
+	public float attackRange = 3f;
+	public float attackDuration = 0.5f; // time needed to perform an attack
 
 	public enum ActionType {
 		none,
@@ -15,11 +18,14 @@ public class Monster : MonoBehaviour {
 
 	private NavMeshAgent agent;
 
-	public bool finishedCurrentMove;
-	public ActionType actionType;
+	private bool finishedCurrentMove;
+	public bool FinishedCurrentMove {
+		get { return finishedCurrentMove; }
+	}
 
-	private float attackDuration = 0.5f; // time needed to perform an attack
+	public ActionType actionType;
 	private float attackTimer;
+
 
 	void Awake() {
 		agent = GetComponent<NavMeshAgent>();
@@ -45,7 +51,7 @@ public class Monster : MonoBehaviour {
 			}
 			break;
 		case ActionType.chasing:
-			if (agent.hasReachedDestination()) { // touching the target
+			if (agent.hasReachedDestination()) { 
 				finishedCurrentMove = true;
 				actionType = ActionType.none;
 			}
@@ -86,9 +92,20 @@ public class Monster : MonoBehaviour {
 		agent.SetDestination(destination);
 	}
 
-	public virtual void chase(Vector3 destination) {
+	public virtual void chase(Vector3 targetPosition) {
 		actionType = ActionType.chasing;
-		finishedCurrentMove = true; // always true to make AI updates target's destination
-		agent.SetDestination(destination);
+		finishedCurrentMove = true; // always true to make AI updates target's position
+		Vector2 direction = targetPosition.toVector2XZ() - transform.position.toVector2XZ();
+		if (direction.magnitude > attackRange) {
+			Vector3 des = (direction.normalized * attackRange).toVector3XZ() + transform.position;
+			agent.SetDestination(des);
+		} else {
+			agent.SetDestination(transform.position);
+			Quaternion targetRotation = Quaternion.LookRotation(direction.toVector3XZ());
+			Quaternion newRotation = Quaternion.Lerp(transform.rotation, 
+			                                         targetRotation, 
+			                                         agent.angularSpeed * Time.deltaTime);
+			transform.rotation = newRotation;
+		}
 	}
 }

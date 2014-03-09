@@ -15,22 +15,24 @@ public class MonsterAI : MonoBehaviour {
 	public float sightAngle = 120f;          // how wide can this monster see, in degrees
 	public float patrollingInterval = 2f;    // interval between two patrols
 	public float attackInterval = 2f;        // interval between two attacks
-	public Rect movementBounds;              // area the monster resides
+	[HideInInspector]
+	public Rect movementBounds;             // area the monster resides
 
-	private SphereCollider alertAreaCollider;
+	private SphereCollider alertArea;        /* the radius is overrided by sightDepth and
+	                                          * alertedDepth */
 	private Monster monster;
 	private GameObject player;
 	private Layers layers;
-	private LayerMask mask;
 
+	private LayerMask mask;
 	private bool isAlerted;
-	public float patrollingTimer;
-	public float attackingTimer;
+	private float patrollingTimer;
+	private float attackingTimer;
 	private Vector3 destination;
 	public ActionState state;
 
 	void Awake() {
-		alertAreaCollider = GetComponent<SphereCollider>();
+		alertArea = GetComponent<SphereCollider>();
 		monster = GetComponent<Monster>();
 		player = GameObject.FindGameObjectWithTag(Tags.player);
 		layers = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<Layers>();
@@ -39,6 +41,7 @@ public class MonsterAI : MonoBehaviour {
 	void Start() {
 		state = ActionState.idling;
 		isAlerted = false;
+		alertArea.radius = sightDepth;
 		patrollingTimer = 0f;
 		attackingTimer = 0f;
 		mask = 1 << layers.player;
@@ -50,14 +53,14 @@ public class MonsterAI : MonoBehaviour {
 		}
 		if (isAlerted) {
 			destination = player.transform.position;
-			alertAreaCollider.radius = alertedDepth;
+			alertArea.radius = alertedDepth;
 		}
 	}
 
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject == player) {
 			isAlerted = false;
-			alertAreaCollider.radius = sightDepth;
+			alertArea.radius = sightDepth;
 		}
 	}
 
@@ -67,19 +70,16 @@ public class MonsterAI : MonoBehaviour {
 			takeAction();
 			break;
 		case ActionState.pending:
-			if (monster.finishedCurrentMove) {
+			if (monster.FinishedCurrentMove)
 				state = ActionState.idling;
-			}
-			break;
-		default:
 			break;
 		}
-		if (Monster.ActionType.patrolling != monster.actionType) {
+
+		// update timers
+		if (Monster.ActionType.patrolling != monster.actionType)
 			patrollingTimer += Time.deltaTime;
-		}
-		if (Monster.ActionType.attacking != monster.actionType) {
+		if (Monster.ActionType.attacking != monster.actionType)
 			attackingTimer += Time.deltaTime;
-		}
 	}
 
 	private bool isHeroInSight(Collider other) {
@@ -87,7 +87,8 @@ public class MonsterAI : MonoBehaviour {
 			Vector3 direction = other.transform.position - transform.position;
 			float angle = Vector3.Angle(transform.forward, direction);
 			if (angle < sightAngle * 0.5f) {
-				if (Physics.Raycast(transform.position, direction, alertAreaCollider.radius, mask)) {
+				RaycastHit hit;
+				if (Physics.Raycast(transform.position, direction, out hit, alertArea.radius, mask)) {
 					return true;
 				}
 			}

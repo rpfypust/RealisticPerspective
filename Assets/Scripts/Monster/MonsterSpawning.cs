@@ -7,7 +7,7 @@ public class MonsterSpawning : MonoBehaviour {
     public GameObject monsterPrefab;
 
 	private BoxCollider boxCollider;
-	public Rect spawningRect;
+	private Rect spawningRect;
     private Layers layers;
     private ArrayList monsters;
 
