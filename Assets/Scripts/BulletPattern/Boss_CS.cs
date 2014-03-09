@@ -8,6 +8,7 @@ public class Boss_CS : MonoBehaviour
     public GameObject BulletBlue; //blue
     public GameObject BulletD;
     public GameObject BossObject_Tower;
+    public GameObject BossObject_Platform;
 
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
@@ -30,7 +31,7 @@ public class Boss_CS : MonoBehaviour
     void Awake()
     {
         startTime = Time.time;
-        bossState = 0;
+        bossState = -3;
         status = transform.parent.gameObject.GetComponent<BossStatus>();
         boss = transform.parent;
         StageRefPoint = GameObject.FindGameObjectWithTag("StageRefPoint").transform.position;
@@ -170,6 +171,7 @@ public class Boss_CS : MonoBehaviour
                 gameObject.GetComponent<CS1_Antivirus>().BulletBlue = BulletBlue;
                 gameObject.GetComponent<CS1_Antivirus>().BulletD = BulletD;
                 gameObject.GetComponent<CS1_Antivirus>().BossObject_Tower = BossObject_Tower;
+                gameObject.GetComponent<CS1_Antivirus>().BossObject_Platform = BossObject_Platform;
                 
                 gameObject.GetComponent<CS1_Antivirus>().StageRefPoint = StageRefPoint;
                 gameObject.GetComponent<CS1_Antivirus>().status = status;
