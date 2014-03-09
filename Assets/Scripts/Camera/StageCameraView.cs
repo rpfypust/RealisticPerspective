@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(CameraManager))]
 public class StageCameraView : MonoBehaviour {
 
-    [Range(10, 15)]
+    [Range(0, 15)]
     public float distance = 11f;
 
     [Range(0f, Mathf.PI / 2)]

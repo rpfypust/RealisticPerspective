@@ -6,9 +6,9 @@ using System.Collections;
 public class CharControl : MonoBehaviour
 {
 	public float turnSpeed = 20.0f;
-	public float slowSpeed = 5.0f;
-	public float runSpeed = 10.0f;
-	public float jumpSpeed = 10.0f;
+	public float slowSpeed = 2.0f;
+	public float runSpeed = 5.0f;
+	public float jumpSpeed = 8.0f;
 	public float gravity = 20.0f;
 	private float vSpeed;
 	private Animator animator;
