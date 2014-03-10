@@ -9,13 +9,13 @@ using System.Collections.Generic;
  * on the GUI
  */
 public class GUIManager : MonoBehaviour {
-	public static float width = 1920.0f;
-	public static float height = 1080.0f;
+	public const float width = 1920.0f;
+	public const float height = 1080.0f;
 
 	Matrix4x4 m;
 	private List<IDrawable> list = new List<IDrawable>();
 
-	void Start() {
+	void Awake() {
 		float widthRatio = Screen.width / width;
 		float heightRatio = Screen.height / height;
 		float scaleFactor = (widthRatio > heightRatio) ? heightRatio : widthRatio;

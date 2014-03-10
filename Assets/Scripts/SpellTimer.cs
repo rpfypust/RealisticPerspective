@@ -56,6 +56,7 @@ public class SpellTimer : MonoBehaviour, IDrawable {
 
 	public void DrawOnGUI()
 	{
+		GUI.skin = null;
 		GUI.skin.box.fontSize = 40;
 		GUI.skin.box.alignment = TextAnchor.MiddleCenter;
 		GUI.Label(new Rect(1700, 20, 200, 100), new GUIContent(string.Format("{0:f0}", countDown)), GUI.skin.box);

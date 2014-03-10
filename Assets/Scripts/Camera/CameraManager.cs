@@ -7,27 +7,34 @@ public class CameraManager : MonoBehaviour {
 
     public Transform target;
 
+	private GUIManager gman;
     private StageCameraView camScript;
     private Letterbox letterbox;
 
     void Awake() {
-        camScript = gameObject.GetComponent<StageCameraView>();
-        letterbox = gameObject.GetComponent<Letterbox>();
+		gman = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GUIManager>();
+        camScript = GetComponent<StageCameraView>();
+        letterbox = GetComponent<Letterbox>();
     }
+
+	void Start()
+	{
+		gman.register(letterbox);
+	}
 
 	public void BeginCutScene() {
         // freeze any moving objects
         // disable camera script
         camScript.enabled = false;
         // enable letterbox
-        letterbox.enabled = true;
+		gman.register(letterbox);
     }
 
     public IEnumerator MoveCamera(Vector3 targetPosition, float duration) {
         Vector3 desiredPosition = camScript.getDesiredPosition(targetPosition);
-        int totalFrames = (int) (duration / Time.fixedDeltaTime);
+		float startTime = Time.time;
         float speed = Vector3.Distance(transform.position, desiredPosition) / duration * Time.fixedDeltaTime;
-        for (int i = 0; i < totalFrames; i++) {
+        while (Time.time - startTime < duration) {
             transform.position = Vector3.MoveTowards(transform.position, desiredPosition, speed);
             yield return new WaitForFixedUpdate();
         }
@@ -35,7 +42,7 @@ public class CameraManager : MonoBehaviour {
 
     public void EndCutScene() {
         // disable letterbox
-        letterbox.enabled = false;
+		gman.unregister(letterbox);
         // enable camera script
         camScript.enabled = true;
         // un-freeze frozen objects
