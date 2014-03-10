@@ -1,82 +1,33 @@
 ﻿using UnityEngine;
 
-public class Character
-{
-	public Character()
-	{
-		
-	}
+/* base class for Monster, Player and Boss
+ */
+public class Character : MonoBehaviour {
+	public float maxHP;
 
-	private float max_hp = 100.0f;
-	private float hp = 100.0f;
-	private float max_mp = 100.0f;
-	private float mp = 100.0f;
-	private float atk = 1.0f; /* dummy value */
-	private float resistance = 0.0f;
-
-	private Consumable[] consumables = new Consumable[30];
-	private Accessory[] accessories = new Accessory[12];
-
-	public float MaxHP { 
-		get { 
-			return max_hp;
-		}
-		set {
-			max_hp = value;
-		}
-	}
-
-	public float HP {
+	private float hp;
+	private float HP {
 		get {
 			return hp;
 		}
 		set {
-			hp = Mathf.Min(max_hp, Mathf.Max(0.0f, value));
+			hp = Mathf.Min(maxHP, Mathf.Max(0, value));
 		}
 	}
 
-	public float MaxMP {
-		get {
-			return max_mp;
-		}
-		set {
-			max_mp = value;
-		}
+	public virtual void Start() {
+		hp = maxHP;
 	}
 
-	public float MP {
-		get {
-			return mp;
-		}
-		set {
-			mp = Mathf.Min(max_mp, Mathf.Max(0.0f, value));
-		}
+	public virtual bool isAlive() {
+		return hp > 0.0f;
 	}
 
-	public float ATK {
-		get {
-			return atk;
-		}
-		set {
-			atk = value;
-		}
+	public virtual void takeDamage(float damage) {
+		HP -= damage;
 	}
 
-	public float Resistance {
-		get {
-			return resistance;
-		}
-		set {
-			resistance = value;
-		}
-	}
-
-	public bool Apply(Consumable c)
-	{
-		return c.Apply(this);
-	}
-
-	public bool Equip(Accessory a) {
-		return a.Equip(this);
+	public virtual void heal(float value) {
+		HP += value;
 	}
 }
