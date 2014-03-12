@@ -8,13 +8,17 @@ public static class Util {
 		                   Random.Range(r.yMin, r.yMax));
 	}
 
-	public static int countDigits(int number) {
-		int digits = 0;
-		while (number > 0) {
-			number /= 10;
-			digits++;
-		}
-		return digits;
+	public static int solveQuadratic(float a, float b, float c, out float r1, out float r2)
+	{
+		r1 = r2 = 0.0f; // C# does not allow out arguments left uninitialized before return
+		float discriminant = b * b - 4 * a * c;
+		if (discriminant < 0f)
+			return -1;
+		r1 = (-b + Mathf.Sqrt(discriminant)) / a / 2.0f;
+		r2 = (-b - Mathf.Sqrt(discriminant)) / a / 2.0f;
+		if (r1 != r2)
+			return 1;
+		return 0;
 	}
 
     public static void removeAllBulletsbyTag(string tagName){

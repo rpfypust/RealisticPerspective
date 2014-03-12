@@ -1,11 +1,24 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Monster))]
-public class MonsterAI : MonoBehaviour {
+public sealed class MonsterAI : MonoBehaviour {
 
-	public enum ActionState {
+	public class AlertEventArgs : EventArgs {
+		public Vector3 targetPosition {get; private set;}
+		public AlertEventArgs(Vector3 p)
+		{
+			targetPosition = p;
+		}
+	}
+
+	public static event EventHandler<AlertEventArgs> OnFirstAlerted;
+	public static event EventHandler<AlertEventArgs> OnAlerted;
+	public static event EventHandler OnDisAlerted;
+
+	private enum ActionState {
 		idling,
 		pending
 	};
@@ -25,7 +38,7 @@ public class MonsterAI : MonoBehaviour {
 	private LayerMask mask;
 	private bool isAlerted;
 	private Vector3 destination;
-	public ActionState state;
+	private ActionState state;
 
 	void Awake() {
 		alertArea = GetComponent<SphereCollider>();
@@ -44,10 +57,14 @@ public class MonsterAI : MonoBehaviour {
 	void OnTriggerStay(Collider other) {
 		if (!isAlerted) {
 			isAlerted = isHeroInSight(other);
+			if (OnFirstAlerted != null)
+				OnFirstAlerted(this, new AlertEventArgs(player.transform.position));
 		}
 		if (isAlerted) {
 			destination = player.transform.position;
 			alertArea.radius = alertedDepth;
+			if (OnAlerted != null)
+				OnAlerted(this, new AlertEventArgs(destination));
 		}
 	}
 
@@ -55,6 +72,8 @@ public class MonsterAI : MonoBehaviour {
 		if (other.gameObject == player) {
 			isAlerted = false;
 			alertArea.radius = sightDepth;
+			if (OnDisAlerted != null)
+				OnDisAlerted(this, EventArgs.Empty);
 		}
 	}
 

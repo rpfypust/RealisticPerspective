@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Monster : MonoBehaviour {
 
-	public enum ActionType {
+	protected enum ActionType {
 		none,
 		chasing,
 		patrolling,
@@ -18,14 +18,14 @@ public class Monster : MonoBehaviour {
 	public float patrolInterval = 2f;			// interval between two patrols
 	public float attackInterval = 2f;			// interval between two attacks
 
-	private NavMeshAgent agent;
+	protected NavMeshAgent agent;
 	private bool startedCurrentMove;
 
-	public ActionType actionType;
-	public float attackDurationTimer;
-	public float patrolIntervalTimer;
-	public float attackIntervalTimer;
-	private Vector3 targetPosition;
+	protected ActionType actionType;
+	protected float attackDurationTimer;
+	protected float patrolIntervalTimer;
+	protected float attackIntervalTimer;
+	private Vector3 scheduledTargetPosition;
 
 	void Awake() {
 		agent = GetComponent<NavMeshAgent>();
@@ -51,10 +51,10 @@ public class Monster : MonoBehaviour {
 	private void tryStartCurrentMove() {
 		switch (actionType) {
 			case ActionType.patrolling:
-				schedulePatrol(targetPosition);
+				schedulePatrol(scheduledTargetPosition);
 				break;
 			case ActionType.attacking:
-				scheduleAttack(targetPosition);
+				scheduleAttack(scheduledTargetPosition);
 				break;
 		}
 	}
@@ -83,7 +83,7 @@ public class Monster : MonoBehaviour {
 		}
 	}
 
-	public bool hasFinishedCurrentMove() {
+	public virtual bool hasFinishedCurrentMove() {
 		switch (actionType) {
 		case ActionType.patrolling:
 			return agent.hasReachedDestination();
@@ -110,7 +110,7 @@ public class Monster : MonoBehaviour {
 
 	public void scheduleAttack(Vector3 destination) {
 		actionType = ActionType.attacking;
-		targetPosition = destination;
+		scheduledTargetPosition = destination;
 
 		if (canLaunchAttack(destination)) {
 			startedCurrentMove = true;
@@ -122,7 +122,7 @@ public class Monster : MonoBehaviour {
 
 	public void schedulePatrol(Vector3 destination) {
 		actionType = ActionType.patrolling;
-		targetPosition = destination;
+		scheduledTargetPosition = destination;
 
 		if (patrolIntervalTimer >= patrolInterval) {
 			startedCurrentMove = true;
@@ -137,12 +137,12 @@ public class Monster : MonoBehaviour {
 	}
 
 	public virtual void attack(Vector3 target) {
-		Debug.Log("attack launched");
+
 	}
 
 	public void scheduleChase(Vector3 destination) {
 		actionType = ActionType.chasing;
-		targetPosition = destination;
+		scheduledTargetPosition = destination;
 		startedCurrentMove = true;
 
 		chase(destination);
