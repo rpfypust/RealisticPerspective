@@ -1,22 +1,14 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Monster))]
 public sealed class MonsterAI : MonoBehaviour {
 
-	public class AlertEventArgs : EventArgs {
-		public Vector3 targetPosition {get; private set;}
-		public AlertEventArgs(Vector3 p)
-		{
-			targetPosition = p;
-		}
-	}
-
-	public static event EventHandler<AlertEventArgs> OnFirstAlerted;
-	public static event EventHandler<AlertEventArgs> OnAlerted;
-	public static event EventHandler OnDisAlerted;
+	public delegate void MonsterAlertHandler(Vector3 targetPosition);
+	public event MonsterAlertHandler OnFirstAlerted;
+	public event MonsterAlertHandler OnAlerted;
+	public event MonsterAlertHandler OnDisAlerted;
 
 	private enum ActionState {
 		idling,
@@ -58,13 +50,13 @@ public sealed class MonsterAI : MonoBehaviour {
 		if (!isAlerted) {
 			isAlerted = isHeroInSight(other);
 			if (OnFirstAlerted != null)
-				OnFirstAlerted(this, new AlertEventArgs(player.transform.position));
+				OnFirstAlerted(player.transform.position);
 		}
 		if (isAlerted) {
 			destination = player.transform.position;
 			alertArea.radius = alertedDepth;
 			if (OnAlerted != null)
-				OnAlerted(this, new AlertEventArgs(destination));
+				OnAlerted(destination);
 		}
 	}
 
@@ -73,7 +65,7 @@ public sealed class MonsterAI : MonoBehaviour {
 			isAlerted = false;
 			alertArea.radius = sightDepth;
 			if (OnDisAlerted != null)
-				OnDisAlerted(this, EventArgs.Empty);
+				OnDisAlerted(Vector3.zero);
 		}
 	}
 

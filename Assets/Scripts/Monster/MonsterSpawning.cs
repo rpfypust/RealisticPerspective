@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(BoxCollider))]
 public class MonsterSpawning : MonoBehaviour {
+
+	public delegate void MonsterNumDecreasedHandler(int remaining);
+	public event MonsterNumDecreasedHandler OnMonsterNumDecreased;
+
     public int maxNumMonsters = 1;
     public GameObject monsterPrefab;
 
 	private BoxCollider boxCollider;
 	private Rect spawningRect;
     private Layers layers;
-    private ArrayList monsters;
+	private List<GameObject> monsters;
 
 	void Awake() {
 		boxCollider = GetComponent<BoxCollider>();
@@ -17,7 +21,7 @@ public class MonsterSpawning : MonoBehaviour {
 	}
     
     void Start() {
-        monsters = new ArrayList(maxNumMonsters);
+		monsters = new List<GameObject>(maxNumMonsters);
 		spawningRect = calculateBoundingRect();
     }
 
