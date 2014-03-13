@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Animation))]
@@ -11,15 +10,8 @@ public class CompSwitch : MonoBehaviour {
 		THREE
 	};
 
-	public class CompSwitchEventArgs : EventArgs {
-		public CompSwitchLabel label {get; private set;}
-		public CompSwitchEventArgs(CompSwitchLabel l)
-		{
-			label = l;
-		}
-	}
-
-	public static event EventHandler<CompSwitchEventArgs> OnCompSwitchPressed;
+	public delegate void CompSwitchEvent(CompSwitch cs, CompSwitchLabel cwl);
+	public static event CompSwitchEvent OnCompSwitchPressed;
 
 	public CompSwitchLabel label;
     private GameObject player;
@@ -31,7 +23,7 @@ public class CompSwitch : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
 		if (other.gameObject == player &&
 		    OnCompSwitchPressed != null) {
-			OnCompSwitchPressed(this, new CompSwitchEventArgs(label));
+			OnCompSwitchPressed(this, label);
 			collider.enabled = false; // prohibit this method from calling ever after
 		}
 	}

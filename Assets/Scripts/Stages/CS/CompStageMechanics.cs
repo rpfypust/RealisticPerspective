@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using CompSwitchEventArgs = CompSwitch.CompSwitchEventArgs;
 using CompSwitchLabel = CompSwitch.CompSwitchLabel;
 
 public class CompStageMechanics : MonoBehaviour {
@@ -71,12 +69,18 @@ public class CompStageMechanics : MonoBehaviour {
 		set4.Add(new Vector2(3, 7));
 		set4.Add(new Vector2(8, 7));
 		sets.Add(set4);
+
+		InitializeObstacles();
     }
 
-	void Start()
+	void OnEnable()
 	{
-		InitializeObstacles();
 		CompSwitch.OnCompSwitchPressed += SwitchHandler;
+	}
+
+	void OnDisable()
+	{
+		CompSwitch.OnCompSwitchPressed -= SwitchHandler;
 	}
 
 	private GameObject putObstacle(Vector2 v2)
@@ -117,9 +121,9 @@ public class CompStageMechanics : MonoBehaviour {
 //        cman.EndCutScene();
 //    }
 
-	public void SwitchHandler(object sender, CompSwitchEventArgs e)
+	private void SwitchHandler(CompSwitch cs, CompSwitchLabel cwl)
 	{
-		StartCoroutine(SwitchHandlerCoroutine(((CompSwitch) sender), e.label));
+		StartCoroutine(SwitchHandlerCoroutine(cs, cwl));
 	}
 
 	private IEnumerator SwitchHandlerCoroutine(CompSwitch compSwitch, CompSwitchLabel label)
@@ -127,7 +131,7 @@ public class CompStageMechanics : MonoBehaviour {
 		cman.BeginCutScene();
 		yield return StartCoroutine(compSwitch.animation.WaitForFinished());
 		Vector3 targetBackup = cman.target.position;
-		yield return StartCoroutine(cman.MoveCamera(new Vector3(0, 0, 0), 1.0f));
+		yield return StartCoroutine(cman.moveCamera(new Vector3(0, 0, 0), 1.0f));
 
 		switch (label) {
 		case CompSwitchLabel.ONE:
@@ -139,7 +143,7 @@ public class CompStageMechanics : MonoBehaviour {
 		}
 
 		yield return new WaitForSeconds(1.0f);
-		yield return StartCoroutine(cman.MoveCamera(targetBackup, 1.0f));
+		yield return StartCoroutine(cman.moveCamera(targetBackup, 1.0f));
 		cman.EndCutScene();
 	}
 }
