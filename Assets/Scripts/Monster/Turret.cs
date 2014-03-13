@@ -9,49 +9,56 @@ public sealed class Turret : Monster {
 	public float bulletSpeed = 6f;
 	public float bulletLife = 5f;
 
+	private MonsterAI ai;
+
 	private Vector3 predictedVelocity;
 	private Vector3 previousPosition;
 	private float previousTime;
 
+	void Awake()
+	{
+		ai = GetComponent<MonsterAI>();
+	}
+
 	void OnEnable()
 	{
-		MonsterAI.OnFirstAlerted += startPrediction;
-		MonsterAI.OnAlerted += updatePrediction;
-		MonsterAI.OnDisAlerted += resetPrediction;
+		ai.OnFirstAlerted += startPrediction;
+		ai.OnAlerted += updatePrediction;
+		ai.OnDisAlerted += resetPrediction;
 	}
 
 	void OnDisable()
 	{
-		MonsterAI.OnFirstAlerted -= startPrediction;
-		MonsterAI.OnAlerted -= updatePrediction;
-		MonsterAI.OnDisAlerted -= resetPrediction;
+		ai.OnFirstAlerted -= startPrediction;
+		ai.OnAlerted -= updatePrediction;
+		ai.OnDisAlerted -= resetPrediction;
 	}
 
-	private void startPrediction(object sender, MonsterAI.AlertEventArgs e)
+	private void startPrediction(Vector3 targetPosition)
 	{
-		previousPosition = e.targetPosition;
+		previousPosition = targetPosition;
 		predictedVelocity = Vector3.zero;
 		previousTime = Time.time;
 	}
 
-	private void resetPrediction(object sender, System.EventArgs e)
+	private void resetPrediction(Vector3 placeholder)
 	{
 		previousPosition = Vector3.zero;
 		predictedVelocity = Vector3.zero;
 	}
 
-	private void updatePrediction(object sender, MonsterAI.AlertEventArgs e)
+	private void updatePrediction(Vector3 targetPosition)
 	{
 		float currentTime = Time.time;
 		float deltaTime = currentTime - previousTime;
 		if (deltaTime == 0.0f)
 			return;
 
-		Vector3 displacement = e.targetPosition - previousPosition;
+		Vector3 displacement = targetPosition - previousPosition;
 
 		predictedVelocity = predictedVelocity * weight + displacement / deltaTime * (1 - weight);
 
-		previousPosition = e.targetPosition;
+		previousPosition = targetPosition;
 		previousTime = currentTime;
 	}
 
