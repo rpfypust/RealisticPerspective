@@ -25,6 +25,15 @@ public class CharControl : MonoBehaviour
 	void Start()
 	{
 		vSpeed = 0f;
+
+		CameraManager.OnCutSceneStart += handleCutSceneStart;
+		CameraManager.OnCutSceneEnd += handleCutSceneEnd;
+	}
+
+	void OnDestroy()
+	{
+		CameraManager.OnCutSceneStart -= handleCutSceneStart;
+		CameraManager.OnCutSceneEnd -= handleCutSceneEnd;
 	}
 
 	void Update()
@@ -79,5 +88,16 @@ public class CharControl : MonoBehaviour
 			animator.SetBool(hash.walkingBool, false);
 			animator.SetBool(hash.runningBool, false);
 		}
+	}
+
+	private void handleCutSceneStart()
+	{
+		enabled = false;
+		AnimationHandle(0f, 0f, false);
+	}
+
+	private void handleCutSceneEnd()
+	{
+		enabled = true;
 	}
 }

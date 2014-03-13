@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-[RequireComponent(typeof(CameraManager))]
 public class StageCameraView : MonoBehaviour {
 
     [Range(0, 15)]
@@ -14,11 +12,12 @@ public class StageCameraView : MonoBehaviour {
 
     public float zSlippage = 0f;
 
-    private CameraManager cameraManager;
+	private CameraManager cman;
 
-    void Awake() {
-        cameraManager = gameObject.GetComponent<CameraManager>();
-    }
+	void Awake()
+	{
+		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CameraManager>();
+	}
 
     void Start() {
         float desiredX = transform.position.x;
@@ -28,7 +27,7 @@ public class StageCameraView : MonoBehaviour {
     }
 	
 	void LateUpdate() {
-        transform.position = Vector3.Lerp(transform.position, getDesiredPosition(cameraManager.target.position), damp * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, getDesiredPosition(cman.target.position), damp * Time.deltaTime);
 	}
 
     public Vector3 getDesiredPosition(Vector3 p) {

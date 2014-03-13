@@ -5,7 +5,11 @@ using System.Collections;
 [RequireComponent(typeof(Letterbox))]
 public class CameraManager : MonoBehaviour {
 
-    public Transform target;
+	public delegate void CutSceneEvent();
+	public static event CutSceneEvent OnCutSceneStart;
+	public static event CutSceneEvent OnCutSceneEnd;
+
+	public Transform target;
 
 	private GUIManager gman;
     private StageCameraView camScript;
@@ -17,20 +21,17 @@ public class CameraManager : MonoBehaviour {
         letterbox = GetComponent<Letterbox>();
     }
 
-	void Start()
-	{
-		gman.register(letterbox);
-	}
-
 	public void BeginCutScene() {
         // freeze any moving objects
+		if (OnCutSceneStart != null)
+			OnCutSceneStart();
         // disable camera script
         camScript.enabled = false;
         // enable letterbox
 		gman.register(letterbox);
     }
 
-    public IEnumerator MoveCamera(Vector3 targetPosition, float duration) {
+    public IEnumerator moveCamera(Vector3 targetPosition, float duration) {
         Vector3 desiredPosition = camScript.getDesiredPosition(targetPosition);
 		float startTime = Time.time;
         float speed = Vector3.Distance(transform.position, desiredPosition) / duration * Time.fixedDeltaTime;
@@ -46,5 +47,7 @@ public class CameraManager : MonoBehaviour {
         // enable camera script
         camScript.enabled = true;
         // un-freeze frozen objects
+		if (OnCutSceneEnd != null)
+			OnCutSceneEnd();
     }
 }
