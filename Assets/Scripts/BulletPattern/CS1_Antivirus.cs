@@ -39,6 +39,8 @@ public class CS1_Antivirus : MonoBehaviour
     void OnDestroy()
     {
         Util.removeAllBulletsbyTag("Tag_Bullet");
+        Destroy(BossObject_TowerX);
+        Destroy(BossObject_PlatformX);
         if (boss.gameObject.GetComponent <BossMoveToSpecPos>())
         {
             Destroy(boss.gameObject.GetComponent <BossMoveToSpecPos>());

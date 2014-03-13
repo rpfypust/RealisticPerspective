@@ -4,8 +4,14 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public sealed class LinearMotion : Motion {
 
-	public Vector3 destination;
-	public float totalTime;
+	private Vector3 destination;
+	private float totalTime;
+
+	void Awake()
+	{
+		rigidbody.useGravity = false;
+		rigidbody.freezeRotation = false;
+	}
 
 	public void setJourney(Vector3 d, float t)
 	{
@@ -20,7 +26,7 @@ public sealed class LinearMotion : Motion {
 		float total = totalTime;
 		Vector3 velocity = (des - transform.position) / total;
 		while (Time.time - startTime < total) {
-			rigidbody.MovePosition(transform.TransformPoint(velocity * Time.deltaTime));
+			rigidbody.MovePosition(transform.position + (velocity * Time.deltaTime));
 			yield return new WaitForFixedUpdate();
 		}
 	}
