@@ -1,13 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public static class BulletFactory {
 
-	private const string UNIFORM_MOTION_BULLET_PATH = "uniform_motion_bullet";
-
 	public static UniformMotion CreateUniformMotionBullet(Vector3 p, Vector3 v, float life)
 	{
-		GameObject obj = (GameObject) Object.Instantiate(Resources.Load<GameObject>(UNIFORM_MOTION_BULLET_PATH),
+		GameObject obj = (GameObject) Object.Instantiate(Resources.Load<GameObject>(ResourcePath.UNIFORM_MOTION_BULLET),
 		                                                 p,
 		                                                 Quaternion.identity);
 		obj.GetComponent<Suiside>().DestroyTime = life;
