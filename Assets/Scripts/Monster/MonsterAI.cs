@@ -98,10 +98,10 @@ public sealed class MonsterAI : MonoBehaviour {
 		else if (isAlerted)
 			monster.scheduleChase(destination);
 		else
-			monster.schedulePatrol(destination = patrollingDestination());
+			monster.schedulePatrol(destination = randomPositionInBounds());
 	}
 
-	private Vector3 patrollingDestination() {
+	public Vector3 randomPositionInBounds() {
 		return Util.randomInsideRect(movementBounds).toVector3XZ();
 	}
 }

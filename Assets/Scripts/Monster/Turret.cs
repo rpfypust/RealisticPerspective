@@ -6,7 +6,7 @@ public sealed class Turret : Monster {
 	[Range(0, 1)]
 	public float weight = 0.5f;
 
-	public float bulletSpeed = 6f;
+	public float bulletSpeed = 10f;
 	public float bulletLife = 5f;
 
 	private MonsterAI ai;
@@ -15,8 +15,9 @@ public sealed class Turret : Monster {
 	private Vector3 previousPosition;
 	private float previousTime;
 
-	void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		ai = GetComponent<MonsterAI>();
 	}
 

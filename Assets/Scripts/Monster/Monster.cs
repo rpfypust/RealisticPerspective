@@ -27,11 +27,11 @@ public class Monster : MonoBehaviour {
 	protected float attackIntervalTimer;
 	private Vector3 scheduledTargetPosition;
 
-	void Awake() {
+	protected virtual void Awake() {
 		agent = GetComponent<NavMeshAgent>();
 	}
 
-	void Start() {
+	protected virtual void Start() {
 		startedCurrentMove = false;
 		actionType = ActionType.none;
 		attackDurationTimer = 0f;
@@ -41,7 +41,7 @@ public class Monster : MonoBehaviour {
 		born();
 	}
 
-	void Update() {
+	protected virtual void Update() {
 		if (!startedCurrentMove)
 			tryStartCurrentMove();
 		updateActionType();
@@ -109,15 +109,14 @@ public class Monster : MonoBehaviour {
 	}
 
 	public void scheduleAttack(Vector3 destination) {
-		actionType = ActionType.attacking;
-		scheduledTargetPosition = destination;
-
 		if (canLaunchAttack(destination)) {
+			actionType = ActionType.attacking;
+			scheduledTargetPosition = destination;
 			startedCurrentMove = true;
 			attackIntervalTimer = 0.0f;
 			attack(destination);
 		} else
-			startedCurrentMove = false;
+			scheduleChase(destination);
 	}
 
 	public void schedulePatrol(Vector3 destination) {
