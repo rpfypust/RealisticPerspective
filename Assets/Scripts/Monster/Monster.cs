@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Monster : MonoBehaviour {
+public class Monster : Character {
 
 	protected enum ActionType {
 		none,
@@ -31,7 +31,8 @@ public class Monster : MonoBehaviour {
 		agent = GetComponent<NavMeshAgent>();
 	}
 
-	protected virtual void Start() {
+	protected override void Start() {
+		base.Start();
 		startedCurrentMove = false;
 		actionType = ActionType.none;
 		attackDurationTimer = 0f;
@@ -160,5 +161,10 @@ public class Monster : MonoBehaviour {
 			                                         agent.angularSpeed * Time.deltaTime);
 			transform.rotation = newRotation;
 		}
+	}
+
+	public override void takeDamage(float damage) {
+		base.takeDamage(damage);
+		Debug.Log(string.Format("Monster HP: {0}/{1}", HP, maxHP));
 	}
 }

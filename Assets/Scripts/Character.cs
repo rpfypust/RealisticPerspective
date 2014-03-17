@@ -5,17 +5,17 @@
 public class Character : MonoBehaviour {
 	public float maxHP;
 
-	private float hp;
-	private float HP {
+	protected float hp;
+	protected float HP {
 		get {
 			return hp;
 		}
 		set {
-			hp = Mathf.Min(maxHP, Mathf.Max(0, value));
+			hp = Mathf.Clamp(value, 0.0f, maxHP);
 		}
 	}
 
-	public virtual void Start() {
+	protected virtual void Start() {
 		hp = maxHP;
 	}
 
