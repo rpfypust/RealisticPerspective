@@ -3,9 +3,9 @@ using System.Collections;
 
 public class PlayerBullet : Bullet {
 
-	void OnTriggerEnter(Collider col)
+	void OnCollisionEnter(Collision col)
 	{
-		if (col.tag == Tags.enemy) {
+		if (col.gameObject.tag == Tags.enemy) {
 			Character c = col.transform.root.gameObject.GetComponentInChildren<Character>();
 			dealDamage(c);
 			Destroy(gameObject);

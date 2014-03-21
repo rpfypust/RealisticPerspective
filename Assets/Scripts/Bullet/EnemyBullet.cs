@@ -3,13 +3,12 @@ using System.Collections;
 
 public class EnemyBullet : Bullet {
 
-	void OnTriggerEnter(Collider col)
+	void OnCollisionEnter(Collision col)
 	{
-		if (col.tag == Tags.player) {
+		if (col.gameObject.tag == Tags.player) {
 			Character c = col.transform.root.gameObject.GetComponentInChildren<Character>();
 			dealDamage(c);
 			Destroy(gameObject);
 		}
 	}
-
 }
