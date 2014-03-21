@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Monster : Character {
 
-	protected enum ActionType {
+	public enum ActionType {
 		none,
 		chasing,
 		patrolling,
@@ -18,12 +18,12 @@ public class Monster : Character {
 	public float patrolInterval = 2f;			// interval between two patrols
 	public float attackInterval = 2f;			// interval between two attacks
 
-	protected NavMeshAgent agent;
+	private NavMeshAgent agent;
 	private bool startedCurrentMove;
 
-	protected ActionType actionType;
+	public ActionType actionType;
 	protected float attackDurationTimer;
-	protected float patrolIntervalTimer;
+	public float patrolIntervalTimer;
 	protected float attackIntervalTimer;
 	private Vector3 scheduledTargetPosition;
 
@@ -138,6 +138,11 @@ public class Monster : Character {
 
 	public virtual void attack(Vector3 target) {
 
+	}
+
+	public void stopMoving()
+	{
+		agent.SetDestination(transform.position);
 	}
 
 	public void scheduleChase(Vector3 destination) {

@@ -10,7 +10,7 @@ public sealed class MonsterAI : MonoBehaviour {
 	public event MonsterAlertHandler OnAlerted;
 	public event MonsterAlertHandler OnDisAlerted;
 
-	private enum ActionState {
+	public enum ActionState {
 		idling,
 		pending
 	};
@@ -30,7 +30,7 @@ public sealed class MonsterAI : MonoBehaviour {
 	private LayerMask mask;
 	private bool isAlerted;
 	private Vector3 destination;
-	private ActionState state;
+	public ActionState state;
 
 	void Awake() {
 		alertArea = GetComponent<SphereCollider>();
@@ -70,16 +70,22 @@ public sealed class MonsterAI : MonoBehaviour {
 	}
 
 	void Update() {
-		switch (state) {
-		case ActionState.idling:
+		if (ActionState.idling == state || isAlerted) {
 			takeAction();
 			state = ActionState.pending;
-			break;
-		case ActionState.pending:
-			if (monster.hasFinishedCurrentMove())
-				state = ActionState.idling;
-			break;
+		} else if (monster.hasFinishedCurrentMove()) {
+			state = ActionState.idling;
 		}
+//		switch (state) {
+//		case ActionState.idling:
+//			takeAction();
+//			state = ActionState.pending;
+//			break;
+//		case ActionState.pending:
+//			if (monster.hasFinishedCurrentMove())
+//				state = ActionState.idling;
+//			break;
+//		}
 	}
 
 	private bool isHeroInSight(Collider other) {

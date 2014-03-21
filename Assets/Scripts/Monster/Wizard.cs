@@ -31,7 +31,7 @@ public sealed class Wizard : Monster {
 	}
 
 	public override void attack(Vector3 target) {
-		agent.Stop();
+		stopMoving();
 
 		Vector3 p = transform.position;
 		Vector3 v = (latestTargetPosition.toVector2XZ() - p.toVector2XZ())
