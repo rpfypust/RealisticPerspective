@@ -39,8 +39,9 @@ public class IceSkateControl : MonoBehaviour
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
-        if (hit.gameObject.tag == Tags.wall || hit.gameObject.tag == Tags.stageObstacle || hit.gameObject.tag == Tags.door)
-        {
+        if (hit.gameObject.tag == Tags.wall
+		    || hit.gameObject.tag == Tags.stageObstacle
+		    || hit.gameObject.tag == Tags.door) {
             moveDirection = Vector3.zero;
             isSkating = false;
         }

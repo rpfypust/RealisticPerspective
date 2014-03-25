@@ -14,14 +14,14 @@ public class CompSwitch : MonoBehaviour {
 	public static event CompSwitchEvent OnCompSwitchPressed;
 
 	public CompSwitchLabel label;
-    private GameObject player;
+	private Layers layers;
 
     void Awake() {
-        player = GameObject.FindGameObjectWithTag(Tags.player);
+		layers = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<Layers>();
     }
 
     void OnTriggerEnter(Collider other) {
-		if (other.gameObject == player &&
+		if (other.gameObject.layer == layers.player &&
 		    OnCompSwitchPressed != null) {
 			OnCompSwitchPressed(this, label);
 			collider.enabled = false; // prohibit this method from calling ever after

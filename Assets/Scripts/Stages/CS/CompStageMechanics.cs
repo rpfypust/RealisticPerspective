@@ -5,23 +5,27 @@ using CompSwitchLabel = CompSwitch.CompSwitchLabel;
 
 public class CompStageMechanics : MonoBehaviour {
 
-    public Vector2 iceRinkOrigin;
-	public Vector2 offset;
-    public GameObject obstaclePrefab;
+	private readonly Vector2 iceRinkOrigin = new Vector2(-17f, 6f);
+	private readonly Vector2 iceRinkCenter = new Vector2(-7f, 14f);
+	private readonly Vector2 offset = new Vector2(1f, 1f);
+	private const float unitLength = 2f;
+
     public GameObject[] doors;
 
 	private CameraManager cman;
+	private Object obstaclePrefab;
 
-	private int currentSetNumber;
+	public int currentSetNumber;
 	private List<List<Vector2>> sets;
-	private List<GameObject> obstacles;
+	private List<Object> obstacles;
 
     void Awake() {
+		obstaclePrefab = Resources.Load("comp_block");
         cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CameraManager>();
 
 		currentSetNumber = 0;
 
-		obstacles = new List<GameObject>();
+		obstacles = new List<Object>();
 
 		sets = new List<List<Vector2>>();
 
@@ -83,19 +87,19 @@ public class CompStageMechanics : MonoBehaviour {
 		CompSwitch.OnCompSwitchPressed -= SwitchHandler;
 	}
 
-	private GameObject putObstacle(Vector2 v2)
+	private Object putObstacle(Vector2 v2)
 	{
 		Vector3 v3 = new Vector3();
 		v3.y = 0f;
-		v3.x = iceRinkOrigin.x + v2.x + offset.x;
-		v3.z = iceRinkOrigin.y + v2.y + offset.y;
-		return (GameObject) Instantiate(obstaclePrefab, v3, Quaternion.identity);
+		v3.x = iceRinkOrigin.x + offset.x + v2.x * unitLength;
+		v3.z = iceRinkOrigin.y + offset.y + v2.y * unitLength;
+		return Instantiate(obstaclePrefab, v3, Quaternion.identity);
 	}
 
 	private void clearObstacles()
 	{
 		if (obstacles.Count > 0) {
-			foreach (GameObject o in obstacles)
+			foreach (Object o in obstacles)
 				Destroy(o);
 			obstacles.Clear();
 		}
@@ -104,9 +108,8 @@ public class CompStageMechanics : MonoBehaviour {
     private void InitializeObstacles()
     {
 		clearObstacles();
-		foreach (Vector2 v in sets[currentSetNumber]) {
+		foreach (Vector2 v in sets[currentSetNumber])
 			obstacles.Add(putObstacle(v));
-		}
     }
 
 //    public IEnumerator OpenDoor(int n) {
@@ -131,18 +134,34 @@ public class CompStageMechanics : MonoBehaviour {
 		cman.BeginCutScene();
 		yield return StartCoroutine(compSwitch.animation.WaitForFinished());
 		Vector3 targetBackup = cman.target.position;
-		yield return StartCoroutine(cman.moveCamera(new Vector3(0, 0, 0), 1.0f));
 
+		GameObject door = null;
 		switch (label) {
 		case CompSwitchLabel.ONE:
+			door = doors[0];
 			break;
 		case CompSwitchLabel.TWO:
+			door = doors[1];
 			break;
 		case CompSwitchLabel.THREE:
+			door = doors[2];
 			break;
 		}
+		currentSetNumber++;
 
+		yield return StartCoroutine(cman.moveCamera(door
+		                                            .transform
+		                                            .position
+		                                            .toVector2XZ()
+		                                            .toVector3XZ()
+		                                            , 1.0f));
+		Destroy(door);
 		yield return new WaitForSeconds(1.0f);
+
+		yield return StartCoroutine(cman.moveCamera(iceRinkCenter.toVector3XZ(), 1.0f));
+		InitializeObstacles();
+		yield return new WaitForSeconds(1.0f);
+		
 		yield return StartCoroutine(cman.moveCamera(targetBackup, 1.0f));
 		cman.EndCutScene();
 	}
