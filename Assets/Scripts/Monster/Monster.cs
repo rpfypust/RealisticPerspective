@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Animator))]
 public class Monster : Character {
 
 	public enum ActionType {
@@ -19,6 +20,8 @@ public class Monster : Character {
 	public float attackInterval = 2f;			// interval between two attacks
 
 	private NavMeshAgent agent;
+	private Animator animator;
+	private HashIDs hash;
 	private bool startedCurrentMove;
 
 	public ActionType actionType;
@@ -29,6 +32,8 @@ public class Monster : Character {
 
 	protected virtual void Awake() {
 		agent = GetComponent<NavMeshAgent>();
+		animator = GetComponent<Animator>();
+		hash = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<HashIDs>();
 	}
 
 	protected override void Start() {
@@ -47,6 +52,37 @@ public class Monster : Character {
 			tryStartCurrentMove();
 		updateActionType();
 		updateTimers();
+		handleAnimation();
+	}
+
+	private void handleAnimation()
+	{
+		switch (actionType) {
+		case ActionType.none:
+			animator.SetBool(hash.idlingBool, true);
+			animator.SetBool(hash.patrollingBool, false);
+			animator.SetBool(hash.chasingBool, false);
+			animator.SetBool(hash.attackingBool, false);
+			break;
+		case ActionType.patrolling:
+			animator.SetBool(hash.idlingBool, false);
+			animator.SetBool(hash.patrollingBool, true);
+			animator.SetBool(hash.chasingBool, false);
+			animator.SetBool(hash.attackingBool, false);
+			break;
+		case ActionType.chasing:
+			animator.SetBool(hash.idlingBool, false);
+			animator.SetBool(hash.patrollingBool, false);
+			animator.SetBool(hash.chasingBool, true);
+			animator.SetBool(hash.attackingBool, false);
+			break;
+		case ActionType.attacking:
+			animator.SetBool(hash.idlingBool, false);
+			animator.SetBool(hash.patrollingBool, false);
+			animator.SetBool(hash.chasingBool, false);
+			animator.SetBool(hash.attackingBool, true);
+			break;
+		}
 	}
 
 	private void tryStartCurrentMove() {
@@ -69,12 +105,18 @@ public class Monster : Character {
 
 	private void updateActionType() {
 		if (hasFinishedCurrentMove()) {
-			switch (actionType) {
-			case ActionType.attacking:
+			if (ActionType.attacking == actionType) {
 				attackDurationTimer = 0f;
-				break;
 			}
-			actionType = ActionType.none;
+			if (ActionType.chasing != actionType) {
+				actionType = ActionType.none;
+			}
+//			switch (actionType) {
+//			case ActionType.attacking:
+//				attackDurationTimer = 0f;
+//				break;
+//			}
+//			actionType = ActionType.none;
 		} else {
 			switch (actionType) {
 			case ActionType.attacking:
