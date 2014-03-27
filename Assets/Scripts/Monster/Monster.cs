@@ -71,10 +71,15 @@ public class Monster : Character {
 			animator.SetBool(hash.attackingBool, false);
 			break;
 		case ActionType.chasing:
-			animator.SetBool(hash.idlingBool, false);
 			animator.SetBool(hash.patrollingBool, false);
-			animator.SetBool(hash.chasingBool, true);
 			animator.SetBool(hash.attackingBool, false);
+			if (agent.hasReachedDestination()) { // not moving
+				animator.SetBool(hash.idlingBool, true);
+				animator.SetBool(hash.chasingBool, false);
+			} else {
+				animator.SetBool(hash.idlingBool, false);
+				animator.SetBool(hash.chasingBool, true);
+			}
 			break;
 		case ActionType.attacking:
 			animator.SetBool(hash.idlingBool, false);
