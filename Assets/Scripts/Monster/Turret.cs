@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(MonsterAI))]
 public sealed class Turret : Monster {
 
 	[Range(0, 1)]

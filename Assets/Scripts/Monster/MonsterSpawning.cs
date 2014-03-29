@@ -33,7 +33,7 @@ public class MonsterSpawning : MonoBehaviour {
 
 	void OnTriggerExit(Collider other) {
         if (other.gameObject.layer == layers.player) {
-			destoryAll();
+//			destoryAll();
         } else if (other.gameObject.layer == layers.enemy) {
             Debug.Log("monster exits");
         }

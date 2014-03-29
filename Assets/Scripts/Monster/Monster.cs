@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Animator))]
 public class Monster : Character {
 
 	public enum ActionType {
@@ -20,8 +19,6 @@ public class Monster : Character {
 	public float attackInterval = 2f;			// interval between two attacks
 
 	protected NavMeshAgent agent;
-	private Animator animator;
-	private HashIDs hash;
 	private bool startedCurrentMove;
 
 	public ActionType actionType;
@@ -32,8 +29,6 @@ public class Monster : Character {
 
 	protected virtual void Awake() {
 		agent = GetComponent<NavMeshAgent>();
-		animator = GetComponent<Animator>();
-		hash = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<HashIDs>();
 	}
 
 	protected override void Start() {
@@ -55,39 +50,9 @@ public class Monster : Character {
 		handleAnimation();
 	}
 
-	private void handleAnimation()
+	protected virtual void handleAnimation()
 	{
-		switch (actionType) {
-		case ActionType.none:
-			animator.SetBool(hash.idlingBool, true);
-			animator.SetBool(hash.patrollingBool, false);
-			animator.SetBool(hash.chasingBool, false);
-			animator.SetBool(hash.attackingBool, false);
-			break;
-		case ActionType.patrolling:
-			animator.SetBool(hash.idlingBool, false);
-			animator.SetBool(hash.patrollingBool, true);
-			animator.SetBool(hash.chasingBool, false);
-			animator.SetBool(hash.attackingBool, false);
-			break;
-		case ActionType.chasing:
-			animator.SetBool(hash.patrollingBool, false);
-			animator.SetBool(hash.attackingBool, false);
-			if (agent.hasReachedDestination()) { // not moving
-				animator.SetBool(hash.idlingBool, true);
-				animator.SetBool(hash.chasingBool, false);
-			} else {
-				animator.SetBool(hash.idlingBool, false);
-				animator.SetBool(hash.chasingBool, true);
-			}
-			break;
-		case ActionType.attacking:
-			animator.SetBool(hash.idlingBool, false);
-			animator.SetBool(hash.patrollingBool, false);
-			animator.SetBool(hash.chasingBool, false);
-			animator.SetBool(hash.attackingBool, true);
-			break;
-		}
+		// to be overriden
 	}
 
 	private void tryStartCurrentMove() {
