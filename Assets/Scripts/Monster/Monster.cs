@@ -19,7 +19,7 @@ public class Monster : Character {
 	public float patrolInterval = 2f;			// interval between two patrols
 	public float attackInterval = 2f;			// interval between two attacks
 
-	private NavMeshAgent agent;
+	protected NavMeshAgent agent;
 	private Animator animator;
 	private HashIDs hash;
 	private bool startedCurrentMove;
