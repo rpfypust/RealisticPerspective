@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
@@ -26,14 +26,14 @@ public class CharControl : MonoBehaviour
 	{
 		vSpeed = 0f;
 
-		CameraManager.OnCutSceneStart += handleCutSceneStart;
-		CameraManager.OnCutSceneEnd += handleCutSceneEnd;
+		CutSceneManager.OnCutSceneStart += handleCutSceneStart;
+		CutSceneManager.OnCutSceneEnd += handleCutSceneEnd;
 	}
 
 	void OnDestroy()
 	{
-		CameraManager.OnCutSceneStart -= handleCutSceneStart;
-		CameraManager.OnCutSceneEnd -= handleCutSceneEnd;
+		CutSceneManager.OnCutSceneStart -= handleCutSceneStart;
+		CutSceneManager.OnCutSceneEnd -= handleCutSceneEnd;
 	}
 
 	void Update()

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class StageCameraView : MonoBehaviour {
 
@@ -12,11 +12,11 @@ public class StageCameraView : MonoBehaviour {
 
     public float zSlippage = 0f;
 
-	private CameraManager cman;
+	private CutSceneManager cman;
 
 	void Awake()
 	{
-		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CameraManager>();
+		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
 	}
 
     void Start() {
