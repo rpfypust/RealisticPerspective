@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class MechBlock : MonoBehaviour {
 
@@ -15,14 +15,14 @@ public class MechBlock : MonoBehaviour {
 	private const RigidbodyConstraints mask = ~(RigidbodyConstraints.FreezePositionX
 	                                            | RigidbodyConstraints.FreezePositionZ);
 
-	private CameraManager cman;
+	private CutSceneManager cman;
 
 	private float timer;
 	private Direction previousDir;
 
 	void Awake()
 	{
-		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CameraManager>();
+		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
 
 		timer = 0f;
 		previousDir = Direction.NOT_APPLICABLE;

@@ -3,7 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(StageCameraView))]
 [RequireComponent(typeof(Letterbox))]
-public class CameraManager : MonoBehaviour {
+public class CutSceneManager : MonoBehaviour {
 
 	public delegate void CutSceneEvent();
 	public static event CutSceneEvent OnCutSceneStart;

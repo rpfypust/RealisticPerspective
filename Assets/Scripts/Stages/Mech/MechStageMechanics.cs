@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,7 +6,7 @@ public class MechStageMechanics : MonoBehaviour {
 
 	private List<List<Vector2>> blockPositions;
 
-	private CameraManager cman;
+	private CutSceneManager cman;
 	public GameObject door;
 	public GameObject block;
 	public int setNum;
@@ -17,7 +17,7 @@ public class MechStageMechanics : MonoBehaviour {
 
 	void Awake()
 	{
-		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CameraManager>();
+		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
 		switches = GetComponentsInChildren<MechSwitch>();
 		blocks = new List<Object>();
 		unlocked = 0;

@@ -12,7 +12,7 @@ public class CompStageMechanics : MonoBehaviour {
 
     public GameObject[] doors;
 
-	private CameraManager cman;
+	private CutSceneManager cman;
 	private Object obstaclePrefab;
 
 	public int currentSetNumber;
@@ -21,7 +21,7 @@ public class CompStageMechanics : MonoBehaviour {
 
     void Awake() {
 		obstaclePrefab = Resources.Load("comp_block");
-        cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CameraManager>();
+        cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
 
 		currentSetNumber = 0;
 

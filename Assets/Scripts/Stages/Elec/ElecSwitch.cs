@@ -15,22 +15,38 @@ public class ElecSwitch : MonoBehaviour {
 	public static event ElecSwitchEvent OnElecSwitchPressed;
 
 	public ElecSwitchColor color;
-	private SphereCollider col;
+	private SphereCollider triggerCol;
 	private Layers layers;
 
 	void Awake() {
 		layers = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<Layers>();
-		col = GetComponent<SphereCollider>();
+		triggerCol = GetComponent<SphereCollider>();
 	}
 
 	public void TurnOff()
 	{
-		col.enabled = false;
+		triggerCol.enabled = false;
 	}
 
 	public void TurnOn()
 	{
-		col.enabled = true;
+		triggerCol.enabled = true;
+	}
+
+	public IEnumerator Press()
+	{
+		AnimationState state = animation["Press"];
+		state.speed = 1f;
+		state.normalizedTime = 0f;
+		yield return StartCoroutine(animation.WaitForFinished());
+	}
+
+	public IEnumerator Recover()
+	{
+		AnimationState state = animation["Press"];
+		state.normalizedTime = 1f;
+		state.speed = -1f;
+		yield return StartCoroutine(animation.WaitForFinished());
 	}
 
 	void OnTriggerStay(Collider other)
