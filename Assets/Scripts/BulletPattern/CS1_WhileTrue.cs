@@ -59,11 +59,11 @@ public class CS1_WhileTrue : MonoBehaviour
             if (!boss.gameObject.GetComponent<CS1_WhileTrue_Boss>())
             {
                 boss.gameObject.AddComponent("CS1_WhileTrue_Boss");
-                boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().center = StageRefPoint + new Vector3(18.0f, 0.0f, 22.5f);
+                boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().center = StageRefPoint + new Vector3(16.0f, 0.0f, 24.0f);
                 boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().center.y = transform.position.y;
                 boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().moveTime = 4.0f;
                 boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().fadeTime = 1.0f;
-                boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().r = 16.0f;
+                boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().r = 14.0f;
                 boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().round = 8.0f;
                 boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().oriPos = transform.position;
                 j = 0;
@@ -132,10 +132,10 @@ public class CS1_WhileTrue : MonoBehaviour
                 boss.gameObject.AddComponent("BossRandomMoveInArea");
                 boss.gameObject.GetComponent<BossRandomMoveInArea>().startTime = Time.time;
                 boss.gameObject.GetComponent<BossRandomMoveInArea>().localStartTime = Time.time;
-                boss.gameObject.GetComponent<BossRandomMoveInArea>().x1 = StageRefPoint.x + 12.0f;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().x1 = StageRefPoint.x + 10.0f;
                 boss.gameObject.GetComponent<BossRandomMoveInArea>().z1 = StageRefPoint.z + 30.0f;
-                boss.gameObject.GetComponent<BossRandomMoveInArea>().x2 = StageRefPoint.x + 24.0f;
-                boss.gameObject.GetComponent<BossRandomMoveInArea>().z2 = StageRefPoint.z + 40.0f;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().x2 = StageRefPoint.x + 22.0f;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().z2 = StageRefPoint.z + 44.0f;
                 boss.gameObject.GetComponent<BossRandomMoveInArea>().r = 4.0f;
                 boss.gameObject.GetComponent<BossRandomMoveInArea>().oriPos = transform.position;
             }
@@ -152,8 +152,8 @@ public class CS1_WhileTrue : MonoBehaviour
             if (!boss.gameObject.GetComponent<BossMoveToSpecPos>())
             {
                 boss.gameObject.AddComponent("BossMoveToSpecPos");
-                boss.gameObject.GetComponent<BossMoveToSpecPos>().x = StageRefPoint.x + 18.0f;
-                boss.gameObject.GetComponent<BossMoveToSpecPos>().z = StageRefPoint.z + 38.5f;
+                boss.gameObject.GetComponent<BossMoveToSpecPos>().x = StageRefPoint.x + 16.0f;
+                boss.gameObject.GetComponent<BossMoveToSpecPos>().z = StageRefPoint.z + 38.0f;
                 boss.gameObject.GetComponent<BossMoveToSpecPos>().moveTime = 2.0f;
                 boss.gameObject.GetComponent<BossMoveToSpecPos>().oriPos = transform.position;
             } else if (boss.gameObject.GetComponent<BossMoveToSpecPos>().isFinished)

@@ -21,7 +21,7 @@ public class CS1_P2P : MonoBehaviour
 
 	public int round = 0;
 	
-	private GameObject BulletX; //bullets are using this to be created
+	private GameObject ComputerA; //bullets are using this to be created
 	
 	void Awake()
 	{
@@ -41,7 +41,19 @@ public class CS1_P2P : MonoBehaviour
 	void FixedUpdate()
 	{
 		if (step ==0){
-
+            if (!boss.gameObject.GetComponent<BossRandomMoveInArea>())
+            {
+                boss.gameObject.AddComponent("BossRandomMoveInArea");
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().startTime = Time.time;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().localStartTime = Time.time;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().x1 = StageRefPoint.x + 12.0f;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().z1 = StageRefPoint.z + 28.0f;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().x2 = StageRefPoint.x + 24.0f;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().z2 = StageRefPoint.z + 36.0f;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().r = 4.0f;
+                boss.gameObject.GetComponent<BossRandomMoveInArea>().oriPos = transform.position;
+            }
+            step++;
 		}else if(step == 1){
 
 		}
