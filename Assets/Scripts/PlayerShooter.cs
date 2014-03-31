@@ -5,7 +5,7 @@ public class PlayerShooter : MonoBehaviour
 {
 
     public GameObject bullet; //prefab
-    public float bulletSpeed = 10.0f;
+    public float bulletSpeed = 15.0f;
     public float shootInterval = 0.1f;
     private float nextShootTime = 0.0f;
 

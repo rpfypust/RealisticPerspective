@@ -57,10 +57,10 @@ public class CS1_Antivirus : MonoBehaviour
         }
         if (step < 1)
         { 
-            TowerPosition = StageRefPoint + new Vector3(18.0f, -2.0f, 22.5f);
+            TowerPosition = StageRefPoint + new Vector3(16.0f, -2.0f, 24.0f);
             BossObject_TowerX = (GameObject)Instantiate(BossObject_Tower, TowerPosition, new Quaternion(0, 0, 0, 0));
             step++;
-            BossObject_PlatformX = (GameObject)Instantiate(BossObject_Platform, StageRefPoint + new Vector3(18.0f, -0.5f, 22.5f), new Quaternion(0, 0, 0, 0));
+            BossObject_PlatformX = (GameObject)Instantiate(BossObject_Platform, StageRefPoint + new Vector3(16.0f, -0.5f, 24.0f), new Quaternion(0, 0, 0, 0));
         } else if (step < 2)
         { 
             if (!BossObject_TowerX.GetComponent<UniformMotionWithinTime>())
@@ -74,7 +74,7 @@ public class CS1_Antivirus : MonoBehaviour
             } else if (BossObject_TowerX.GetComponent<UniformMotionWithinTime>().isFinished)
             {
                 Destroy(BossObject_TowerX.GetComponent<UniformMotionWithinTime>());
-                TowerPosition = StageRefPoint + new Vector3(18.0f, 0.5f, 22.5f);
+                TowerPosition = StageRefPoint + new Vector3(16.0f, 0.5f, 24.0f);
                 step++;
             }
         } else if (step < 10)
@@ -98,7 +98,7 @@ public class CS1_Antivirus : MonoBehaviour
         if (step == 2)
         {
             SpawnPosition = StageRefPoint;
-            SpawnPosition += new Vector3(Random.value * 20.0f + 8.0f, -1.0f, Random.value * 25.0f + 10.0f);
+            SpawnPosition += new Vector3(Random.value * 18.0f + 6.0f, -1.2f, Random.value * 24.0f + 12.0f);
             BossObject_PlatformX.transform.position = SpawnPosition;
             step++;
             l = 0;

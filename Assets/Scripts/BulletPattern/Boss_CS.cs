@@ -22,7 +22,7 @@ public class Boss_CS : MonoBehaviour
 	void Awake()
 	{
 		startTime = Time.time;
-		bossState = -3;
+		bossState = 0;
 		status = transform.parent.gameObject.GetComponent<BossStatus>();
 		boss = transform.parent;
 		StageRefPoint = GameObject.FindGameObjectWithTag("StageRefPoint").transform.position;
@@ -108,8 +108,8 @@ public class Boss_CS : MonoBehaviour
 				if (!boss.gameObject.GetComponent<BossMoveToSpecPos>())
 				{
 					boss.gameObject.AddComponent("BossMoveToSpecPos");
-					boss.gameObject.GetComponent<BossMoveToSpecPos>().x = StageRefPoint.x + 18.0f;
-					boss.gameObject.GetComponent<BossMoveToSpecPos>().z = StageRefPoint.z + 38.5f;
+					boss.gameObject.GetComponent<BossMoveToSpecPos>().x = StageRefPoint.x + 16.0f;
+					boss.gameObject.GetComponent<BossMoveToSpecPos>().z = StageRefPoint.z + 38.0f;
 					boss.gameObject.GetComponent<BossMoveToSpecPos>().moveTime = 4.0f;
 					boss.gameObject.GetComponent<BossMoveToSpecPos>().oriPos = transform.position;
 				} else if (boss.gameObject.GetComponent<BossMoveToSpecPos>().isFinished)
@@ -140,7 +140,7 @@ public class Boss_CS : MonoBehaviour
 				}
 				break;
 			case -3:
-				boss.rigidbody.MovePosition(StageRefPoint + new Vector3(18.0f, -5.0f, 22.5f));
+				boss.rigidbody.MovePosition(StageRefPoint + new Vector3(16.0f, -5.0f, 24.0f));
 				GameObject.FindWithTag("Tag_Enemy").tag = "Tag_LostFocusEnemy";
                 //Add CS1_Antivirus.cs
 				gameObject.AddComponent("CS1_Antivirus");
@@ -163,7 +163,7 @@ public class Boss_CS : MonoBehaviour
 					{
 						Destroy(gameObject.GetComponent<CS1_Antivirus>());
 					}
-					boss.rigidbody.MovePosition(StageRefPoint + new Vector3(18.0f, 0.5f, 22.5f));
+					boss.rigidbody.MovePosition(StageRefPoint + new Vector3(16.0f, 0.5f, 24.0f));
 					GameObject.FindWithTag("Tag_LostFocusEnemy").tag = "Tag_Enemy";
 					status.isInvicible = true;
 					bossState = -5;
