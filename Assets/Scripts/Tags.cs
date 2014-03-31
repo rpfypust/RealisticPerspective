@@ -13,4 +13,5 @@ public class Tags : MonoBehaviour {
 	public const string playerBullet = "Tag_PlayerBullet";
 	public const string enemyBullet = "Tag_Bullet";
 	public const string enemy = "Tag_Enemy";
+	public const string storyController = "StoryController";
 }
