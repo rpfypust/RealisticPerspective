@@ -6,7 +6,6 @@ public class CS1_Antivirus : MonoBehaviour
     public GameObject BulletRed; //red
     public GameObject BulletGreen; //green
     public GameObject BulletBlue; //blue
-    public GameObject BulletD;
     public GameObject BossObject_Tower;
     public GameObject BossObject_Platform;
     public Vector3 StageRefPoint;

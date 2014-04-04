@@ -6,7 +6,6 @@ public class CS1_Error : MonoBehaviour
     public GameObject BulletRed; //red
     public GameObject BulletGreen; //green
     public GameObject BulletBlue; //blue
-    public GameObject BulletD;
     
     public Vector3 StageRefPoint;
     public BossStatus status;

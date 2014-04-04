@@ -6,10 +6,10 @@ public class Boss_CS : MonoBehaviour
 	public GameObject BulletRed; //red
 	public GameObject BulletGreen; //green
 	public GameObject BulletBlue; //blue
-	public GameObject BulletD;
+	public GameObject BulletYellow;
 	public GameObject BossObject_Tower;
 	public GameObject BossObject_Platform;
-	public GameObject BossObject_PlatformComputer;
+	public GameObject BossObject_Computer;
 	private float startTime = 0.0f;
 	private float lastTime = 0.0f;
 	private float localStartTime = 0.0f;
@@ -22,7 +22,7 @@ public class Boss_CS : MonoBehaviour
 	void Awake()
 	{
 		startTime = Time.time;
-		bossState = 0;
+		bossState = -5;
 		status = transform.parent.gameObject.GetComponent<BossStatus>();
 		boss = transform.parent;
 		StageRefPoint = GameObject.FindGameObjectWithTag("StageRefPoint").transform.position;
@@ -50,7 +50,6 @@ public class Boss_CS : MonoBehaviour
 					gameObject.GetComponent<CS1_0>().BulletRed = BulletRed;
 					gameObject.GetComponent<CS1_0>().BulletGreen = BulletGreen;
 					gameObject.GetComponent<CS1_0>().BulletBlue = BulletBlue;
-					gameObject.GetComponent<CS1_0>().BulletD = BulletD;
 					gameObject.GetComponent<CS1_0>().StageRefPoint = StageRefPoint;
 					gameObject.GetComponent<CS1_0>().status = status;
 					gameObject.GetComponent<CS1_0>().boss = boss;
@@ -85,7 +84,6 @@ public class Boss_CS : MonoBehaviour
 					gameObject.GetComponent<CS1_Error>().BulletRed = BulletRed;
 					gameObject.GetComponent<CS1_Error>().BulletGreen = BulletGreen;
 					gameObject.GetComponent<CS1_Error>().BulletBlue = BulletBlue;
-					gameObject.GetComponent<CS1_Error>().BulletD = BulletD;
 					gameObject.GetComponent<CS1_Error>().StageRefPoint = StageRefPoint;
 					gameObject.GetComponent<CS1_Error>().status = status;
 					gameObject.GetComponent<CS1_Error>().boss = boss;
@@ -120,7 +118,6 @@ public class Boss_CS : MonoBehaviour
 					gameObject.GetComponent<CS1_WhileTrue>().BulletRed = BulletRed;
 					gameObject.GetComponent<CS1_WhileTrue>().BulletGreen = BulletGreen;
 					gameObject.GetComponent<CS1_WhileTrue>().BulletBlue = BulletBlue;
-					gameObject.GetComponent<CS1_WhileTrue>().BulletD = BulletD;
 					gameObject.GetComponent<CS1_WhileTrue>().StageRefPoint = StageRefPoint;
 					gameObject.GetComponent<CS1_WhileTrue>().status = status;
 					gameObject.GetComponent<CS1_WhileTrue>().boss = boss;
@@ -147,7 +144,6 @@ public class Boss_CS : MonoBehaviour
 				gameObject.GetComponent<CS1_Antivirus>().BulletRed = BulletRed;
 				gameObject.GetComponent<CS1_Antivirus>().BulletGreen = BulletGreen;
 				gameObject.GetComponent<CS1_Antivirus>().BulletBlue = BulletBlue;
-				gameObject.GetComponent<CS1_Antivirus>().BulletD = BulletD;
 				gameObject.GetComponent<CS1_Antivirus>().BossObject_Tower = BossObject_Tower;
 				gameObject.GetComponent<CS1_Antivirus>().BossObject_Platform = BossObject_Platform;
 				gameObject.GetComponent<CS1_Antivirus>().StageRefPoint = StageRefPoint;
@@ -170,6 +166,20 @@ public class Boss_CS : MonoBehaviour
 				}
 				break;
 			case -5:
+				boss.rigidbody.MovePosition(StageRefPoint + new Vector3(16.0f, 0.5f, 24.0f));
+				gameObject.AddComponent("CS1_P2P");
+				gameObject.GetComponent<CS1_P2P>().BulletRed = BulletRed;
+				gameObject.GetComponent<CS1_P2P>().BulletGreen = BulletGreen;
+				gameObject.GetComponent<CS1_P2P>().BulletBlue = BulletBlue;
+				gameObject.GetComponent<CS1_P2P>().BulletYellow = BulletYellow;
+				gameObject.GetComponent<CS1_P2P>().BossObject_Computer = BossObject_Computer;
+				gameObject.GetComponent<CS1_P2P>().StageRefPoint = StageRefPoint;
+				gameObject.GetComponent<CS1_P2P>().status = status;
+				gameObject.GetComponent<CS1_P2P>().boss = boss;
+				status.isInvicible = false;
+				bossState = 5;
+				break;
+			case 5:
 				break;
 		}
 	}
