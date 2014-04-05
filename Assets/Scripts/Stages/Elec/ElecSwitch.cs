@@ -23,16 +23,6 @@ public class ElecSwitch : MonoBehaviour {
 		triggerCol = GetComponent<SphereCollider>();
 	}
 
-	public void TurnOff()
-	{
-		triggerCol.enabled = false;
-	}
-
-	public void TurnOn()
-	{
-		triggerCol.enabled = true;
-	}
-
 	public IEnumerator Press()
 	{
 		AnimationState state = animation["Press"];
@@ -49,10 +39,20 @@ public class ElecSwitch : MonoBehaviour {
 		yield return StartCoroutine(animation.WaitForFinished());
 	}
 
+	public void TurnOff()
+	{
+		triggerCol.enabled = false;
+	}
+	
+	public void TurnOn()
+	{
+		triggerCol.enabled = true;
+	}
+
 	void OnTriggerStay(Collider other)
 	{
 		if (other.gameObject.layer == layers.player
-		    && Input.GetButton("Fire1")
+		    && Input.GetButtonUp("Interact")
 		    && OnElecSwitchPressed != null) {
 			OnElecSwitchPressed(this, color);
 		}

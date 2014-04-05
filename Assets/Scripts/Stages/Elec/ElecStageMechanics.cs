@@ -80,7 +80,6 @@ public class ElecStageMechanics : MonoBehaviour {
 		yield return StartCoroutine(elecSwitch.Recover());
 
 		cman.EndCutScene();
-
 	EXIT_LABEL:
 		elecSwitch.TurnOn();
 	}
