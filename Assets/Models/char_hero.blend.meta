@@ -76,6 +76,7 @@ ModelImporter:
     7400000: Default Take
     7400002: Idle
     7400004: Walking
+    7400006: attack
     9500000: //RootNode
     13700000: Hero
     13700002: mesh
@@ -93,7 +94,93 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: attack
+      takeName: attack
+      firstFrame: -1
+      lastFrame: 9
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: armature
+        weight: 1
+      - path: armature/hips
+        weight: 1
+      - path: armature/hips/spine
+        weight: 1
+      - path: armature/hips/spine/chest
+        weight: 1
+      - path: armature/hips/spine/chest/neck
+        weight: 1
+      - path: armature/hips/spine/chest/neck/head
+        weight: 1
+      - path: armature/hips/spine/chest/shoulder_L
+        weight: 1
+      - path: armature/hips/spine/chest/shoulder_L/upper_arm_L
+        weight: 1
+      - path: armature/hips/spine/chest/shoulder_L/upper_arm_L/forearm_L
+        weight: 1
+      - path: armature/hips/spine/chest/shoulder_L/upper_arm_L/forearm_L/hand_L
+        weight: 1
+      - path: armature/hips/spine/chest/shoulder_L/upper_arm_L/forearm_L/hand_L/fingers_L
+        weight: 0
+      - path: armature/hips/spine/chest/shoulder_L/upper_arm_L/forearm_L/thumb_L
+        weight: 0
+      - path: armature/hips/spine/chest/shoulder_R
+        weight: 1
+      - path: armature/hips/spine/chest/shoulder_R/upper_arm_R
+        weight: 1
+      - path: armature/hips/spine/chest/shoulder_R/upper_arm_R/forearm_R
+        weight: 1
+      - path: armature/hips/spine/chest/shoulder_R/upper_arm_R/forearm_R/hand_R
+        weight: 1
+      - path: armature/hips/spine/chest/shoulder_R/upper_arm_R/forearm_R/hand_R/fingers_R
+        weight: 0
+      - path: armature/hips/spine/chest/shoulder_R/upper_arm_R/forearm_R/thumb_R
+        weight: 0
+      - path: armature/hips/thigh_L
+        weight: 1
+      - path: armature/hips/thigh_L/shin_L
+        weight: 1
+      - path: armature/hips/thigh_L/shin_L/foot_L
+        weight: 1
+      - path: armature/hips/thigh_L/shin_L/foot_L/toe_L
+        weight: 1
+      - path: armature/hips/thigh_L/shin_L/heel_L
+        weight: 0
+      - path: armature/hips/thigh_R
+        weight: 1
+      - path: armature/hips/thigh_R/shin_R
+        weight: 1
+      - path: armature/hips/thigh_R/shin_R/foot_R
+        weight: 1
+      - path: armature/hips/thigh_R/shin_R/foot_R/toe_R
+        weight: 1
+      - path: armature/hips/thigh_R/shin_R/heel_R
+        weight: 0
+      - path: mesh
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -115,7 +202,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human:
