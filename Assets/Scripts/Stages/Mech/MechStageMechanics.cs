@@ -75,8 +75,11 @@ public class MechStageMechanics : MonoBehaviour {
 
 	private void handleSwitchOn()
 	{
-		if (switches.Length == ++unlocked)
+		if (switches.Length == ++unlocked) {
+			// unregister listener once the door is unlocked
+			this.enabled = false;
 			StartCoroutine(handleDoorOpenCoroutine());
+		}
 	}
 
 	private void handleSwitchOff()
@@ -88,13 +91,15 @@ public class MechStageMechanics : MonoBehaviour {
 	{
 		cman.BeginCutScene();
 		Vector3 targetBackup = cman.target.position;
-		yield return new WaitForSeconds(0.5f);
-		yield return StartCoroutine(cman.moveCamera(door.transform.position, 1.0f));
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(CutSceneManager.SHORT_DELAY);
+		yield return StartCoroutine(cman.moveCamera(door.transform.position,
+		                                            CutSceneManager.SHORT_DELAY));
+		yield return new WaitForSeconds(CutSceneManager.SHORT_DELAY);
 		Destroy(door);
-		yield return new WaitForSeconds(0.5f);
-		yield return StartCoroutine(cman.moveCamera(targetBackup, 1.0f));
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(CutSceneManager.SHORT_DELAY);
+		yield return StartCoroutine(cman.moveCamera(targetBackup,
+		                                            CutSceneManager.SHORT_DELAY));
+		yield return new WaitForSeconds(CutSceneManager.SHORT_DELAY);
 		cman.EndCutScene();
 	}
 }
