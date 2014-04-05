@@ -99,7 +99,7 @@ public class CompStageMechanics : MonoBehaviour {
 		if (obstaclesParent != null) {
 			yield return StartCoroutine(obstaclesParent
 			                            .transform
-			                            .LinearMove(Vector3.zero,
+			                            .LinearMoveWithTime(Vector3.zero,
 			                                        Vector3.down * 2f,
 			                                        CutSceneManager.SHORT_DELAY));
 			Destroy(obstaclesParent);
@@ -119,7 +119,7 @@ public class CompStageMechanics : MonoBehaviour {
 
 		yield return StartCoroutine(obstaclesParent
 		                            .transform
-		                            .LinearMove(Vector3.down * 2f,
+		                            .LinearMoveWithTime(Vector3.down * 2f,
 		                                        Vector3.zero,
 		                                        CutSceneManager.SHORT_DELAY));
     }
