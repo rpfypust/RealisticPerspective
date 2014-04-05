@@ -9,6 +9,8 @@ public class CutSceneManager : MonoBehaviour {
 	public static event CutSceneEvent OnCutSceneStart;
 	public static event CutSceneEvent OnCutSceneEnd;
 
+	public const float SHORT_DELAY = 0.5f;
+
 	public Transform target;
 
 	private GUIManager gman;

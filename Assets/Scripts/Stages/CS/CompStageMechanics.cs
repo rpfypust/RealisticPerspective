@@ -17,15 +17,13 @@ public class CompStageMechanics : MonoBehaviour {
 
 	public int currentSetNumber;
 	private List<List<Vector2>> sets;
-	private List<Object> obstacles;
+	private GameObject obstaclesParent;
 
     void Awake() {
 		obstaclePrefab = Resources.Load("comp_block");
         cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
 
 		currentSetNumber = 0;
-
-		obstacles = new List<Object>();
 
 		sets = new List<List<Vector2>>();
 
@@ -74,7 +72,7 @@ public class CompStageMechanics : MonoBehaviour {
 		set4.Add(new Vector2(8, 7));
 		sets.Add(set4);
 
-		InitializeObstacles();
+		StartCoroutine(InitializeObstacles());
     }
 
 	void OnEnable()
@@ -96,33 +94,35 @@ public class CompStageMechanics : MonoBehaviour {
 		return Instantiate(obstaclePrefab, v3, Quaternion.identity);
 	}
 
-	private void clearObstacles()
+	private IEnumerator ClearObstacles()
 	{
-		if (obstacles.Count > 0) {
-			foreach (Object o in obstacles)
-				Destroy(o);
-			obstacles.Clear();
+		if (obstaclesParent != null) {
+			yield return StartCoroutine(obstaclesParent
+			                            .transform
+			                            .LinearMove(Vector3.zero,
+			                                        Vector3.down * 2f,
+			                                        CutSceneManager.SHORT_DELAY));
+			Destroy(obstaclesParent);
+			obstaclesParent = null;
 		}
 	}
 
-    private void InitializeObstacles()
+    private IEnumerator InitializeObstacles()
     {
-		clearObstacles();
-		foreach (Vector2 v in sets[currentSetNumber])
-			obstacles.Add(putObstacle(v));
-    }
+		// create a parent for group movement
+		obstaclesParent = new GameObject();
 
-//    public IEnumerator OpenDoor(int n) {
-//        cman.BeginCutScene();
-//        Vector3 targetBackup = cman.target.position;
-//        // move camera to the door being opened
-//        yield return StartCoroutine(cman.MoveCamera(doors[n - 1].transform.position, 1.0f));
-//        Destroy(doors[n - 1]);
-//        yield return new WaitForSeconds(1.0f);
-//        // move camera back to original target
-//        yield return StartCoroutine(cman.MoveCamera(targetBackup, 1.0f));
-//        cman.EndCutScene();
-//    }
+		foreach (Vector2 v in sets[currentSetNumber]) {
+			GameObject o = (GameObject) putObstacle(v);
+			o.transform.parent = obstaclesParent.transform;
+		}
+
+		yield return StartCoroutine(obstaclesParent
+		                            .transform
+		                            .LinearMove(Vector3.down * 2f,
+		                                        Vector3.zero,
+		                                        CutSceneManager.SHORT_DELAY));
+    }
 
 	private void SwitchHandler(CompSwitch cs, CompSwitchLabel cwl)
 	{
@@ -154,15 +154,17 @@ public class CompStageMechanics : MonoBehaviour {
 		                                            .position
 		                                            .toVector2XZ()
 		                                            .toVector3XZ()
-		                                            , 1.0f));
+		                                            , CutSceneManager.SHORT_DELAY));
 		Destroy(door);
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(CutSceneManager.SHORT_DELAY);
 
-		yield return StartCoroutine(cman.moveCamera(iceRinkCenter.toVector3XZ(), 1.0f));
-		InitializeObstacles();
-		yield return new WaitForSeconds(1.0f);
+		yield return StartCoroutine(cman.moveCamera(iceRinkCenter.toVector3XZ(),
+		                                            CutSceneManager.SHORT_DELAY));
+		yield return StartCoroutine(ClearObstacles());
+		yield return StartCoroutine(InitializeObstacles());
+		yield return new WaitForSeconds(CutSceneManager.SHORT_DELAY);
 		
-		yield return StartCoroutine(cman.moveCamera(targetBackup, 1.0f));
+		yield return StartCoroutine(cman.moveCamera(targetBackup, CutSceneManager.SHORT_DELAY));
 		cman.EndCutScene();
 	}
 }
