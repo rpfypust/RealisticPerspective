@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Collections;
 
 public class MechBlock : MonoBehaviour {
 
-	private enum Direction {
+	public enum Direction {
 		NOT_APPLICABLE,
 		NORTH,
 		WEST,
@@ -10,95 +11,66 @@ public class MechBlock : MonoBehaviour {
 		EAST
 	}
 
-	private const float threshold = 1f;
-	private const float speed = 5f;
-	private const RigidbodyConstraints mask = ~(RigidbodyConstraints.FreezePositionX
-	                                            | RigidbodyConstraints.FreezePositionZ);
-
 	private CutSceneManager cman;
-
-	private float timer;
-	private Direction previousDir;
+	private MechStageMechanics mechanics;
+	private const float speed = 5f;
+	public bool IsMoving {get; private set;}
 
 	void Awake()
 	{
 		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
-
-		timer = 0f;
-		previousDir = Direction.NOT_APPLICABLE;
-	}
-
-	void OnCollisionEnter(Collision col)
-	{
-		rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-		Vector3 p = transform.position;
-		p.x = Mathf.Round(p.x);
-		p.y = Mathf.Round(p.y);
-		p.z = Mathf.Round(p.z);
-		transform.position = p;
-
-		cman.EndCutScene();
+		mechanics = transform.parent.GetComponent<MechStageMechanics>();
+		IsMoving = false;
 	}
 
 	void OnTriggerStay(Collider col)
 	{
-		if (col.tag == Tags.player)
-			slide(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+		if (col.tag == Tags.player
+		    && Input.GetButtonUp("Interact")
+		    && !IsMoving) {
+			Direction dir = inferDirection(col.transform);
+			if (Direction.NOT_APPLICABLE != dir) {
+				Vector3 p = mechanics.queryNewPosition(transform.position, dir);
+				if (p != transform.position)
+					StartCoroutine(moveCoroutine(p));
+			}
+		}
 	}
 
-	private Direction inferDirection(float h, float v)
+	private Direction inferDirection(Transform t)
 	{
-		if (h == 0 && v == 1f)
-			return Direction.NORTH;
-		if (h == 0 && v == -1f)
-			return Direction.SOUTH;
-		if (h == 1f && v == 0f)
-			return Direction.EAST;
-		if (h == -1f && v == 0f)
-			return Direction.WEST;
+		Vector2 p = transform.position.toVector2XZ() - t.position.toVector2XZ();
+		Vector2 dir = t.forward.toVector2XZ();
+
+		if (Vector2.Angle(p, dir) > 30f)
+			return Direction.NOT_APPLICABLE;
+
+		float x = dir.x;
+		float y = dir.y;
+		float absX = Mathf.Abs(x);
+		float absY = Mathf.Abs(y);
+
+		if (absX > absY) {
+			if (x > 0)
+				return Direction.EAST;
+			else
+				return Direction.WEST;
+		} else if (absY > absX) {
+			if (y > 0)
+				return Direction.NORTH;
+			else
+				return Direction.SOUTH;
+		}
+
 		return Direction.NOT_APPLICABLE;
 	}
 
-	private Vector3 makeVelocity(Direction dir)
+	private IEnumerator moveCoroutine(Vector3 dest)
 	{
-		Vector3 retval = Vector3.zero;
-		switch (dir) {
-		case Direction.NORTH:
-			retval = Vector3.forward;
-			break;
-		case Direction.SOUTH:
-			retval = Vector3.back;
-			break;
-		case Direction.WEST:
-			retval = Vector3.left;
-			break;
-		case Direction.EAST:
-			retval = Vector3.right;
-			break;
-		}
-		retval *= speed;
-		return retval;
-	}
-
-	private void move(Direction dir)
-	{
+		IsMoving = true;
 		cman.BeginCutScene();
-
-		rigidbody.constraints &= mask;
-		rigidbody.velocity = makeVelocity(dir);
-	}
-
-	private void slide(float h, float v)
-	{
-		Direction dir = inferDirection(h, v);
-
-		if (timer > threshold) {
-			move(dir);
-			timer = 0f;
-		} else if (Direction.NOT_APPLICABLE != previousDir && dir == previousDir)
-			timer += Time.deltaTime;
-		else
-			timer = 0f;
-		previousDir = dir;
+		yield return StartCoroutine(transform.LinearMoveWithSpeed(transform.position, dest, speed));
+		cman.EndCutScene();
+		IsMoving = false;
 	}
 }
