@@ -30,7 +30,7 @@ public class CharControl : MonoBehaviour
 		CutSceneManager.OnCutSceneEnd += handleCutSceneEnd;
 	}
 
-	void OnDestory()
+	void OnDestroy()
 	{
 		CutSceneManager.OnCutSceneStart -= handleCutSceneStart;
 		CutSceneManager.OnCutSceneEnd -= handleCutSceneEnd;
