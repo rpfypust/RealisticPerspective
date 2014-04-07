@@ -49,16 +49,18 @@ public class MechStageMechanics : MonoBehaviour {
 				new Vector2(4f, 63f)
 			}
 		};
-
-		initializeGrid();
 	}
 
-	private void initializeGrid()
+	private IEnumerator initializeGrid()
 	{
 		grid = new MechGrid(gridWidth, gridHeight);
 		for (int i = 0; i < blocks.Length; i++) {
 			// set blocks to initial positions
-			blocks[i].transform.position = blockPositions[setNum][i].toVector3XZ();
+			Vector3 startPos = blocks[i].transform.position;
+			Vector3 endPos = blockPositions[setNum][i].toVector3XZ();
+			if (startPos != endPos)
+				yield return StartCoroutine(blocks[i].MoveWithinTime(endPos, 0.2f));
+//			blocks[i].transform.position = blockPositions[setNum][i].toVector3XZ();
 			// convert world position to grid indices
 			Vector2 p = fromWorldToGrid(blocks[i].transform.position.toVector2XZ());
 			int row = (int) p.x;
@@ -71,7 +73,7 @@ public class MechStageMechanics : MonoBehaviour {
 	{
 		if (col.tag == Tags.player &&
 		    unlocked != switches.Length) {
-			initializeGrid();
+			StartCoroutine(initializeGrid());
 		}
 	}
 

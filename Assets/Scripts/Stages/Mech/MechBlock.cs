@@ -32,7 +32,7 @@ public class MechBlock : MonoBehaviour {
 			if (Direction.NOT_APPLICABLE != dir) {
 				Vector3 p = mechanics.queryNewPosition(transform.position, dir);
 				if (p != transform.position)
-					StartCoroutine(moveCoroutine(p));
+					StartCoroutine(MoveWithDefaultSpeed(p));
 			}
 		}
 	}
@@ -65,11 +65,20 @@ public class MechBlock : MonoBehaviour {
 		return Direction.NOT_APPLICABLE;
 	}
 
-	private IEnumerator moveCoroutine(Vector3 dest)
+	public IEnumerator MoveWithDefaultSpeed(Vector3 dest)
 	{
 		IsMoving = true;
 		cman.BeginCutScene();
 		yield return StartCoroutine(transform.LinearMoveWithSpeed(transform.position, dest, speed));
+		cman.EndCutScene();
+		IsMoving = false;
+	}
+
+	public IEnumerator MoveWithinTime(Vector3 dest, float t)
+	{
+		IsMoving = true;
+		cman.BeginCutScene();
+		yield return StartCoroutine(transform.LinearMoveWithTime(transform.position, dest, t));
 		cman.EndCutScene();
 		IsMoving = false;
 	}
