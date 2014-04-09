@@ -25,6 +25,7 @@ public class Slime : Monster {
 
 	public override void attack(Vector3 target) {
 		Vector3 p = transform.position;
+		p.y = 0.5f;
 		Vector3 v = (target.toVector2XZ() - p.toVector2XZ())
 			.toVector3XZ().normalized * bulletSpeed;
 		UniformMotion um = BulletFactory.CreateUniformMotionBullet(p, v, bulletLife);
