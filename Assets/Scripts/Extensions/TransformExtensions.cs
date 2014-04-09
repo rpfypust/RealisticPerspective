@@ -41,4 +41,22 @@ public static class TransformExtensions {
 		
 		t.position = end;
 	}
+
+	public static IEnumerator ScaleWithTime(this Transform t,
+	                                        Vector3 start,
+	                                        Vector3 end,
+	                                        float duration)
+	{
+		t.localScale = start;
+
+		Vector3 step = (end - start) / duration * Time.fixedDeltaTime;
+		float startTime = Time.time;
+
+		while (Time.time - startTime <= duration) {
+			t.localScale += step;
+			yield return new WaitForFixedUpdate();
+		}
+
+		t.localScale = end;
+	}
 }
