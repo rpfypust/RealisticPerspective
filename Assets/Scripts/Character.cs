@@ -25,6 +25,12 @@ public class Character : MonoBehaviour {
 
 	public virtual void takeDamage(float damage) {
 		HP -= damage;
+		if (!isAlive())
+			die();
+	}
+
+	public virtual void die() {
+		
 	}
 
 	public virtual void heal(float value) {
