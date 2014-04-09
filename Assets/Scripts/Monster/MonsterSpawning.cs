@@ -7,7 +7,7 @@ public class MonsterSpawning : MonoBehaviour {
 	public delegate void MonsterNumDecreasedHandler(int remaining);
 	public event MonsterNumDecreasedHandler OnMonsterNumDecreased;
 
-    public int maxNumMonsters = 1;
+    public int maxNumMonsters;
     public GameObject monsterPrefab;
 
 	private BoxCollider boxCollider;
@@ -21,7 +21,7 @@ public class MonsterSpawning : MonoBehaviour {
 	}
     
     void Start() {
-		monsters = new List<GameObject>(maxNumMonsters);
+		monsters = new List<GameObject>();
 		spawningRect = calculateBoundingRect();
     }
 
@@ -48,8 +48,11 @@ public class MonsterSpawning : MonoBehaviour {
 	}
 
 	public void spawn() {
-		if (monsters.Count < monsters.Capacity) {
-			monsters.Add(MonsterFactory.createMonster(monsterPrefab, randomPosition(), randomOrientation(), spawningRect));
+		while (monsters.Count < maxNumMonsters) {
+			monsters.Add(MonsterFactory.createMonster(monsterPrefab,
+			                                          randomPosition(),
+			                                          randomOrientation(),
+			                                          spawningRect));
 		}
 	}
 
