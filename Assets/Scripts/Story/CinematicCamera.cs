@@ -12,13 +12,13 @@ public class CinematicCamera : MonoBehaviour {
 		fader = GetComponent<Fader>();
 	}
 
-	public IEnumerator orbitMotion(Transform center, float angle)
+	public IEnumerator orbitMotion(Transform center, float angle, float speed)
 	{	
 		transform.parent = center;
 
 		Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
 
-		float duration = angle / 30.0f;
+		float duration = angle / speed;
 
 		float elapsedTime = 0;
 
@@ -35,6 +35,7 @@ public class CinematicCamera : MonoBehaviour {
 	{	
 		Vector3 dest = transform.position + transform.forward.normalized * percentage;
 		yield return StartCoroutine(transform.LinearMoveWithSpeed(transform.position, dest, speed));
+
 	}
 
 	public IEnumerator SolidBlack(float duration = 1f)
