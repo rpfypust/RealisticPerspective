@@ -70,6 +70,7 @@ public class StoryEngB : Plot {
 	
 	protected override IEnumerator sequencer()
 	{
+		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
 
 		dman.openDialog();
@@ -78,16 +79,18 @@ public class StoryEngB : Plot {
 
 		StartCoroutine(alice.run(waypoints[0]));
 		yield return StartCoroutine(alpha.run(waypoints[1]));
-		yield return StartCoroutine(cam.orbitMotion(waypoints[2], 55));
+		yield return StartCoroutine(cam.orbitMotion(waypoints[2], 55, 30));
 
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
 		yield return StartCoroutine(base.interactToProceed());
-		dman.clearEmotion();
 
 		yield return StartCoroutine(alpha.faceTo(alice.transform));
 		yield return StartCoroutine(alice.faceTo(alpha.transform));
+		yield return StartCoroutine(alpha.move(waypoints[3]));
 
-		yield return StartCoroutine(cam.zoom(1.5f, 2));
+		yield return StartCoroutine(cam.zoom(2f, 2));
+
+		StartCoroutine(cam.orbitMotion(waypoints[2], 180, 0.4f));
 
 		for (int index = 1; index < 33; index++) {
 			switch(dialogs[index].Speaker)
@@ -96,12 +99,14 @@ public class StoryEngB : Plot {
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
 				yield return StartCoroutine(base.interactToProceed());
 				break;
+
 			case "Girl": case "Alice":
 				yield return StartCoroutine(dman.display(dialogs[index],alice.EmotionPt));
 				yield return StartCoroutine(base.interactToProceed());
 				break;
+
 			default:
-				yield return StartCoroutine(dman.display(dialogs[index]));
+				yield return StartCoroutine(dman.display(dialogs[index]));;
 				yield return StartCoroutine(base.interactToProceed());
 				break;
 			}
@@ -113,21 +118,20 @@ public class StoryEngB : Plot {
 		yield return StartCoroutine(base.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[34],alice.EmotionPt));
 		yield return StartCoroutine(base.interactToProceed());
-		dman.clearEmotion();
 
-		StartCoroutine(cam.orbitMotion(waypoints[2], 135));
+		StartCoroutine(cam.orbitMotion(waypoints[2], 135, 30));
 
-		//Alice run to class
-		yield return StartCoroutine(alice.run(waypoints[3]));
+		//Alice run to class 
+		//Steps sound
+		yield return StartCoroutine(alice.run(waypoints[4]));
 		yield return StartCoroutine(alice.faceTo(alpha.transform));
 
 		yield return StartCoroutine(dman.display(dialogs[35],alice.EmotionPt));
 		yield return StartCoroutine(base.interactToProceed());
-		dman.clearEmotion();
 
 		//Alice run & disappear
 		StartCoroutine(alice.alphaChange(0));
-		StartCoroutine(alice.run(waypoints[4]));
+		StartCoroutine(alice.run(waypoints[5]));
 
 		for (int index = 36; index < dialogs.Count; index++) {
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));

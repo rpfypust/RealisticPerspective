@@ -13,7 +13,7 @@ public class DialogManager : MonoBehaviour, IDrawable {
 	private string speaker;
 	private string content;
 	private int emotion;
-	private Vector3 emotionPt;
+	private Transform emotionPoint;
 	public int iconSize = 300;
 
 	public Texture[] emotionIcons;
@@ -33,8 +33,8 @@ public class DialogManager : MonoBehaviour, IDrawable {
 		gman.register(this);
 		speaker = "";
 		content = "";
-		emotion = 0;
-		emotionPt = new Vector3();
+		emotion = -1;
+		emotionPoint = null;
 	}
 	
 	public void closeDialog()
@@ -64,9 +64,7 @@ public class DialogManager : MonoBehaviour, IDrawable {
 		emotion = d.Emotion;
 		for (int i = 0; i <= d.Content.Length; i++) {
 			content = d.Content.Substring(0, i);
-			emotionPt = Camera.main.WorldToViewportPoint(ePt.position);
-			emotionPt.x = emotionPt.x * screenWidth - iconSize/2/emotionPt.z;
-			emotionPt.y = (1 - emotionPt.y )* screenHeight - iconSize/2/emotionPt.z;
+			emotionPoint = ePt;
 			yield return new WaitForSeconds(waitInterval);
 		}
 	}
@@ -99,6 +97,9 @@ public class DialogManager : MonoBehaviour, IDrawable {
 
 		if(emotion!=-1)
 		{
+			Vector3 emotionPt = Camera.main.WorldToViewportPoint(emotionPoint.position);
+			emotionPt.x = emotionPt.x * screenWidth - iconSize/2/emotionPt.z;
+			emotionPt.y = (1 - emotionPt.y )* screenHeight - iconSize/2/emotionPt.z;
 			GUI.DrawTexture(new Rect(emotionPt.x, emotionPt.y, iconSize/emotionPt.z, iconSize/emotionPt.z), emotionIcons[emotion], ScaleMode.StretchToFill, true, 10.0F);
 		}
 

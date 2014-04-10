@@ -27,6 +27,6 @@ public class StoryTest : Plot {
 	
 	protected override IEnumerator sequencer()
 	{	
-		yield return StartCoroutine(cam.orbitMotion(targets[0], 0));
+		yield return StartCoroutine(cam.orbitMotion(targets[0], 0, 30));
 	}
 }
