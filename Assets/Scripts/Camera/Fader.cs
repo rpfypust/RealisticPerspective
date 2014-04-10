@@ -22,6 +22,13 @@ public class Fader : MonoBehaviour, IDrawable {
 		GUI.DrawTexture(new Rect(0f, 0f, screenWidth, screenHeight), tex);
 	}
 
+	public IEnumerator SolidBlack(float duration)
+	{
+		tex.SetPixel(0, 0, Color.black);
+		tex.Apply();
+		yield return new WaitForSeconds(duration);
+	}
+
 	public IEnumerator Fade(float start, float end, float duration)
 	{
 		Color color = Color.black;

@@ -71,17 +71,19 @@ public class MechStageMechanics : MonoBehaviour {
 	private IEnumerator puzzleActivation()
 	{
 		cman.BeginCutScene();
-		yield return StartCoroutine(cman.FadeIn());
-		togglePuzzle(true);
 
+		yield return StartCoroutine(cman.FadeIn());
+
+		togglePuzzle(true);
 		// set player to start point so that he will never intercept with blocks
 		GameObject o = GameObject.FindGameObjectWithTag(Tags.player).transform.parent.gameObject;
 		o.transform.position = playerStartPoint.position;
 		o.transform.rotation = Quaternion.identity;
-		StartCoroutine(cman.moveCamera(o.transform.position, 1f));
 
-		yield return new WaitForSeconds(1f);
+		StartCoroutine(cman.moveCamera(o.transform.position, 1f));
+		yield return StartCoroutine(cman.SolidBlack());
 		yield return StartCoroutine(cman.FadeOut());
+
 		cman.EndCutScene();
 		puzzleActivated = true;
 	}
