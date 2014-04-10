@@ -37,15 +37,24 @@ public class CinematicCamera : MonoBehaviour {
 		yield return StartCoroutine(transform.LinearMoveWithSpeed(transform.position, dest, speed));
 	}
 
-	public IEnumerator FadeIn()
+	public IEnumerator SolidBlack(float duration = 1f)
 	{
 		gman.register(fader);
-		yield return StartCoroutine(fader.Fade(0f, 1f, 1f));
+		yield return StartCoroutine(fader.SolidBlack(duration));
+		gman.unregister(fader);
 	}
 	
-	public IEnumerator FadeOut()
+	public IEnumerator FadeIn(float duration = 1f)
 	{
-		yield return StartCoroutine(fader.Fade(1f, 0f, 1f));
+		gman.register(fader);
+		yield return StartCoroutine(fader.Fade(0f, 1f, duration));
+		gman.unregister(fader);
+	}
+	
+	public IEnumerator FadeOut(float duration = 1f)
+	{
+		gman.register(fader);
+		yield return StartCoroutine(fader.Fade(1f, 0f, duration));
 		gman.unregister(fader);
 	}
 }

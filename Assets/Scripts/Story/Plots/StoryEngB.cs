@@ -70,7 +70,7 @@ public class StoryEngB : Plot {
 	
 	protected override IEnumerator sequencer()
 	{
-		//yield return StartCoroutine(cam.FadeOut());
+		StartCoroutine(cam.FadeOut());
 
 		dman.openDialog();
 
@@ -136,6 +136,6 @@ public class StoryEngB : Plot {
 
 		dman.closeDialog();
 
-		//yield return StartCoroutine(cam.FadeIn());
+		yield return StartCoroutine(cam.FadeIn());
 	}
 }
