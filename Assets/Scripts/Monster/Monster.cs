@@ -4,6 +4,9 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Monster : Character {
 
+	public delegate void MonsterDiedHandler(Monster m);
+	public event MonsterDiedHandler OnMonsterDie;
+
 	public enum ActionType {
 		none,
 		chasing,
@@ -135,7 +138,8 @@ public class Monster : Character {
 	}
 
 	public override void die() {
-		// TODO: add effect
+		if (OnMonsterDie != null)
+			OnMonsterDie(this);
 		Destroy(gameObject);
 	}
 

@@ -6,12 +6,15 @@ public class MechStageMechanics : MonoBehaviour {
 
 	private List<List<Vector2>> blockPositions;
 
+	public Transform playerStartPoint;
+
 	private CutSceneManager cman;
 	public GameObject door;
 	public GameObject block;
 	public int setNum;
 	private MechSwitch[] switches;
 	private MechBlock[] blocks;
+	private MonsterSpawning spawner;
 
 	private MechGrid grid;
 	public Vector2 gridOrigin;
@@ -21,6 +24,7 @@ public class MechStageMechanics : MonoBehaviour {
 	private readonly Vector2 offset = new Vector2(-1f, -1f);
 
 	private int unlocked;
+	private bool puzzleActivated;
 
 	void Awake()
 	{
@@ -28,8 +32,10 @@ public class MechStageMechanics : MonoBehaviour {
 
 		switches = GetComponentsInChildren<MechSwitch>();
 		blocks = GetComponentsInChildren<MechBlock>();
+		spawner = GetComponentInChildren<MonsterSpawning>();
 
 		unlocked = 0;
+		puzzleActivated = false;
 
 
 		blockPositions = new List<List<Vector2>> {
@@ -49,6 +55,43 @@ public class MechStageMechanics : MonoBehaviour {
 				new Vector2(4f, 63f)
 			}
 		};
+	}
+
+	void Start()
+	{
+		togglePuzzle(false);
+		spawner.OnMonsterClear += monsterClearHandler;
+	}
+
+	private void monsterClearHandler()
+	{
+		StartCoroutine(puzzleActivation());
+	}
+
+	private IEnumerator puzzleActivation()
+	{
+		cman.BeginCutScene();
+		yield return StartCoroutine(cman.FadeIn());
+		togglePuzzle(true);
+
+		// set player to start point so that he will never intercept with blocks
+		GameObject o = GameObject.FindGameObjectWithTag(Tags.player).transform.parent.gameObject;
+		o.transform.position = playerStartPoint.position;
+		o.transform.rotation = Quaternion.identity;
+		StartCoroutine(cman.moveCamera(o.transform.position, 1f));
+
+		yield return new WaitForSeconds(1f);
+		yield return StartCoroutine(cman.FadeOut());
+		cman.EndCutScene();
+		puzzleActivated = true;
+	}
+
+	private void togglePuzzle(bool b)
+	{
+		for (int i = 0; i < blocks.Length; i++)
+			blocks[i].gameObject.SetActive(b);
+		for (int i = 0; i < switches.Length; i++)
+			switches[i].gameObject.SetActive(b);
 	}
 
 	private IEnumerator initializeGrid()
@@ -71,8 +114,9 @@ public class MechStageMechanics : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.tag == Tags.player &&
-		    unlocked != switches.Length) {
+		if (col.tag == Tags.player
+		    && puzzleActivated
+		    && unlocked != switches.Length) {
 			StartCoroutine(initializeGrid());
 		}
 	}
