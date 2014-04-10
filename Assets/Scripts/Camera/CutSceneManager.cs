@@ -16,11 +16,13 @@ public class CutSceneManager : MonoBehaviour {
 	private GUIManager gman;
     private StageCameraView camScript;
     private Letterbox letterbox;
+	private Fader fader;
 
     void Awake() {
 		gman = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GUIManager>();
         camScript = GetComponent<StageCameraView>();
         letterbox = GetComponent<Letterbox>();
+		fader = GetComponent<Fader>();
     }
 
 	public void BeginCutScene() {
@@ -42,6 +44,18 @@ public class CutSceneManager : MonoBehaviour {
             yield return new WaitForFixedUpdate();
         }
     }
+
+	public IEnumerator FadeIn()
+	{
+		gman.register(fader);
+		yield return StartCoroutine(fader.Fade(0f, 1f, 1f));
+	}
+
+	public IEnumerator FadeOut()
+	{
+		yield return StartCoroutine(fader.Fade(1f, 0f, 1f));
+		gman.unregister(fader);
+	}
 
     public void EndCutScene() {
         // disable letterbox
