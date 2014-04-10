@@ -26,7 +26,7 @@ public class CharAnimation : MonoBehaviour {
 	private void handleCutSceneStart()
 	{
 		enabled = false;
-		AnimationHandle(0f, 0f, false, false, false);
+		AnimationHandle(0f, 0f, false, false, true);
 	}
 	
 	private void handleCutSceneEnd()
