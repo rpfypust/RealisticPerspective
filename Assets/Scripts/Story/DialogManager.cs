@@ -42,6 +42,11 @@ public class DialogManager : MonoBehaviour, IDrawable {
 		gman.unregister(this);
 	}
 
+	public void clearEmotion()
+	{
+		emotion = -1;
+	}
+
 	public IEnumerator display(Dialog d)
 	{
 		speaker = d.Speaker;
@@ -69,7 +74,7 @@ public class DialogManager : MonoBehaviour, IDrawable {
 	public void DrawOnGUI()
 	{
 		Color tmpColor = GUI.color;
-		GUI.color = new Color(1,1,1,0.8f);
+		GUI.color = new Color(1,1,1,0.95f);
 
 		GUIStyle nameStyle = new GUIStyle(GUI.skin.textArea);
 		nameStyle.alignment = TextAnchor.MiddleCenter;
@@ -83,10 +88,10 @@ public class DialogManager : MonoBehaviour, IDrawable {
 
 		GUIStyle textStyle = new GUIStyle(GUI.skin.textArea);
 		textStyle.alignment = TextAnchor.UpperLeft;
-		textStyle.contentOffset = new Vector2(30,40);
 		textStyle.fixedHeight = screenHeight-810;
 		textStyle.fixedWidth = screenWidth;
 		textStyle.fontSize = 50;
+		textStyle.padding = new RectOffset(30,30,40,40);
 
 		GUILayout.BeginArea(new Rect(0, 810, screenWidth, screenHeight-810), GUI.skin.box);
 		GUILayout.Label(content, textStyle);
