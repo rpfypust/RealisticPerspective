@@ -16,10 +16,12 @@ public class MechSwitch : MonoBehaviour {
 	{
 		if (!isOn
 		    && col.tag == Tags.mechBlock
-		    && col.rigidbody.velocity == Vector3.zero
 		    && OnSwitchOn != null) {
-			isOn = true;
-			OnSwitchOn();
+			MechBlock b = col.GetComponent<MechBlock>();
+			if (!b.IsMoving) {
+				isOn = true;
+				OnSwitchOn();
+			}
 		}
 	}
 

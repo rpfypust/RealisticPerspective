@@ -5,6 +5,7 @@ using System.Collections;
 public class Actor : MonoBehaviour {
 
 	public float moveSpeed = 1f;
+	public float runSpeed = 1.5f;
 	public float fadeTime = 0.1f;
 	public float rotateTime = 1f;
 	public Transform EmotionPt;
@@ -19,12 +20,16 @@ public class Actor : MonoBehaviour {
 	{	
 		transform.LookAt(target.position);
 		GetComponent<Animator>().SetBool(hash.walkingBool,true);
-		while(transform.position != target.position)
-		{
-			transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-			yield return null;
-		}
+		yield return StartCoroutine(transform.LinearMoveWithSpeed(transform.position, target.position, moveSpeed));
 		GetComponent<Animator>().SetBool(hash.walkingBool,false);
+	}
+
+	public IEnumerator run(Transform target)
+	{	
+		transform.LookAt(target.position);
+		GetComponent<Animator>().SetBool(hash.runningBool,true);
+		yield return StartCoroutine(transform.LinearMoveWithSpeed(transform.position, target.position, runSpeed));
+		GetComponent<Animator>().SetBool(hash.runningBool,false);
 	}
 
 	public IEnumerator alphaChange(float alpha)
@@ -39,7 +44,7 @@ public class Actor : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator faceTo(GameObject target)
+	public IEnumerator faceTo(Transform target)
 	{	
 		Quaternion rotation = Quaternion.LookRotation(target.transform.position - transform.position);
 		float elpasedTime = 0;

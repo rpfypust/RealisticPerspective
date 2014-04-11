@@ -44,6 +44,25 @@ public sealed class MonsterAI : MonoBehaviour {
 		isAlerted = false;
 		alertArea.radius = sightDepth;
 		mask = 1 << layers.player;
+
+		CutSceneManager.OnCutSceneStart += OnCutSceneStartHandler;
+		CutSceneManager.OnCutSceneEnd += OnCutSceneEndHandler;
+	}
+
+	void OnDestroy()
+	{
+		CutSceneManager.OnCutSceneStart -= OnCutSceneStartHandler;
+		CutSceneManager.OnCutSceneEnd -= OnCutSceneEndHandler;
+	}
+	
+	void OnCutSceneStartHandler()
+	{
+		enabled = false;
+	}
+	
+	void OnCutSceneEndHandler()
+	{
+		enabled = true;
 	}
 
 	void OnTriggerStay(Collider other) {

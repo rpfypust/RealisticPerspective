@@ -11,7 +11,8 @@ public class StoryEngA : Plot {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
 
-		dialogs = new List<Dialog>();
+		dialogs = new List<Dialog>();		
+
 		dialogs.Add(new Dialog("Professor", "Ridiculous! Who's producing that noise?",2));
 		dialogs.Add(new Dialog("Girl", "Hey, wake up! Professor's about to get angry..."));
 		dialogs.Add(new Dialog("Boy", "Zzz..."));
@@ -31,8 +32,8 @@ public class StoryEngA : Plot {
 		dialogs.Add(new Dialog("Girl", "Hey, we better run!",3));
 		dialogs.Add(new Dialog("Boy", "What?",3));
 		dialogs.Add(new Dialog("Professor", "Freeze!",3));
+		
 	}
-
 
 	public void Start()
 	{

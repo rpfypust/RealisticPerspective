@@ -13,7 +13,7 @@ public class DialogManager : MonoBehaviour, IDrawable {
 	private string speaker;
 	private string content;
 	private int emotion;
-	private Vector3 emotionPt;
+	private Transform emotionPoint;
 	public int iconSize = 300;
 
 	public Texture[] emotionIcons;
@@ -33,13 +33,18 @@ public class DialogManager : MonoBehaviour, IDrawable {
 		gman.register(this);
 		speaker = "";
 		content = "";
-		emotion = 0;
-		emotionPt = new Vector3();
+		emotion = -1;
+		emotionPoint = null;
 	}
 	
 	public void closeDialog()
 	{
 		gman.unregister(this);
+	}
+
+	public void clearEmotion()
+	{
+		emotion = -1;
 	}
 
 	public IEnumerator display(Dialog d)
@@ -59,9 +64,7 @@ public class DialogManager : MonoBehaviour, IDrawable {
 		emotion = d.Emotion;
 		for (int i = 0; i <= d.Content.Length; i++) {
 			content = d.Content.Substring(0, i);
-			emotionPt = Camera.main.WorldToViewportPoint(ePt.position);
-			emotionPt.x = emotionPt.x * screenWidth - iconSize/2/emotionPt.z;
-			emotionPt.y = (1 - emotionPt.y )* screenHeight - iconSize/2/emotionPt.z;
+			emotionPoint = ePt;
 			yield return new WaitForSeconds(waitInterval);
 		}
 	}
@@ -69,7 +72,7 @@ public class DialogManager : MonoBehaviour, IDrawable {
 	public void DrawOnGUI()
 	{
 		Color tmpColor = GUI.color;
-		GUI.color = new Color(1,1,1,0.8f);
+		GUI.color = new Color(1,1,1,0.95f);
 
 		GUIStyle nameStyle = new GUIStyle(GUI.skin.textArea);
 		nameStyle.alignment = TextAnchor.MiddleCenter;
@@ -83,10 +86,10 @@ public class DialogManager : MonoBehaviour, IDrawable {
 
 		GUIStyle textStyle = new GUIStyle(GUI.skin.textArea);
 		textStyle.alignment = TextAnchor.UpperLeft;
-		textStyle.contentOffset = new Vector2(30,40);
 		textStyle.fixedHeight = screenHeight-810;
 		textStyle.fixedWidth = screenWidth;
 		textStyle.fontSize = 50;
+		textStyle.padding = new RectOffset(30,30,40,40);
 
 		GUILayout.BeginArea(new Rect(0, 810, screenWidth, screenHeight-810), GUI.skin.box);
 		GUILayout.Label(content, textStyle);
@@ -94,6 +97,9 @@ public class DialogManager : MonoBehaviour, IDrawable {
 
 		if(emotion!=-1)
 		{
+			Vector3 emotionPt = Camera.main.WorldToViewportPoint(emotionPoint.position);
+			emotionPt.x = emotionPt.x * screenWidth - iconSize/2/emotionPt.z;
+			emotionPt.y = (1 - emotionPt.y )* screenHeight - iconSize/2/emotionPt.z;
 			GUI.DrawTexture(new Rect(emotionPt.x, emotionPt.y, iconSize/emotionPt.z, iconSize/emotionPt.z), emotionIcons[emotion], ScaleMode.StretchToFill, true, 10.0F);
 		}
 

@@ -4,6 +4,9 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Monster : Character {
 
+	public delegate void MonsterDiedHandler(Monster m);
+	public event MonsterDiedHandler OnMonsterDie;
+
 	public enum ActionType {
 		none,
 		chasing,
@@ -39,7 +42,29 @@ public class Monster : Character {
 		patrolIntervalTimer = patrolInterval;
 		attackIntervalTimer = attackInterval;
 
+		CutSceneManager.OnCutSceneStart += OnCutSceneStartHandler;
+		CutSceneManager.OnCutSceneEnd += OnCutSceneEndHandler;
+
 		born();
+	}
+
+	protected void OnDestroy()
+	{
+		CutSceneManager.OnCutSceneStart -= OnCutSceneStartHandler;
+		CutSceneManager.OnCutSceneEnd -= OnCutSceneEndHandler;
+	}
+
+	protected void OnCutSceneStartHandler()
+	{
+		enabled = false;
+		// stop moving
+		agent.Stop();
+		// stop animation
+	}
+
+	protected void OnCutSceneEndHandler()
+	{
+		enabled = true;
 	}
 
 	protected virtual void Update() {
@@ -112,8 +137,10 @@ public class Monster : Character {
 		Instantiate(bornEffect, transform.position, bornEffect.transform.rotation);
 	}
 
-	public virtual void die() {
-
+	public override void die() {
+		if (OnMonsterDie != null)
+			OnMonsterDie(this);
+		Destroy(gameObject);
 	}
 
 	public bool canLaunchAttack(Vector3 destination) {

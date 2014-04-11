@@ -9,16 +9,20 @@ public class CutSceneManager : MonoBehaviour {
 	public static event CutSceneEvent OnCutSceneStart;
 	public static event CutSceneEvent OnCutSceneEnd;
 
+	public const float SHORT_DELAY = 0.5f;
+
 	public Transform target;
 
 	private GUIManager gman;
     private StageCameraView camScript;
     private Letterbox letterbox;
+	private Fader fader;
 
     void Awake() {
 		gman = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GUIManager>();
         camScript = GetComponent<StageCameraView>();
         letterbox = GetComponent<Letterbox>();
+		fader = GetComponent<Fader>();
     }
 
 	public void BeginCutScene() {
@@ -40,6 +44,27 @@ public class CutSceneManager : MonoBehaviour {
             yield return new WaitForFixedUpdate();
         }
     }
+
+	public IEnumerator SolidBlack(float duration = 1f)
+	{
+		gman.register(fader);
+		yield return StartCoroutine(fader.SolidBlack(duration));
+		gman.unregister(fader);
+	}
+
+	public IEnumerator FadeIn(float duration = 1f)
+	{
+		gman.register(fader);
+		yield return StartCoroutine(fader.Fade(0f, 1f, duration));
+		gman.unregister(fader);
+	}
+
+	public IEnumerator FadeOut(float duration = 1f)
+	{
+		gman.register(fader);
+		yield return StartCoroutine(fader.Fade(1f, 0f, duration));
+		gman.unregister(fader);
+	}
 
     public void EndCutScene() {
         // disable letterbox

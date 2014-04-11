@@ -20,12 +20,12 @@ public class CharControl : MonoBehaviour
 		animator = GetComponent<Animator>();
 		charController = GetComponent<CharacterController>();
 		hash = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<HashIDs>();
+
+		vSpeed = 0f;
 	}
 
 	void Start()
 	{
-		vSpeed = 0f;
-
 		CutSceneManager.OnCutSceneStart += handleCutSceneStart;
 		CutSceneManager.OnCutSceneEnd += handleCutSceneEnd;
 	}
@@ -41,8 +41,8 @@ public class CharControl : MonoBehaviour
 		float h = Input.GetAxis("Horizontal");
 		float v = Input.GetAxis("Vertical");
 		bool slow = Input.GetButton("Slow");
-		bool jump = Input.GetButton("Jump");
-		AnimationHandle(h, v, slow);
+		bool jump = Input.GetButtonUp("Jump");
+//		bool jump = Input.GetButton("Jump");
 		Rotate(h, v, slow);
 		Move(h, v, slow, jump);
 	}
@@ -73,27 +73,9 @@ public class CharControl : MonoBehaviour
 		}
 	}
 
-	void AnimationHandle(float h, float v, bool slow)
-	{
-		if (!slow && (h != 0f || v != 0f))
-		{
-			animator.SetBool(hash.walkingBool, false);
-			animator.SetBool(hash.runningBool, true);
-		} else if (slow && (h != 0f || v != 0f))
-		{
-			animator.SetBool(hash.walkingBool, true);
-			animator.SetBool(hash.runningBool, false);
-		} else
-		{
-			animator.SetBool(hash.walkingBool, false);
-			animator.SetBool(hash.runningBool, false);
-		}
-	}
-
 	private void handleCutSceneStart()
 	{
 		enabled = false;
-		AnimationHandle(0f, 0f, false);
 	}
 
 	private void handleCutSceneEnd()
