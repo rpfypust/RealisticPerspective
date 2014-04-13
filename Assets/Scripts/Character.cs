@@ -15,6 +15,12 @@ public class Character : MonoBehaviour {
 		}
 	}
 
+	public float HPPercent {
+		get {
+			return hp / maxHP;
+		}
+	}
+
 	protected virtual void Awake() {
 		
 	}
