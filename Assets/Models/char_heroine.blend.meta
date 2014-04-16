@@ -23,6 +23,27 @@ ModelImporter:
     100034: upper_body
     100036: upper_leg_L
     100038: upper_leg_R
+    100040: armature
+    100042: chest
+    100044: fingers_L
+    100046: fingers_R
+    100048: forearm_L
+    100050: forearm_R
+    100052: heel_L
+    100054: heel_R
+    100056: hips
+    100058: neck
+    100060: shin_L
+    100062: shin_R
+    100064: shoulder_L
+    100066: shoulder_R
+    100068: spine
+    100070: thigh_L
+    100072: thigh_R
+    100074: thumb_L
+    100076: thumb_R
+    100078: toe_L
+    100080: toe_R
     400000: Armature
     400002: //RootNode
     400004: Ears
@@ -43,6 +64,27 @@ ModelImporter:
     400034: upper_body
     400036: upper_leg_L
     400038: upper_leg_R
+    400040: armature
+    400042: chest
+    400044: fingers_L
+    400046: fingers_R
+    400048: forearm_L
+    400050: forearm_R
+    400052: heel_L
+    400054: heel_R
+    400056: hips
+    400058: neck
+    400060: shin_L
+    400062: shin_R
+    400064: shoulder_L
+    400066: shoulder_R
+    400068: spine
+    400070: thigh_L
+    400072: thigh_R
+    400074: thumb_L
+    400076: thumb_R
+    400078: toe_L
+    400080: toe_R
     4300000: Ears
     7400000: Default Take
     7400002: Idle
