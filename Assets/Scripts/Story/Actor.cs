@@ -101,7 +101,7 @@ public class Actor : MonoBehaviour {
 		}
 		GameObject particle = (GameObject) Instantiate(tunnelParticle, transform.position , Quaternion.Euler(new Vector3(-90,0,0)));
 		yield return new WaitForSeconds(1.5f);
-		StartCoroutine(transform.ScaleWithTime(normalScale,finalScale,0.2f));
+		StartCoroutine(transform.ScaleWithTime(normalScale,finalScale,0.1f));
 		yield return null;
 
 	}
