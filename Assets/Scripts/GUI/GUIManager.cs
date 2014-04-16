@@ -12,7 +12,7 @@ public class GUIManager : MonoBehaviour {
 	public const float width = 1920.0f;
 	public const float height = 1080.0f;
 
-	Matrix4x4 m;
+	private Matrix4x4 m;
 	private List<IDrawable> list = new List<IDrawable>();
 
 	void Awake() {
@@ -24,9 +24,22 @@ public class GUIManager : MonoBehaviour {
 		                  new Vector3(scaleFactor, scaleFactor, 1.0f));
 	}
 
+	private int priority(IDrawable idrawable)
+	{
+		if (idrawable.GetType() == typeof(Player)
+		    || idrawable.GetType() == typeof(DummyBoss)) {
+			return 0;
+		} else if (idrawable.GetType() == typeof(HUD)) {
+			return 1;
+		} else {
+			return 2;
+		}
+	}
+
 	public bool register(IDrawable component) {
 		if (!isRegistered(component)) {
 			list.Add(component);
+			list.Sort((x, y) => priority(x).CompareTo(priority(y)));
 			return true;
 		}
 		return false;

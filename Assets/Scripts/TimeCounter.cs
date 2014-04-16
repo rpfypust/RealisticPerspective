@@ -1,31 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TimeCounter : MonoBehaviour {
+public sealed class TimeCounter : MonoBehaviour, IDrawable {
 	
 	private float time;
-	
-	void Start () {
-		time = 0.0f;
+	private bool running;
+
+	private GUIManager gman;
+
+	private void Awake()
+	{
+		gman = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GUIManager>();
 	}
 
-    void Update() {
-        time += Time.deltaTime;
+    public void startTimer() {
+		StartCoroutine(countUp());
+		gman.register(this);
     }
 
-    public void startTimer() {
-        time = 0.0f;
-        this.enabled = true;
-    }
+	private IEnumerator countUp()
+	{
+		running = true;
+		time = 0.0f;
+		while (running) {
+			time += Time.deltaTime;
+			yield return new WaitForFixedUpdate();
+		}
+	}
 
     public float stopTimer() {
-        this.enabled = false;
-        return time;
+		running = false;
+		gman.unregister(this);
+		return time;
     }
-	
-	public float getCurrentTime {
-		get {
-			return time;
-		}		
+
+	public void DrawOnGUI()
+	{
+		GUI.skin = null;
+
+		GUIStyle style = new GUIStyle();
+		style.fontSize = 28;
+		style.normal.textColor = Color.black;
+		style.alignment = TextAnchor.MiddleRight;
+
+		int secs = (int) time;
+		int mins = secs / 60;
+		secs = secs % 60;
+		int fraction = ((int) (time * 100f) % 100);
+		string s = string.Format("{0:00}:{1:00}.{2:00}", mins, secs, fraction);
+		GUI.Label(new Rect(1780, 40, 120, 20), s, style);
 	}
 }

@@ -81,6 +81,7 @@ public class MechStageMechanics : MonoBehaviour {
 		o.transform.rotation = Quaternion.identity;
 
 		StartCoroutine(cman.moveCamera(o.transform.position, 1f));
+		StartCoroutine(initializeGrid());
 		yield return StartCoroutine(cman.SolidBlack());
 		yield return StartCoroutine(cman.FadeOut());
 
