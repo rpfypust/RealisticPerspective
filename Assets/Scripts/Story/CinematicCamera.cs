@@ -12,18 +12,15 @@ public class CinematicCamera : MonoBehaviour {
 		fader = GetComponent<Fader>();
 	}
 
-	public IEnumerator orbitMotion(Transform center, float angle, float speed)
+	public IEnumerator orbitMotion(Transform center, float angle, float time)
 	{	
 		transform.parent = center;
 
-		Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
-
-		float duration = angle / speed;
-
+		float step =  angle / time;
 		float elapsedTime = 0;
 
-		while (elapsedTime <= duration) {
-			center.transform.rotation = Quaternion.RotateTowards(center.transform.rotation, rotation, elapsedTime/duration);
+		while (elapsedTime <= time) {
+			center.transform.Rotate(0, step*Time.fixedDeltaTime, 0);
 			elapsedTime += Time.fixedDeltaTime;
 			yield return new WaitForFixedUpdate();
 		}

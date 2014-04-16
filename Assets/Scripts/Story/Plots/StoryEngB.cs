@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 public class StoryEngB : Plot {
@@ -73,24 +73,22 @@ public class StoryEngB : Plot {
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
 
+		StartCoroutine(alice.runWithSpeed(waypoints[0],3));
+		yield return StartCoroutine(alpha.runWithSpeed(waypoints[1],2.5f));
+		yield return StartCoroutine(cam.orbitMotion(waypoints[2], 55, 2));
+
 		dman.openDialog();
-
-		//steps sound
-
-		StartCoroutine(alice.run(waypoints[0]));
-		yield return StartCoroutine(alpha.run(waypoints[1]));
-		yield return StartCoroutine(cam.orbitMotion(waypoints[2], 55, 30));
 
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
 		yield return StartCoroutine(base.interactToProceed());
 
-		yield return StartCoroutine(alpha.faceTo(alice.transform));
-		yield return StartCoroutine(alice.faceTo(alpha.transform));
-		yield return StartCoroutine(alpha.move(waypoints[3]));
+		yield return StartCoroutine(alpha.faceTo(alice.transform,1));
+		yield return StartCoroutine(alice.faceTo(alpha.transform,1));
+		yield return StartCoroutine(alpha.walkWithSpeed(waypoints[3],1));
 
 		yield return StartCoroutine(cam.zoom(2f, 2));
 
-		StartCoroutine(cam.orbitMotion(waypoints[2], 180, 0.4f));
+		StartCoroutine(cam.orbitMotion(waypoints[2], 180, 30));
 
 		for (int index = 1; index < 33; index++) {
 			switch(dialogs[index].Speaker)
@@ -119,19 +117,19 @@ public class StoryEngB : Plot {
 		yield return StartCoroutine(dman.display(dialogs[34],alice.EmotionPt));
 		yield return StartCoroutine(base.interactToProceed());
 
-		StartCoroutine(cam.orbitMotion(waypoints[2], 135, 30));
+		StartCoroutine(cam.orbitMotion(waypoints[2], -120, 1));
 
 		//Alice run to class 
 		//Steps sound
-		yield return StartCoroutine(alice.run(waypoints[4]));
-		yield return StartCoroutine(alice.faceTo(alpha.transform));
+		yield return StartCoroutine(alice.runWithSpeed(waypoints[4],2.5f));
+		yield return StartCoroutine(alice.faceTo(alpha.transform,1));
 
 		yield return StartCoroutine(dman.display(dialogs[35],alice.EmotionPt));
 		yield return StartCoroutine(base.interactToProceed());
 
 		//Alice run & disappear
-		StartCoroutine(alice.alphaChange(0));
-		StartCoroutine(alice.run(waypoints[5]));
+		StartCoroutine(alice.alphaChange(0, 5));
+		StartCoroutine(alice.runWithSpeed(waypoints[5],2.5f));
 
 		for (int index = 36; index < dialogs.Count; index++) {
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));

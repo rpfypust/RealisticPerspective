@@ -8,15 +8,17 @@ public class StoryTest : Plot {
 	private List<Dialog> dialogs;
 	private DialogManager dman;
 	private CinematicCamera cam;
-	
+
+	private Actor actor;
+
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
-		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
-		
+		//cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
+		actor = GameObject.Find("Actor").GetComponent<Actor>();
 		dialogs = new List<Dialog>();		
-		
-		dialogs.Add(new Dialog("Professor", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+
+
 		
 	}
 	
@@ -27,6 +29,6 @@ public class StoryTest : Plot {
 	
 	protected override IEnumerator sequencer()
 	{	
-		yield return StartCoroutine(cam.orbitMotion(targets[0], 0, 30));
+		yield return StartCoroutine(actor.tunnelIn());
 	}
 }
