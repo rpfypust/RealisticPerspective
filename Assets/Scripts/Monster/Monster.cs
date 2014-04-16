@@ -30,7 +30,7 @@ public class Monster : Character {
 	protected float attackIntervalTimer;
 	private Vector3 scheduledTargetPosition;
 
-	protected virtual void Awake() {
+	protected override void Awake() {
 		agent = GetComponent<NavMeshAgent>();
 	}
 

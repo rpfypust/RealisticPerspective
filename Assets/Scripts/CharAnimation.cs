@@ -39,7 +39,6 @@ public class CharAnimation : MonoBehaviour {
 		float h = Input.GetAxis("Horizontal");
 		float v = Input.GetAxis("Vertical");
 		bool slow = Input.GetButton("Slow");
-		bool jump = Input.GetButtonUp("Jump");
 		bool handUp = Input.GetButtonDown("Fire1");
 		bool handDown = Input.GetButtonUp("Fire1");
 

@@ -11,15 +11,11 @@ public class CharControl : MonoBehaviour
 	public float jumpSpeed = 8.0f;
 	public float gravity = 20.0f;
 	private float vSpeed;
-	private Animator animator;
 	private CharacterController charController;
-	private HashIDs hash;
 
 	void Awake()
 	{
-		animator = GetComponent<Animator>();
 		charController = GetComponent<CharacterController>();
-		hash = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<HashIDs>();
 
 		vSpeed = 0f;
 	}
