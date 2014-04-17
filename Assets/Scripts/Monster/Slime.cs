@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public class Slime : Monster {
 
-	public float bulletSpeed = 2f;
+	public float bulletSpeed = 5f;
 	public float bulletLife = 5f;
 
 	private HashIDs hash;
@@ -14,6 +14,8 @@ public class Slime : Monster {
 		base.Awake();
 		animator = GetComponent<Animator>();
 		hash = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<HashIDs>();
+
+		attackDuration = 0.5f;
 	}
 
 	protected override void handleAnimation() {
@@ -28,7 +30,14 @@ public class Slime : Monster {
 		p.y = 0.5f;
 		Vector3 v = (target.toVector2XZ() - p.toVector2XZ())
 			.toVector3XZ().normalized * bulletSpeed;
-		UniformMotion um = BulletFactory.CreateUniformMotionBullet(p, v, bulletLife);
-		um.startMoving();
+		StartCoroutine(attackCoroutine(p, v));
+	}
+
+	private IEnumerator attackCoroutine(Vector3 p, Vector3 v)
+	{
+		for (int i = 0; i < 3; i++) {
+			BulletFactory.CreateUniformMotionBullet(p, v, bulletLife).startMoving();
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 }
