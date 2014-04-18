@@ -7,6 +7,7 @@ public class Boss_Phoenix : MonoBehaviour
     public GameObject BulletGreen; //green
     public GameObject BulletBlue; //blue
     public GameObject BulletYellow;
+    public GameObject BulletWhite;
     public GameObject BossObject_Phoenix_1;
     public GameObject BossObject_Phoenix_2;
     public GameObject BossObject_Phoenix_3;
@@ -108,6 +109,39 @@ public class Boss_Phoenix : MonoBehaviour
                 BossObject_Phoenix_X[12] = 
                     (GameObject)Instantiate(BossObject_Phoenix_12, tempV, face);
                 bossState++;
+            
+                bossState = -1;
+                break;
+            case -1:
+                if (!BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>())
+                {
+                    BossObject_Phoenix_X[1].AddComponent("BossMoveToSpecPosY");
+                    BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[1].transform.position.y - 6.5f;
+                    BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>().moveTime = 3.0f;
+                    BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
+                } else if (BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>().isFinished)
+                {
+                    Destroy(BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>());
+                    BossObject_Phoenix_X[1].AddComponent("PH1_1");
+                    BossObject_Phoenix_X[1].GetComponent<PH1_1>().StageRefPoint = StageRefPoint;
+                    BossObject_Phoenix_X[1].GetComponent<PH1_1>().BulletRed = BulletRed;
+                    BossObject_Phoenix_X[1].GetComponent<PH1_1>().BulletWhite = BulletWhite;
+                    BossObject_Phoenix_X[1].tag = "Tag_Enemy";
+                    BossObject_Phoenix_X[1].layer = 10;
+                    bossState = 1;
+                }
+                break;
+            case 1:
+                if (BossObject_Phoenix_X[1].GetComponent<PH1_1>().HealthPoint <= 0.0f)
+                {
+                    if (BossObject_Phoenix_X[1].GetComponent<PH1_1>())
+                    {
+                        Destroy(BossObject_Phoenix_X[1].GetComponent<PH1_1>());
+                        BossObject_Phoenix_X[1].tag = "Tag_LostFocusEnemy";
+                        BossObject_Phoenix_X[1].layer = 9;
+                    }
+                    bossState = -2;
+                }
                 break;
         }
     }
