@@ -3,55 +3,62 @@ using System.Collections;
 
 public class PlayerShooter : MonoBehaviour
 {
-
-    public GameObject bullet; //prefab
-    public float bulletSpeed = 15.0f;
-    public float shootInterval = 0.1f;
-    private float nextShootTime = 0.0f;
+    public GameObject bullet_normal;
+    public GameObject bullet_homing;
+    public float bulletSpeed = 30.0f;
+    public float shootInterval_normal = 0.05f;
+    public float shootInterval_homing = 0.2f;
+    private float nextShootTime_normal = 0.0f;
+    private float nextShootTime_homing = 0.0f;
+    private GameObject bulletX;
+    private Vector3 temp;
+    private float tempF;
 
     void FixedUpdate()
     {
-        if (Input.GetButton("Fire1") && Time.time > nextShootTime)
+        if (Input.GetButton("Fire1") && Time.time > nextShootTime_normal)
         {
-            GameObject a = (GameObject)Instantiate(bullet, transform.position, transform.rotation);
+            for (int i=-1; i<=1; i+=2)
+            { 
+                temp = transform.forward.normalized;
+                tempF = temp.x;
+                temp.x = -temp.z;
+                temp.z = tempF;
 
-            //how bullet move
-            a.gameObject.AddComponent("PlayerBullet_Homing");
-            a.gameObject.GetComponent<PlayerBullet_Homing>().bulletSpeed = bulletSpeed;
+                bulletX = (GameObject)Instantiate(bullet_normal, transform.position + 0.3f * temp * i, transform.rotation);
+                bulletX.gameObject.rigidbody.velocity = bulletSpeed * transform.forward.normalized;
+                bulletX.gameObject.AddComponent("BulletInfo");
+                bulletX.gameObject.GetComponent<BulletInfo>().Damage = 1.0f;
 
-            //Rotate the direction
-            Vector3 temp = new Vector3();
-            temp.y = transform.forward.normalized.y;
-            temp.x = transform.forward.normalized.x * Mathf.Cos(30 / 180.0f * Mathf.PI) - transform.forward.normalized.z * Mathf.Sin(30 / 180.0f * Mathf.PI);
-            temp.z = transform.forward.normalized.z * Mathf.Sin(30 / 180.0f * Mathf.PI) + transform.forward.normalized.z * Mathf.Cos(30 / 180.0f * Mathf.PI);
+                bulletX = (GameObject)Instantiate(bullet_normal, transform.position + 0.3f * temp * i, transform.rotation);
+                temp = transform.forward.normalized;
+                temp.x = temp.x * Mathf.Cos(i * 2f / 180.0f * Mathf.PI) - temp.z * Mathf.Sin(i * 2f / 180.0f * Mathf.PI);
+                temp.z = temp.x * Mathf.Sin(i * 2f / 180.0f * Mathf.PI) + temp.z * Mathf.Cos(i * 2f / 180.0f * Mathf.PI);
+                bulletX.gameObject.rigidbody.velocity = bulletSpeed * temp;
+                bulletX.gameObject.AddComponent("BulletInfo");
+                bulletX.gameObject.GetComponent<BulletInfo>().Damage = 1.0f;
+            }
 
-            a.gameObject.GetComponent<PlayerBullet_Homing>().direction = temp.normalized;
-
-            //how bullet damage
-            a.gameObject.AddComponent("BulletInfo");
-            a.gameObject.GetComponent<BulletInfo>().Damage = 1.0f;
-
-
-            //Create another direction bullet
-            GameObject b = (GameObject)Instantiate(bullet, transform.position, transform.rotation);
-
-            //how bullet move
-            b.gameObject.AddComponent("PlayerBullet_Homing");
-            b.gameObject.GetComponent<PlayerBullet_Homing>().bulletSpeed = bulletSpeed;
+            nextShootTime_normal = shootInterval_normal + Time.time;
+        }
+        if (Input.GetButton("Fire1") && Time.time > nextShootTime_homing)
+        {
             
-            //Rotate the direction
-            temp = new Vector3();
-            temp.y = transform.forward.normalized.y;
-            temp.x = transform.forward.normalized.x * Mathf.Cos(330 / 180.0f * Mathf.PI) - transform.forward.normalized.z * Mathf.Sin(330 / 180.0f * Mathf.PI);
-            temp.z = transform.forward.normalized.z * Mathf.Sin(330 / 180.0f * Mathf.PI) + transform.forward.normalized.z * Mathf.Cos(330 / 180.0f * Mathf.PI);
+            for (int i=-1; i<=1; i+=2)
+            { 
+                bulletX = (GameObject)Instantiate(bullet_homing, transform.position, transform.rotation);
+                bulletX.gameObject.AddComponent("PlayerBullet_Homing");
+                bulletX.gameObject.GetComponent<PlayerBullet_Homing>().bulletSpeed = bulletSpeed / 2.0f;
+                temp = transform.forward.normalized;
+                temp.x = temp.x * Mathf.Cos(i * 30 / 180.0f * Mathf.PI) - temp.z * Mathf.Sin(i * 30 / 180.0f * Mathf.PI);
+                temp.z = temp.x * Mathf.Sin(i * 30 / 180.0f * Mathf.PI) + temp.z * Mathf.Cos(i * 30 / 180.0f * Mathf.PI);
+                
+                bulletX.gameObject.GetComponent<PlayerBullet_Homing>().direction = temp.normalized;
+                bulletX.gameObject.AddComponent("BulletInfo");
+                bulletX.gameObject.GetComponent<BulletInfo>().Damage = 1.0f;
+            }
             
-            b.gameObject.GetComponent<PlayerBullet_Homing>().direction = temp.normalized;
-            
-            //how bullet damage
-            b.gameObject.AddComponent("BulletInfo");
-            b.gameObject.GetComponent<BulletInfo>().Damage = 1.0f;
-
-            nextShootTime = shootInterval + Time.time;
+            nextShootTime_homing = shootInterval_homing + Time.time;
         }
     }
 }
