@@ -46,7 +46,8 @@ public class CS1_P2P : MonoBehaviour
 	
 	void OnDestroy()
 	{
-		Util.removeAllBulletsbyTag("Tag_Bullet");
+        Util.removeAllBulletsbyTag("Tag_Bullet");
+        Util.removeAllBulletsbyTag("Tag_BossObject");
 		if (boss.gameObject.GetComponent <BossRandomMoveInArea>())
 		{
 			Destroy(boss.gameObject.GetComponent <BossRandomMoveInArea>());
