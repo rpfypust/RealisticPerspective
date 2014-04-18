@@ -22,7 +22,7 @@ public class Boss_CS : MonoBehaviour
 	void Awake()
 	{
 		startTime = Time.time;
-		bossState = -5;
+		bossState = 0;
 		status = transform.parent.gameObject.GetComponent<BossStatus>();
 		boss = transform.parent;
 		StageRefPoint = GameObject.FindGameObjectWithTag("StageRefPoint").transform.position;
@@ -58,7 +58,7 @@ public class Boss_CS : MonoBehaviour
 				}
 				break;
 			case 1:
-				if (status.HealthPoint <= 4900.0f)
+				if (status.HealthPoint <= 3100.0f)
 				{
 					if (gameObject.GetComponent<CS1_0>())
 					{
@@ -92,7 +92,7 @@ public class Boss_CS : MonoBehaviour
 				}
 				break;
 			case 2:
-				if (status.HealthPoint <= 4800.0f)
+				if (status.HealthPoint <= 2300.0f)
 				{
 					if (gameObject.GetComponent<CS1_Error>())
 					{
@@ -126,7 +126,7 @@ public class Boss_CS : MonoBehaviour
 				}
 				break;
 			case 3:
-				if (status.HealthPoint <= 4700.0f)
+				if (status.HealthPoint <= 1500.0f)
 				{
 					if (gameObject.GetComponent<CS1_WhileTrue>())
 					{
@@ -149,7 +149,7 @@ public class Boss_CS : MonoBehaviour
 				gameObject.GetComponent<CS1_Antivirus>().StageRefPoint = StageRefPoint;
 				gameObject.GetComponent<CS1_Antivirus>().status = status;
 				gameObject.GetComponent<CS1_Antivirus>().boss = boss;
-				countdownUntil = Time.time + 10.0f;
+				countdownUntil = Time.time + 60.0f;
 				bossState = 4;
 				break;
 			case 4:
@@ -179,7 +179,16 @@ public class Boss_CS : MonoBehaviour
 				status.isInvicible = false;
 				bossState = 5;
 				break;
-			case 5:
+            case 5:
+                if (status.HealthPoint <= 0.0f)
+                {
+                    if (gameObject.GetComponent<CS1_P2P>())
+                    {
+                        Destroy(gameObject.GetComponent<CS1_P2P>());
+                    }
+                    status.isInvicible = true;
+                    bossState = -6;
+                }
 				break;
 		}
 	}
