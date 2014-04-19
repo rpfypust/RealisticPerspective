@@ -45,10 +45,6 @@ public class PH1_1 : MonoBehaviour
     
     void FixedUpdate()
     {
-        if (step >= 130)
-        { //Reset to step A
-            step = 0;
-        }
         if (step == 0)
         {
             if ((Time.time - lastTime) > 1 / 5.0f)

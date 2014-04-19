@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 42d23d7d4c045fa458d3f4e63e37ea8e
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: atama_n
     100002: b_lip_center
@@ -416,5 +416,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  additionalBone: 0
   userData: 

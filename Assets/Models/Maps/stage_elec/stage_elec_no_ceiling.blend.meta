@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: f9c7be3a6e570e14e89e4e8e6804ab89
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: LED
     100002: LED_001
@@ -433,5 +433,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  additionalBone: 0
   userData: 

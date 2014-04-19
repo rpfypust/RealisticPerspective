@@ -8,6 +8,9 @@ public class Boss_Phoenix : MonoBehaviour
     public GameObject BulletBlue; //blue
     public GameObject BulletYellow;
     public GameObject BulletWhite;
+    public GameObject BulletYellow_Big;
+    public GameObject BulletPink_Big;
+    public GameObject LaserPurple;
     public GameObject BossObject_Phoenix_1;
     public GameObject BossObject_Phoenix_2;
     public GameObject BossObject_Phoenix_3;
@@ -141,6 +144,166 @@ public class Boss_Phoenix : MonoBehaviour
                         BossObject_Phoenix_X[1].layer = 9;
                     }
                     bossState = -2;
+                }
+            break;
+            case -2:
+                if (!BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>())
+                {
+                    BossObject_Phoenix_X[2].AddComponent("BossMoveToSpecPosY");
+                    BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[2].transform.position.y - 6.5f;
+                    BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>().moveTime = 3.0f;
+                    BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
+                } else if (BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>().isFinished)
+                {
+                    Destroy(BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>());
+                    BossObject_Phoenix_X[2].AddComponent("PH1_2");
+                    BossObject_Phoenix_X[2].GetComponent<PH1_2>().StageRefPoint = StageRefPoint;
+                    BossObject_Phoenix_X[2].GetComponent<PH1_2>().BulletRed = BulletRed;
+                    BossObject_Phoenix_X[2].GetComponent<PH1_2>().BulletWhite = BulletWhite;
+                    BossObject_Phoenix_X[2].GetComponent<PH1_2>().BulletYellow_Big = BulletYellow_Big;
+                    BossObject_Phoenix_X[2].GetComponent<PH1_2>().LaserPurple = LaserPurple;
+                    BossObject_Phoenix_X[2].tag = "Tag_Enemy";
+                    BossObject_Phoenix_X[2].layer = 10;
+                    bossState = 2;
+                }
+                break;
+            case 2:
+                if (BossObject_Phoenix_X[2].GetComponent<PH1_2>().HealthPoint <= 0.0f)
+                {
+                    if (BossObject_Phoenix_X[2].GetComponent<PH1_2>())
+                    {
+                        Destroy(BossObject_Phoenix_X[2].GetComponent<PH1_2>());
+                        BossObject_Phoenix_X[2].tag = "Tag_LostFocusEnemy";
+                        BossObject_Phoenix_X[2].layer = 9;
+                    }
+                    bossState = -3;
+                }
+                break;
+            case -3:
+                if (!BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>())
+                {
+                    BossObject_Phoenix_X[3].AddComponent("BossMoveToSpecPosY");
+                    BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[3].transform.position.y - 6.5f;
+                    BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>().moveTime = 3.0f;
+                    BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
+                } else if (BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>().isFinished)
+                {
+                    Destroy(BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>());
+                    BossObject_Phoenix_X[3].AddComponent("PH1_3");
+                    BossObject_Phoenix_X[3].GetComponent<PH1_3>().StageRefPoint = StageRefPoint;
+                    BossObject_Phoenix_X[3].GetComponent<PH1_3>().BulletRed = BulletRed;
+                    BossObject_Phoenix_X[3].GetComponent<PH1_3>().BulletYellow = BulletYellow;
+                    BossObject_Phoenix_X[3].tag = "Tag_Enemy";
+                    BossObject_Phoenix_X[3].layer = 10;
+                    bossState = 3;
+                }
+                break;
+            case 3:
+                if (BossObject_Phoenix_X[3].GetComponent<PH1_3>().HealthPoint <= 0.0f)
+                {
+                    if (BossObject_Phoenix_X[3].GetComponent<PH1_3>())
+                    {
+                        Destroy(BossObject_Phoenix_X[3].GetComponent<PH1_3>());
+                        BossObject_Phoenix_X[3].tag = "Tag_LostFocusEnemy";
+                        BossObject_Phoenix_X[3].layer = 9;
+                    }
+                    bossState = -4;
+                }
+            break;
+            case -4:
+                if (!BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>())
+                {
+                    BossObject_Phoenix_X[4].AddComponent("BossMoveToSpecPosY");
+                    BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[4].transform.position.y - 6.5f;
+                    BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>().moveTime = 3.0f;
+                    BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
+                } else if (BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>().isFinished)
+                {
+                    Destroy(BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>());
+                    BossObject_Phoenix_X[4].AddComponent("PH1_4");
+                    BossObject_Phoenix_X[4].GetComponent<PH1_4>().StageRefPoint = StageRefPoint;
+                    BossObject_Phoenix_X[4].GetComponent<PH1_4>().BulletRed = BulletRed;
+                    BossObject_Phoenix_X[4].GetComponent<PH1_4>().BulletWhite = BulletWhite;
+                    BossObject_Phoenix_X[4].GetComponent<PH1_4>().BulletPink_Big = BulletPink_Big;
+                    BossObject_Phoenix_X[4].tag = "Tag_Enemy";
+                    BossObject_Phoenix_X[4].layer = 10;
+                    bossState = 4;
+                }
+                break;
+            case 4:
+                if (BossObject_Phoenix_X[4].GetComponent<PH1_4>().HealthPoint <= 0.0f)
+                {
+                    if (BossObject_Phoenix_X[4].GetComponent<PH1_4>())
+                    {
+                        Destroy(BossObject_Phoenix_X[4].GetComponent<PH1_4>());
+                        BossObject_Phoenix_X[4].tag = "Tag_LostFocusEnemy";
+                        BossObject_Phoenix_X[4].layer = 9;
+                    }
+                    bossState = -5;
+                }
+                break;
+            case -5:
+                if (!BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>())
+                {
+                    BossObject_Phoenix_X[5].AddComponent("BossMoveToSpecPosY");
+                    BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[5].transform.position.y - 6.5f;
+                    BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>().moveTime = 3.0f;
+                    BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
+                } else if (BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>().isFinished)
+                {
+                    Destroy(BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>());
+                    BossObject_Phoenix_X[5].AddComponent("PH1_5");
+                    BossObject_Phoenix_X[5].GetComponent<PH1_5>().StageRefPoint = StageRefPoint;
+                    BossObject_Phoenix_X[5].GetComponent<PH1_5>().BulletRed = BulletRed;
+                    BossObject_Phoenix_X[5].GetComponent<PH1_5>().BulletBlue = BulletBlue;
+                    BossObject_Phoenix_X[5].GetComponent<PH1_5>().BulletYellow = BulletYellow;
+                    BossObject_Phoenix_X[5].GetComponent<PH1_5>().BulletWhite = BulletWhite;
+                    BossObject_Phoenix_X[5].tag = "Tag_Enemy";
+                    BossObject_Phoenix_X[5].layer = 10;
+                    bossState = 5;
+                }
+                break;
+            case 5:
+                if (BossObject_Phoenix_X[5].GetComponent<PH1_5>().HealthPoint <= 0.0f)
+                {
+                    if (BossObject_Phoenix_X[5].GetComponent<PH1_5>())
+                    {
+                        Destroy(BossObject_Phoenix_X[5].GetComponent<PH1_5>());
+                        BossObject_Phoenix_X[5].tag = "Tag_LostFocusEnemy";
+                        BossObject_Phoenix_X[5].layer = 9;
+                    }
+                    bossState = -6;
+                }
+            break;
+            case -6:
+                if (!BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>())
+                {
+                    BossObject_Phoenix_X[6].AddComponent("BossMoveToSpecPosY");
+                    BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[6].transform.position.y - 6.5f;
+                    BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>().moveTime = 3.0f;
+                    BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
+                } else if (BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>().isFinished)
+                {
+                    Destroy(BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>());
+                    BossObject_Phoenix_X[6].AddComponent("PH1_6");
+                    BossObject_Phoenix_X[6].GetComponent<PH1_6>().StageRefPoint = StageRefPoint;
+                    BossObject_Phoenix_X[6].GetComponent<PH1_6>().BulletRed = BulletRed;
+                    BossObject_Phoenix_X[6].GetComponent<PH1_6>().BulletGreen = BulletGreen;
+                    BossObject_Phoenix_X[6].tag = "Tag_Enemy";
+                    BossObject_Phoenix_X[6].layer = 10;
+                    bossState = 6;
+                }
+                break;
+            case 6:
+                if (BossObject_Phoenix_X[6].GetComponent<PH1_6>().HealthPoint <= 0.0f)
+                {
+                    if (BossObject_Phoenix_X[6].GetComponent<PH1_6>())
+                    {
+                        Destroy(BossObject_Phoenix_X[6].GetComponent<PH1_6>());
+                        BossObject_Phoenix_X[6].tag = "Tag_LostFocusEnemy";
+                        BossObject_Phoenix_X[6].layer = 9;
+                    }
+                    bossState = -7;
                 }
                 break;
         }

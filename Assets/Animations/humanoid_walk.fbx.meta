@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: c31c80009cccec043ac9ec4439552a4d
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
     100002: Chest
@@ -949,5 +949,4 @@ ModelImporter:
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 2ab0893f5bba9b243b65e309e78089d0,
     type: 3}
   animationType: 3
-  additionalBone: 0
   userData: 
