@@ -54,7 +54,7 @@ public class PH1_6 : MonoBehaviour
             {
                 for (int i=0; i<90; i++)
                 {
-                    float angle = (i * 4f + j * 0.4f) / 180.0f * Mathf.PI;
+                    float angle = (i * 4f + j * 1f) / 180.0f * Mathf.PI;
                     BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                     
                     Vector3 temp = new Vector3(14.0f * Mathf.Sin(angle), 0, 14.0f * Mathf.Cos(angle));
@@ -78,7 +78,7 @@ public class PH1_6 : MonoBehaviour
             }
         } else if (step == 2)
         {
-            if ((Time.time - lastTime) > 0.03f)
+            if ((Time.time - lastTime) > 0.05f)
             {
                 float angle = Random.value * 2.0f * Mathf.PI;
                 BulletX = new GameObject();

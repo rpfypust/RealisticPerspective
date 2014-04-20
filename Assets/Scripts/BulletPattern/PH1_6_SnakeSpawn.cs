@@ -18,25 +18,22 @@ public class PH1_6_SnakeSpawn : MonoBehaviour
         float cTime = Time.time - startTime;
         deltaTime = cTime - lastTime;
         
-        if ((Time.time - lastTime) > 0.1f)
+        if ((cTime - lastTime) > 0.06f)
         {
-            if (j % 4 == 0)
-            {
-                //float angle = Random.value * 2.0f * Mathf.PI;
-                //float speed = Random.value * 10.0f + 8.0f;
-                BulletX = (GameObject)Instantiate(BulletGreen, transform.position, transform.rotation);
-                BulletX.AddComponent("PH1_6_Snake");
-                BulletX.GetComponent<PH1_6_Snake>().velo = speed * new Vector3(Mathf.Sin(angle), 0.0f, Mathf.Cos(angle));
-                BulletX.GetComponent<PH1_6_Snake>().oscili = new Vector3(-Mathf.Cos(angle), 0.0f, Mathf.Sin(angle));
-                BulletX.GetComponent<PH1_6_Snake>().oriPos = transform.position;
-                BulletX.GetComponent<PH1_6_Snake>().period = 1f;
-                BulletX.GetComponent<PH1_6_Snake>().phase = phase;
-                Destroy(BulletX.gameObject, 8.0f);
-                BulletX.rigidbody.useGravity = false;
-                lastTime = cTime;
-            }
+            //float angle = Random.value * 2.0f * Mathf.PI;
+            //float speed = Random.value * 10.0f + 8.0f;
+            BulletX = (GameObject)Instantiate(BulletGreen, transform.position, transform.rotation);
+            BulletX.AddComponent("PH1_6_Snake");
+            BulletX.GetComponent<PH1_6_Snake>().velo = speed * new Vector3(Mathf.Sin(angle), 0.0f, Mathf.Cos(angle));
+            BulletX.GetComponent<PH1_6_Snake>().oscili = new Vector3(-Mathf.Cos(angle), 0.0f, Mathf.Sin(angle));
+            BulletX.GetComponent<PH1_6_Snake>().oriPos = transform.position;
+            BulletX.GetComponent<PH1_6_Snake>().period = 1f;
+            BulletX.GetComponent<PH1_6_Snake>().phase = phase;
+            Destroy(BulletX.gameObject, 8.0f);
+            BulletX.rigidbody.useGravity = false;
+            lastTime = cTime;
             j++;
-            if (j == 40)
+            if (j == 10)
             {
                 GameObject.Destroy(gameObject);
             }
