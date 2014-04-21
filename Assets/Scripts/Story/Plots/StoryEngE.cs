@@ -2,18 +2,28 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class StoryEndE : Plot {
+public class StoryEngE : Plot {
 	
-	public Transform[] targets;
+	public Transform[] wayPoints;
 	private List<Dialog> dialogs;
 	private DialogManager dman;
 	private CinematicCamera cam;
-	
+	private Actor alpha;
+	private Actor shadow;
+	private GameObject stage;
+	private GameObject atrium;
+
+
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
-		
+		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
+		shadow = GameObject.Find("Shadow").GetComponent<Actor>();
+		stage = GameObject.Find("Stage");
+		atrium = GameObject.Find("Atrium");
+		atrium.SetActive(false);
+
 		dialogs = new List<Dialog>();		
 		
 		dialogs.Add(new Dialog("Shadow", "Well done."));
@@ -47,7 +57,7 @@ public class StoryEndE : Plot {
 		dialogs.Add(new Dialog("Shadow", "I'll take care of them after you've clear the bases."));
 		dialogs.Add(new Dialog("Alpha", "Okay, I'll take care of those bases."));
 		dialogs.Add(new Dialog("Alpha", "By the way, who are you? Why do you know Beta and me?",2));
-		dialogs.Add(new Dialog("Shadow", "... I'm Delta."));
+		dialogs.Add(new Dialog("Shadow", "... ... I'm Delta."));
 		dialogs.Add(new Dialog("Delta", "I know you because... I am acquaintance of Be-..."));
 		//shake and SF
 		dialogs.Add(new Dialog("Alpha", "What happened?",3));
@@ -55,6 +65,7 @@ public class StoryEndE : Plot {
 		dialogs.Add(new Dialog("Delta", "You must get out now!",3));
 		dialogs.Add(new Dialog("Delta", "I'll contact you if I got any news about \"the Reality\"."));
 		dialogs.Add(new Dialog("Alpha", "Get out? How?",2));
+		dialogs.Add(new Dialog("Delta", "... I... Deny... Not..."));
 		//Spin Alpha out
 		dialogs.Add(new Dialog("Alpha", "Awww!",3));
 		//FadeOut&In, with spinning effect sence changes
@@ -74,6 +85,75 @@ public class StoryEndE : Plot {
 	
 	protected override IEnumerator sequencer()
 	{	
-		yield return StartCoroutine(cam.orbitMotion(targets[0], 0, 30));
+		yield return StartCoroutine(cam.SolidBlack(1f));
+		StartCoroutine(cam.FadeOut());
+
+		yield return StartCoroutine(shadow.tunnelOut());
+
+		dman.openDialog();
+		StartCoroutine(cam.orbitMotion(wayPoints[0], 360, 30));
+		for (int index = 0; index < 33; index++) {
+			switch(dialogs[index].Speaker)
+			{
+			case "Alpha":
+				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
+				yield return StartCoroutine(base.interactToProceed());
+				break;
+				
+			case "Delta": case "Shadow":
+				yield return StartCoroutine(dman.display(dialogs[index],shadow.EmotionPt));
+				yield return StartCoroutine(base.interactToProceed());
+				break;
+				
+			default:
+				yield return StartCoroutine(dman.display(dialogs[index]));;
+				yield return StartCoroutine(base.interactToProceed());
+				break;
+			}
+		}
+
+		yield return StartCoroutine(cam.shake());
+
+		yield return StartCoroutine(dman.display(dialogs[33],alpha.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.display(dialogs[34],shadow.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.display(dialogs[35],shadow.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.display(dialogs[36],shadow.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.display(dialogs[37],alpha.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.display(dialogs[38],shadow.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+		StartCoroutine(alpha.tunnelIn());
+		yield return new WaitForSeconds(1.5f);
+		yield return StartCoroutine(dman.display(dialogs[39],alpha.EmotionPt));
+		yield return new WaitForSeconds(2f);
+
+		dman.closeDialog();
+		yield return StartCoroutine(cam.FadeIn());
+		StartCoroutine(cam.SolidBlack(2.5f));
+
+		Destroy(GameObject.Find ("Shadow"));
+		Destroy(stage);
+		atrium.SetActive(true);
+		cam.transform.position = wayPoints[1].position;
+		cam.transform.rotation = wayPoints[1].rotation;
+		alpha.transform.position = wayPoints[2].position;
+		alpha.transform.rotation = wayPoints[2].rotation;
+
+		StartCoroutine(cam.FadeOut());
+
+		yield return StartCoroutine(alpha.tunnelOut());
+		dman.openDialog();
+		yield return StartCoroutine(dman.display(dialogs[40],alpha.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.display(dialogs[41],alpha.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.display(dialogs[42],alpha.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+		dman.closeDialog();
+		yield return StartCoroutine(cam.FadeIn());
 	}
 }

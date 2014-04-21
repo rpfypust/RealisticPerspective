@@ -4,16 +4,20 @@ using System.Collections.Generic;
 
 public class StoryEngJ : Plot {
 	
-	public Transform[] targets;
+	public Transform[] wayPoints;
 	private List<Dialog> dialogs;
 	private DialogManager dman;
 	private CinematicCamera cam;
-	
+	private Actor alpha;
+	private Actor delta;
+
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
-		
+		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
+		delta = GameObject.Find("Delta").GetComponent<Actor>();
+
 		dialogs = new List<Dialog>();		
 		
 		dialogs.Add(new Dialog("Alpha", "Mission accomplished."));
@@ -60,6 +64,41 @@ public class StoryEngJ : Plot {
 	
 	protected override IEnumerator sequencer()
 	{	
-		yield return StartCoroutine(cam.orbitMotion(targets[0], 0, 30));
+		yield return StartCoroutine(cam.SolidBlack(1f));
+		StartCoroutine(cam.FadeOut());
+
+		yield return StartCoroutine(alpha.walkWithTime(wayPoints[1],2));
+
+		dman.openDialog();
+
+		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+
+		yield return StartCoroutine(delta.tunnelOut());
+		
+		dman.openDialog();
+		StartCoroutine(cam.orbitMotion(wayPoints[0], 360, 30));
+		for (int index = 1; index < 32; index++) {
+			switch(dialogs[index].Speaker)
+			{
+			case "Alpha":
+				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
+				yield return StartCoroutine(base.interactToProceed());
+				break;
+				
+			case "Delta":
+				yield return StartCoroutine(dman.display(dialogs[index],delta.EmotionPt));
+				yield return StartCoroutine(base.interactToProceed());
+				break;
+			}
+		}
+		StartCoroutine(cam.orbitMotion(wayPoints[0], -90, 1));
+		StartCoroutine(cam.pan(new Vector3(0,0.5f,0), 1));
+		yield return StartCoroutine(alpha.tunnelIn());
+		yield return StartCoroutine(dman.display(dialogs[32],delta.EmotionPt));
+		yield return StartCoroutine(base.interactToProceed());
+
+		dman.closeDialog();
+
 	}
 }

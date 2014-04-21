@@ -20,7 +20,7 @@ public class CinematicCamera : MonoBehaviour {
 		float elapsedTime = 0;
 
 		while (elapsedTime <= time) {
-			center.transform.Rotate(0, step*Time.fixedDeltaTime, 0);
+			center.transform.RotateAround(center.transform.position, Vector3.up, step*Time.fixedDeltaTime);
 			elapsedTime += Time.fixedDeltaTime;
 			yield return new WaitForFixedUpdate();
 		}
@@ -54,5 +54,54 @@ public class CinematicCamera : MonoBehaviour {
 		gman.register(fader);
 		yield return StartCoroutine(fader.Fade(1f, 0f, duration));
 		gman.unregister(fader);
+	}
+
+	public IEnumerator shake(float amplitude = 0.15f, float duration = 1f)
+	{
+		float elapsedTime = 0;
+		Vector3 originalPos = transform.position;
+		while (elapsedTime <= duration) {
+			transform.position = originalPos + Vector2Extensions.toVector3XZ(Random.insideUnitCircle * amplitude);
+			elapsedTime += Time.fixedDeltaTime;
+			yield return new WaitForFixedUpdate();
+		}
+		transform.position = originalPos;
+	}
+
+	public IEnumerator rotateY(float angle, float time)
+	{	
+		float step =  angle / time;
+		float elapsedTime = 0;
+		
+		while (elapsedTime <= time) {
+			transform.Rotate(0, step*Time.fixedDeltaTime, 0);
+			elapsedTime += Time.fixedDeltaTime;
+			yield return new WaitForFixedUpdate();
+		}
+	}
+
+	public IEnumerator rotateX(float angle, float time)
+	{	
+		float step =  angle / time;
+		float elapsedTime = 0;
+		
+		while (elapsedTime <= time) {
+			transform.Rotate(step*Time.fixedDeltaTime, 0, 0);
+			elapsedTime += Time.fixedDeltaTime;
+			yield return new WaitForFixedUpdate();
+		}
+	}
+
+	public IEnumerator pan(Vector3 movement, float time)
+	{	
+
+		Vector3 step = new Vector3(movement.x, movement.y, movement.z) / time;
+		float elapsedTime = 0;
+		
+		while (elapsedTime <= time) {
+			transform.position += step * Time.fixedDeltaTime;
+			elapsedTime += Time.fixedDeltaTime;
+			yield return new WaitForFixedUpdate();
+		}
 	}
 }

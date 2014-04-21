@@ -29,6 +29,7 @@ public class StoryTest : Plot {
 	
 	protected override IEnumerator sequencer()
 	{	
-		yield return StartCoroutine(actor.tunnelIn());
+		yield return new WaitForSeconds(1f);
+		yield return StartCoroutine(actor.vanish());
 	}
 }
