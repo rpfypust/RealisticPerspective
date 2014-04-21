@@ -154,43 +154,52 @@ public class Boss_Phoenix : MonoBehaviour
 			}
 		} else if (step == 5)
 		{
-			if ((Time.time - lastTime) > 0.15f)
+			if ((Time.time - lastTime) > 0.2f)
 			{
 				if (j == 0)
 				{
 					BossObjectFireX.AddComponent("PH1_Phoenix_Stone");
 					BossObjectFireX.GetComponent<PH1_Phoenix_Stone>().Bullet = BulletRed;
 					BossObjectFireX.GetComponent<PH1_Phoenix_Stone>().circleSize = 16;
-					BossObjectFireX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 0.75f;
+					BossObjectFireX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 1f;
 				} else if (j == 1)
 				{
 					BossObjectGoldX.AddComponent("PH1_Phoenix_Stone");
 					BossObjectGoldX.GetComponent<PH1_Phoenix_Stone>().Bullet = BulletYellow;
 					BossObjectGoldX.GetComponent<PH1_Phoenix_Stone>().circleSize = 16;
-					BossObjectGoldX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 0.75f;
+                    BossObjectGoldX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 1f;
 				} else if (j == 2)
 				{
 					BossObjectWoodX.AddComponent("PH1_Phoenix_Stone");
 					BossObjectWoodX.GetComponent<PH1_Phoenix_Stone>().Bullet = BulletGreen;
 					BossObjectWoodX.GetComponent<PH1_Phoenix_Stone>().circleSize = 16;
-					BossObjectWoodX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 0.75f;
+                    BossObjectWoodX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 1f;
 				} else if (j == 3)
 				{
 					BossObjectGroundX.AddComponent("PH1_Phoenix_Stone");
 					BossObjectGroundX.GetComponent<PH1_Phoenix_Stone>().Bullet = BulletOrange;
 					BossObjectGroundX.GetComponent<PH1_Phoenix_Stone>().circleSize = 16;
-					BossObjectGroundX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 0.75f;
+                    BossObjectGroundX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 1f;
 				} else if (j == 4)
 				{
 					BossObjectWaterX.AddComponent("PH1_Phoenix_Stone");
 					BossObjectWaterX.GetComponent<PH1_Phoenix_Stone>().Bullet = BulletBlue;
 					BossObjectWaterX.GetComponent<PH1_Phoenix_Stone>().circleSize = 16;
-					BossObjectWaterX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 0.75f;
+                    BossObjectWaterX.GetComponent<PH1_Phoenix_Stone>().shootInterval = 1f;
 					step++;
 				}
 				lastTime = Time.time;
                 j++;
 			}
-		}
+        } else if (step == 6)
+        {
+            //idle
+            if(status.HealthPoint <= 2500f){
+                step++;
+            }
+        } else if (step == 7)
+        {
+
+        }
 	}
 }
