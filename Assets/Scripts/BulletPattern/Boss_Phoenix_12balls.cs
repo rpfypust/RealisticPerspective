@@ -503,7 +503,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
                 if (!Boss_Phoenix.GetComponent<BossMoveToSpecPosY>())
                 {
                     Boss_Phoenix.AddComponent("BossMoveToSpecPosY");
-                    Boss_Phoenix.GetComponent<BossMoveToSpecPosY>().y = Boss_Phoenix.transform.position.y + 19f;
+                    Boss_Phoenix.GetComponent<BossMoveToSpecPosY>().y = Boss_Phoenix.transform.position.y + 25f;
                     Boss_Phoenix.GetComponent<BossMoveToSpecPosY>().moveTime = 8.0f;
                     Boss_Phoenix.GetComponent<BossMoveToSpecPosY>().oriPos = Boss_Phoenix.transform.position;
                     if (!MainCamera.GetComponent<Boss_Phoenix_CameraZoomOut>())
@@ -518,7 +518,8 @@ public class Boss_Phoenix_12balls : MonoBehaviour
                 {
                     Destroy(Boss_Phoenix.GetComponent<BossMoveToSpecPosY>());
                     Boss_Phoenix.tag = "Tag_Enemy";
-                    Boss_Phoenix.GetComponent<Boss_Phoenix>().StageRefPoint = StageRefPoint;
+                    Boss_Phoenix.layer = 10;
+                        Boss_Phoenix.GetComponent<Boss_Phoenix>().StageRefPoint = StageRefPoint;
                     Boss_Phoenix.GetComponent<Boss_Phoenix>().status = Boss_Phoenix.GetComponent<Boss>();
                     Boss_Phoenix.GetComponent<Boss_Phoenix>().boss = Boss_Phoenix.transform;
                     Boss_Phoenix.GetComponent<Boss_Phoenix>().step = 1;
