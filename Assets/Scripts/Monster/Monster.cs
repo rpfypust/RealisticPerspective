@@ -209,6 +209,6 @@ public class Monster : Character {
 
 	public override void takeDamage(float damage) {
 		base.takeDamage(damage);
-		Debug.Log(string.Format("Monster HP: {0}/{1}", HP, maxHP));
+		Debug.Log(string.Format("Monster HP: {0}/{1}", HealthPoint, MaxHealthPoint));
 	}
 }

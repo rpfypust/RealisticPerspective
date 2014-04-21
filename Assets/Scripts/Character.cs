@@ -3,21 +3,21 @@
 /* base class for Monster, Player and Boss
  */
 public class Character : MonoBehaviour {
-	public float maxHP;
+	public float MaxHealthPoint;
 
 	protected float hp;
-	protected float HP {
+	public float HealthPoint {
 		get {
 			return hp;
 		}
 		set {
-			hp = Mathf.Clamp(value, 0.0f, maxHP);
+			hp = Mathf.Clamp(value, 0.0f, MaxHealthPoint);
 		}
 	}
 
 	public float HPPercent {
 		get {
-			return hp / maxHP;
+			return hp / MaxHealthPoint;
 		}
 	}
 
@@ -26,7 +26,7 @@ public class Character : MonoBehaviour {
 	}
 
 	protected virtual void Start() {
-		hp = maxHP;
+		hp = MaxHealthPoint;
 	}
 
 	public virtual bool isAlive() {
@@ -34,7 +34,7 @@ public class Character : MonoBehaviour {
 	}
 
 	public virtual void takeDamage(float damage) {
-		HP -= damage;
+		HealthPoint -= damage;
 		if (!isAlive())
 			die();
 	}
@@ -44,6 +44,6 @@ public class Character : MonoBehaviour {
 	}
 
 	public virtual void heal(float value) {
-		HP += value;
+		HealthPoint += value;
 	}
 }

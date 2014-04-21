@@ -8,7 +8,7 @@ public class CS1_0 : MonoBehaviour
     public GameObject BulletBlue; //blue
     
     public Vector3 StageRefPoint;
-    public BossStatus status;
+    public Boss status;
     public Transform boss;
 
     private float startTime = 0.0f;

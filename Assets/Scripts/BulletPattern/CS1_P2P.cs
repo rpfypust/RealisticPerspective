@@ -10,7 +10,7 @@ public class CS1_P2P : MonoBehaviour
 	public GameObject BossObject_Computer;
 	
 	public Vector3 StageRefPoint;
-	public BossStatus status;
+	public Boss status;
 	public Transform boss;
 	private Transform player;
 	

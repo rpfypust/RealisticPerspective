@@ -8,8 +8,8 @@ public class CS1_Antivirus : MonoBehaviour
     public GameObject BulletBlue; //blue
     public GameObject BossObject_Tower;
     public GameObject BossObject_Platform;
-    public Vector3 StageRefPoint;
-    public BossStatus status;
+	public Vector3 StageRefPoint;
+	public Boss status;
     public Transform boss;
     private GameObject target;
     private float startTime = 0.0f;

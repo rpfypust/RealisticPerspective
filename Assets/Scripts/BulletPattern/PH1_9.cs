@@ -1,14 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class PH1_9 : MonoBehaviour
+public class PH1_9 : Character
 {
     public GameObject BulletRed;
     public GameObject BulletGreen;
     public GameObject BulletOrange;
     public GameObject BulletCoconut;
     public Vector3 StageRefPoint;
-    public float HealthPoint;
 
     private float angleS;
     private float radius = 5f;
@@ -22,7 +21,8 @@ public class PH1_9 : MonoBehaviour
     
     void Awake()
     {
-        startTime = Time.time;
+		startTime = Time.time;
+		MaxHealthPoint = 1600.0f;
         HealthPoint = 1600.0f;
     }
 
@@ -59,7 +59,7 @@ public class PH1_9 : MonoBehaviour
                     float angle = (i * 4f + j * 1f) / 180.0f * Mathf.PI;
                     BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                     
-                    Vector3 temp = new Vector3(13.0f * Mathf.Sin(angle), 0, 13.0f * Mathf.Cos(angle));
+                    Vector3 temp = new Vector3(10.0f * Mathf.Sin(angle), 0, 10.0f * Mathf.Cos(angle));
                     BulletX.rigidbody.velocity = temp;
                     Destroy(BulletX.gameObject, 6.0f);
                     BulletX.rigidbody.useGravity = false;

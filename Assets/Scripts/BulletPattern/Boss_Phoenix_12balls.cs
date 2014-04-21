@@ -510,7 +510,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
                     {
                         MainCamera.AddComponent("Boss_Phoenix_CameraZoomOut");
                         MainCamera.GetComponent<Boss_Phoenix_CameraZoomOut>().distance = 15.0f;
-                        MainCamera.GetComponent<Boss_Phoenix_CameraZoomOut>().height = 30.0f;
+						MainCamera.GetComponent<Boss_Phoenix_CameraZoomOut>().height = 30f;//30.0f;
                         MainCamera.GetComponent<Boss_Phoenix_CameraZoomOut>().focusZSlippage = 4.0f;
                         MainCamera.GetComponent<Boss_Phoenix_CameraZoomOut>().moveTime = 4.0f;
                     }
@@ -519,7 +519,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
                     Destroy(Boss_Phoenix.GetComponent<BossMoveToSpecPosY>());
                     Boss_Phoenix.tag = "Tag_Enemy";
                     Boss_Phoenix.GetComponent<Boss_Phoenix>().StageRefPoint = StageRefPoint;
-                    Boss_Phoenix.GetComponent<Boss_Phoenix>().status = Boss_Phoenix.GetComponent<BossStatus>();
+                    Boss_Phoenix.GetComponent<Boss_Phoenix>().status = Boss_Phoenix.GetComponent<Boss>();
                     Boss_Phoenix.GetComponent<Boss_Phoenix>().boss = Boss_Phoenix.transform;
                     Boss_Phoenix.GetComponent<Boss_Phoenix>().step = 1;
                     Destroy(gameObject);

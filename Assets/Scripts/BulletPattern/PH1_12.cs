@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PH1_12 : MonoBehaviour
+public class PH1_12 : Character
 {
     public GameObject BulletRed;
     public GameObject BulletGreen;
@@ -10,7 +10,6 @@ public class PH1_12 : MonoBehaviour
     public GameObject BulletWhite;
     public GameObject BulletOrange;
     public Vector3 StageRefPoint;
-    public float HealthPoint;
     private Vector3 spawnPos;
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
@@ -21,7 +20,8 @@ public class PH1_12 : MonoBehaviour
     
     void Awake()
     {
-        startTime = Time.time;
+		startTime = Time.time;
+		MaxHealthPoint = 2500.0f;
         HealthPoint = 2500.0f;
     }
 
@@ -65,7 +65,7 @@ public class PH1_12 : MonoBehaviour
                     float angle = (i * 4f + j * 1f) / 180.0f * Mathf.PI;
                     BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                     
-                    Vector3 temp = new Vector3(11.0f * Mathf.Sin(angle), 0, 11.0f * Mathf.Cos(angle));
+                    Vector3 temp = new Vector3(10.0f * Mathf.Sin(angle), 0, 10.0f * Mathf.Cos(angle));
                     BulletX.rigidbody.velocity = temp;
                     Destroy(BulletX.gameObject, 6.0f);
                     BulletX.rigidbody.useGravity = false;
@@ -73,7 +73,7 @@ public class PH1_12 : MonoBehaviour
                 lastTime = Time.time;
                 j++;
             }
-            if (j == 11)
+            if (j == 12)
             {
                 step++;
             }

@@ -15,7 +15,7 @@ public class Boss_CS : MonoBehaviour
 	private float localStartTime = 0.0f;
 	private float countdownUntil = 0.0f;
 	private Vector3 StageRefPoint;
-	private BossStatus status;
+	private Boss status;
 	private Transform boss;
 	private int bossState;
 
@@ -23,7 +23,7 @@ public class Boss_CS : MonoBehaviour
 	{
 		startTime = Time.time;
 		bossState = 0;
-		status = transform.parent.gameObject.GetComponent<BossStatus>();
+		status = transform.parent.gameObject.GetComponent<Boss>();
 		boss = transform.parent;
 		StageRefPoint = GameObject.FindGameObjectWithTag("StageRefPoint").transform.position;
 

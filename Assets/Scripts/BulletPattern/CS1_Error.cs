@@ -7,8 +7,8 @@ public class CS1_Error : MonoBehaviour
     public GameObject BulletGreen; //green
     public GameObject BulletBlue; //blue
     
-    public Vector3 StageRefPoint;
-    public BossStatus status;
+	public Vector3 StageRefPoint;
+	public Boss status;
     public Transform boss;
     
     private float startTime = 0.0f;

@@ -1,12 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class PH1_10 : MonoBehaviour
+public class PH1_10 : Character
 {
     public GameObject BulletRed;
     public GameObject BulletOrange;
     public Vector3 StageRefPoint;
-    public float HealthPoint;
 
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
@@ -16,7 +15,8 @@ public class PH1_10 : MonoBehaviour
     
     void Awake()
     {
-        startTime = Time.time;
+		startTime = Time.time;
+		MaxHealthPoint = 1800.0f;
         HealthPoint = 1800.0f;
     }
 

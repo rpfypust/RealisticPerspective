@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public sealed class Player : Character, IDrawable {
@@ -51,7 +51,7 @@ public sealed class Player : Character, IDrawable {
 		if (!invincible) {
 			StartCoroutine(blink());
 			base.takeDamage(damage);
-			Debug.Log(string.Format("Player HP: {0}/{1}", HP, maxHP));
+			Debug.Log(string.Format("Player HP: {0}/{1}", HealthPoint, MaxHealthPoint));
 		}
 	}
 

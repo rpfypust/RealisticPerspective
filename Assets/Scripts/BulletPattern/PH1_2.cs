@@ -1,14 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class PH1_2 : MonoBehaviour
+public class PH1_2 : Character
 {
     public GameObject BulletRed;
     public GameObject BulletWhite;
     public GameObject BulletYellow_Big;
     public GameObject LaserPurple;
     public Vector3 StageRefPoint;
-    public float HealthPoint;
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
     public int j = 0; //angle/bullet counter
@@ -19,7 +18,8 @@ public class PH1_2 : MonoBehaviour
     
     void Awake()
     {
-        startTime = Time.time;
+		startTime = Time.time;
+		MaxHealthPoint = 1500.0f;
         HealthPoint = 1500.0f;
     }
 
