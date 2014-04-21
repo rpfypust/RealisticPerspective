@@ -8,6 +8,7 @@ public class HashIDs : MonoBehaviour {
 	public int idlingBool;
 	public int attackingBool;
 	public int chasingBool;
+	public int crouchingBool;
 
 	void Awake() {
 		walkingBool = Animator.StringToHash("Walking");
@@ -16,5 +17,6 @@ public class HashIDs : MonoBehaviour {
 		idlingBool = Animator.StringToHash("Idling");
 		attackingBool = Animator.StringToHash("Attacking");
 		chasingBool = Animator.StringToHash("Chasing");
+		crouchingBool = Animator.StringToHash("Crouching");
 	}
 }
