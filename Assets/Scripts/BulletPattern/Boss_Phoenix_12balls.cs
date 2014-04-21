@@ -42,7 +42,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
     void Awake()
     {
         startTime = Time.time;
-        bossState = -13;
+        bossState = 0;
         //status = transform.parent.gameObject.GetComponent<BossStatus>();
         //boss = transform.parent;
         StageRefPoint = GameObject.FindGameObjectWithTag("StageRefPoint").transform.position;
