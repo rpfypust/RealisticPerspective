@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 43023fa3ca86e23409bed1d1bc2a9c8d
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: BezierCurve
     100002: BezierCurve_001
@@ -826,7 +826,439 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: -1
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone
+        weight: 1
+      - path: Armature/Bone/Bone_002
+        weight: 1
+      - path: Armature/Bone/Bone_002/Bone_003
+        weight: 1
+      - path: Armature/Bone_001
+        weight: 1
+      - path: Armature/Bone_004
+        weight: 1
+      - path: Armature/Bone_004/Bone_005
+        weight: 1
+      - path: Armature/Bone_006
+        weight: 1
+      - path: Armature/Bone_006/Bone_007
+        weight: 1
+      - path: BezierCurve
+        weight: 1
+      - path: BezierCurve/Plane
+        weight: 1
+      - path: BezierCurve/Plane_004
+        weight: 1
+      - path: BezierCurve_001
+        weight: 1
+      - path: BezierCurve_001/Plane_001
+        weight: 1
+      - path: BezierCurve_001/Plane_003
+        weight: 1
+      - path: BezierCurve_002
+        weight: 1
+      - path: BezierCurve_002/Plane_002
+        weight: 1
+      - path: BezierCurve_002/Plane_005
+        weight: 1
+      - path: Plane_006
+        weight: 1
+      - path: Plane_007
+        weight: 1
+      - path: Plane_008
+        weight: 1
+      - path: Plane_009
+        weight: 1
+      - path: Plane_010
+        weight: 1
+      - path: Plane_011
+        weight: 1
+      - path: Plane_012
+        weight: 1
+      - path: Plane_013
+        weight: 1
+      - path: Plane_014
+        weight: 1
+      - path: Plane_015
+        weight: 1
+      - path: Plane_016
+        weight: 1
+      - path: Plane_017
+        weight: 1
+      - path: Plane_018
+        weight: 1
+      - path: Plane_019
+        weight: 1
+      - path: Plane_020
+        weight: 1
+      - path: Plane_021
+        weight: 1
+      - path: Plane_022
+        weight: 1
+      - path: Plane_023
+        weight: 1
+      - path: Plane_024
+        weight: 1
+      - path: Plane_025
+        weight: 1
+      - path: Plane_026
+        weight: 1
+      - path: Plane_027
+        weight: 1
+      - path: Plane_028
+        weight: 1
+      - path: Plane_029
+        weight: 1
+      - path: Plane_030
+        weight: 1
+      - path: Plane_031
+        weight: 1
+      - path: Plane_032
+        weight: 1
+      - path: Plane_033
+        weight: 1
+      - path: Plane_034
+        weight: 1
+      - path: Plane_035
+        weight: 1
+      - path: Plane_036
+        weight: 1
+      - path: Plane_037
+        weight: 1
+      - path: Plane_038
+        weight: 1
+      - path: Plane_039
+        weight: 1
+      - path: Plane_040
+        weight: 1
+      - path: Plane_041
+        weight: 1
+      - path: Plane_042
+        weight: 1
+      - path: Plane_043
+        weight: 1
+      - path: Plane_044
+        weight: 1
+      - path: Plane_045
+        weight: 1
+      - path: Plane_046
+        weight: 1
+      - path: Plane_047
+        weight: 1
+      - path: Plane_048
+        weight: 1
+      - path: Plane_049
+        weight: 1
+      - path: Plane_050
+        weight: 1
+      - path: Plane_051
+        weight: 1
+      - path: Plane_052
+        weight: 1
+      - path: Plane_053
+        weight: 1
+      - path: Plane_054
+        weight: 1
+      - path: Plane_055
+        weight: 1
+      - path: Plane_056
+        weight: 1
+      - path: Plane_057
+        weight: 1
+      - path: Plane_058
+        weight: 1
+      - path: Plane_059
+        weight: 1
+      - path: Plane_060
+        weight: 1
+      - path: Plane_061
+        weight: 1
+      - path: Plane_062
+        weight: 1
+      - path: Plane_063
+        weight: 1
+      - path: Plane_064
+        weight: 1
+      - path: Plane_065
+        weight: 1
+      - path: Plane_066
+        weight: 1
+      - path: Plane_067
+        weight: 1
+      - path: Plane_068
+        weight: 1
+      - path: Plane_069
+        weight: 1
+      - path: Plane_070
+        weight: 1
+      - path: Plane_071
+        weight: 1
+      - path: Plane_072
+        weight: 1
+      - path: Plane_073
+        weight: 1
+      - path: Plane_074
+        weight: 1
+      - path: Plane_075
+        weight: 1
+      - path: Plane_076
+        weight: 1
+      - path: Plane_077
+        weight: 1
+      - path: Plane_078
+        weight: 1
+      - path: Plane_079
+        weight: 1
+      - path: Plane_080
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: fly
+      takeName: fly
+      firstFrame: -1
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone
+        weight: 1
+      - path: Armature/Bone/Bone_002
+        weight: 1
+      - path: Armature/Bone/Bone_002/Bone_003
+        weight: 1
+      - path: Armature/Bone_001
+        weight: 1
+      - path: Armature/Bone_004
+        weight: 1
+      - path: Armature/Bone_004/Bone_005
+        weight: 1
+      - path: Armature/Bone_006
+        weight: 1
+      - path: Armature/Bone_006/Bone_007
+        weight: 1
+      - path: BezierCurve
+        weight: 1
+      - path: BezierCurve/Plane
+        weight: 1
+      - path: BezierCurve/Plane_004
+        weight: 1
+      - path: BezierCurve_001
+        weight: 1
+      - path: BezierCurve_001/Plane_001
+        weight: 1
+      - path: BezierCurve_001/Plane_003
+        weight: 1
+      - path: BezierCurve_002
+        weight: 1
+      - path: BezierCurve_002/Plane_002
+        weight: 1
+      - path: BezierCurve_002/Plane_005
+        weight: 1
+      - path: Plane_006
+        weight: 1
+      - path: Plane_007
+        weight: 1
+      - path: Plane_008
+        weight: 1
+      - path: Plane_009
+        weight: 1
+      - path: Plane_010
+        weight: 1
+      - path: Plane_011
+        weight: 1
+      - path: Plane_012
+        weight: 1
+      - path: Plane_013
+        weight: 1
+      - path: Plane_014
+        weight: 1
+      - path: Plane_015
+        weight: 1
+      - path: Plane_016
+        weight: 1
+      - path: Plane_017
+        weight: 1
+      - path: Plane_018
+        weight: 1
+      - path: Plane_019
+        weight: 1
+      - path: Plane_020
+        weight: 1
+      - path: Plane_021
+        weight: 1
+      - path: Plane_022
+        weight: 1
+      - path: Plane_023
+        weight: 1
+      - path: Plane_024
+        weight: 1
+      - path: Plane_025
+        weight: 1
+      - path: Plane_026
+        weight: 1
+      - path: Plane_027
+        weight: 1
+      - path: Plane_028
+        weight: 1
+      - path: Plane_029
+        weight: 1
+      - path: Plane_030
+        weight: 1
+      - path: Plane_031
+        weight: 1
+      - path: Plane_032
+        weight: 1
+      - path: Plane_033
+        weight: 1
+      - path: Plane_034
+        weight: 1
+      - path: Plane_035
+        weight: 1
+      - path: Plane_036
+        weight: 1
+      - path: Plane_037
+        weight: 1
+      - path: Plane_038
+        weight: 1
+      - path: Plane_039
+        weight: 1
+      - path: Plane_040
+        weight: 1
+      - path: Plane_041
+        weight: 1
+      - path: Plane_042
+        weight: 1
+      - path: Plane_043
+        weight: 1
+      - path: Plane_044
+        weight: 1
+      - path: Plane_045
+        weight: 1
+      - path: Plane_046
+        weight: 1
+      - path: Plane_047
+        weight: 1
+      - path: Plane_048
+        weight: 1
+      - path: Plane_049
+        weight: 1
+      - path: Plane_050
+        weight: 1
+      - path: Plane_051
+        weight: 1
+      - path: Plane_052
+        weight: 1
+      - path: Plane_053
+        weight: 1
+      - path: Plane_054
+        weight: 1
+      - path: Plane_055
+        weight: 1
+      - path: Plane_056
+        weight: 1
+      - path: Plane_057
+        weight: 1
+      - path: Plane_058
+        weight: 1
+      - path: Plane_059
+        weight: 1
+      - path: Plane_060
+        weight: 1
+      - path: Plane_061
+        weight: 1
+      - path: Plane_062
+        weight: 1
+      - path: Plane_063
+        weight: 1
+      - path: Plane_064
+        weight: 1
+      - path: Plane_065
+        weight: 1
+      - path: Plane_066
+        weight: 1
+      - path: Plane_067
+        weight: 1
+      - path: Plane_068
+        weight: 1
+      - path: Plane_069
+        weight: 1
+      - path: Plane_070
+        weight: 1
+      - path: Plane_071
+        weight: 1
+      - path: Plane_072
+        weight: 1
+      - path: Plane_073
+        weight: 1
+      - path: Plane_074
+        weight: 1
+      - path: Plane_075
+        weight: 1
+      - path: Plane_076
+        weight: 1
+      - path: Plane_077
+        weight: 1
+      - path: Plane_078
+        weight: 1
+      - path: Plane_079
+        weight: 1
+      - path: Plane_080
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -863,4 +1295,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  additionalBone: 0
   userData: 
