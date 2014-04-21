@@ -19,7 +19,7 @@ public class StoryEngH : Plot {
 		alice = GameObject.Find("Alice").GetComponent<Actor>();
 		
 		dialogs = new List<Dialog>();		
-
+		
 		dialogs.Add(new Dialog("Alpha", "Once again, not here...",1));
 		dialogs.Add(new Dialog("Alpha", "And Delta has not contacted me...",1));
 		dialogs.Add(new Dialog("Alpha", "I better go for the next base as soon as possible to rescue Beta.",1));
@@ -50,7 +50,7 @@ public class StoryEngH : Plot {
 		dialogs.Add(new Dialog("Alice", "I've to go now! See you."));
 		//Alice Walk away
 		dialogs.Add(new Dialog("Alpha", "OK, I need to work on the next base too."));
-
+		
 	}
 	
 	public void Start()
@@ -62,11 +62,11 @@ public class StoryEngH : Plot {
 	{	
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
-
+		
 		yield return StartCoroutine(alpha.tunnelOut());
 		StartCoroutine(cam.rotateY(130,2));
 		yield return StartCoroutine(alpha.walkWithTime(wayPoints[0],2));
-
+		
 		dman.openDialog();
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
 		yield return StartCoroutine(base.interactToProceed());
@@ -78,14 +78,14 @@ public class StoryEngH : Plot {
 		yield return StartCoroutine(alice.runWithTime(wayPoints[1],2));
 		StartCoroutine(cam.pan(new Vector3(0,-0.25f,0),2));
 		yield return StartCoroutine(cam.orbitMotion(wayPoints[2],-60,2));
-
+		
 		dman.openDialog();
 		for (int index = 3; index < 26; index++) {
-//			if(index == 22)
-//			{
-//				//play sounds
-//			}
-
+			//			if(index == 22)
+			//			{
+			//				//play sounds
+			//			}
+			
 			switch(dialogs[index].Speaker)
 			{
 			case "Alpha":
@@ -99,7 +99,7 @@ public class StoryEngH : Plot {
 				break;
 			}
 		}
-
+		
 		yield return new WaitForSeconds(0.5f);
 		StartCoroutine(alice.runWithTime(wayPoints[3],4));
 		StartCoroutine(cam.pan(new Vector3(0,0.25f,0),0.5f));
@@ -109,7 +109,8 @@ public class StoryEngH : Plot {
 		yield return StartCoroutine(dman.display(dialogs[26],alpha.EmotionPt));
 		yield return StartCoroutine(base.interactToProceed());
 		dman.closeDialog();
-
+		
 		StartCoroutine(cam.FadeIn());
 	}
 }
+
