@@ -21,24 +21,6 @@ public class PH1_3 : Character
 		MaxHealthPoint = 800.0f;
         HealthPoint = 800.0f;
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        
-        if (collision.gameObject.tag == "Tag_PlayerBullet")
-        {
-            //get damage
-            float damage = collision.gameObject.GetComponent<BulletInfo>().Damage;
-            HealthPoint -= damage;
-                
-            if (HealthPoint <= 0)
-            {
-                HealthPoint = 0;
-            }
-            Destroy(collision.gameObject);
-        }
-        
-    }
     
     void OnDestroy()
     {
@@ -89,7 +71,8 @@ public class PH1_3 : Character
                         Vector3 temp = new Vector3(7.0f * Mathf.Sin(angle), 0, 7.0f * Mathf.Cos(angle));
                         BulletX.rigidbody.velocity = temp;
                         Destroy(BulletX.gameObject, 6.5f);
-                        BulletX.rigidbody.useGravity = false;
+						BulletX.rigidbody.useGravity = false;
+						BulletX.GetComponent<EnemyBullet>().damage = 4.0f;
                     }
                 }
                 j++;
@@ -104,7 +87,11 @@ public class PH1_3 : Character
                     {
                         hole -= 17f - Random.value * 5f;
                     }
-                    hole %= 360f;
+					if (hole >360f){
+						hole -=360f;
+					}else if (hole <0f){
+						hole +=360f;
+					}
                 }
             }
         }

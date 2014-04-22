@@ -19,24 +19,6 @@ public class PH1_10 : Character
 		MaxHealthPoint = 1800.0f;
         HealthPoint = 1800.0f;
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        
-        if (collision.gameObject.tag == "Tag_PlayerBullet")
-        {
-            //get damage
-            float damage = collision.gameObject.GetComponent<BulletInfo>().Damage;
-            HealthPoint -= damage;
-                
-            if (HealthPoint <= 0)
-            {
-                HealthPoint = 0;
-            }
-            Destroy(collision.gameObject);
-        }
-        
-    }
     
     void OnDestroy()
     {
@@ -74,7 +56,7 @@ public class PH1_10 : Character
             }
         } else if (step == 2)
         {
-            if ((Time.time - lastTime) > 0.02f)
+            if ((Time.time - lastTime) > 0.06f)
             {
                 float angle = Random.value * 2.0f * Mathf.PI;
                 BulletX = new GameObject();

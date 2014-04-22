@@ -83,7 +83,8 @@ public class CS1_Error : MonoBehaviour
             BulletX.GetComponent<CS1_Error_B1>().lastFor = 1.5f;
             BulletX.GetComponent<CS1_Error_B1>().oriPos = transform.position;
             BulletX.rigidbody.useGravity = false;
-            j++;
+			j++;
+			Debug.Log(Time.time+" "+j);
             if (j >= 36)
             {
                 step++;
@@ -115,7 +116,8 @@ public class CS1_Error : MonoBehaviour
             BulletX.GetComponent<CS1_Error_B1>().oriPos = transform.position;
             BulletX.rigidbody.useGravity = false;
             
-            j++;
+			j++;
+			Debug.Log(Time.time+" "+j);
             if (j >= 17)
             {
                 step++;
@@ -123,7 +125,7 @@ public class CS1_Error : MonoBehaviour
             }
         } else if (step < 93)
         { //wait for the bullet is setted up
-            
+			Debug.Log(Time.time+" "+step);
             step++;
             
         } else if (step < 94)
@@ -141,11 +143,12 @@ public class CS1_Error : MonoBehaviour
                 boss.gameObject.GetComponent<BossRandomMoveInArea>().z2 = StageRefPoint.z + 36.0f;
                 boss.gameObject.GetComponent<BossRandomMoveInArea>().r = 4.0f;
                 boss.gameObject.GetComponent<BossRandomMoveInArea>().oriPos = transform.position;
-            }
+			}
+			Debug.Log(Time.time+" "+step);
             
         } else if (step < 95)
         { // start random bullet
-            for (int i=0; i<=2; i++)
+            for (int i=0; i<=1; i++)
             {
                 float angle = Random.value * 2.0f * Mathf.PI;
                 float speed = Random.value * 8.0f + 6.0f;

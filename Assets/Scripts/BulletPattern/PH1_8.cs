@@ -18,24 +18,6 @@ public class PH1_8 : Character
 		MaxHealthPoint = 1900.0f;
         HealthPoint = 1900.0f;
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        
-        if (collision.gameObject.tag == "Tag_PlayerBullet")
-        {
-            //get damage
-            float damage = collision.gameObject.GetComponent<BulletInfo>().Damage;
-            HealthPoint -= damage;
-                
-            if (HealthPoint <= 0)
-            {
-                HealthPoint = 0;
-            }
-            Destroy(collision.gameObject);
-        }
-        
-    }
     
     void OnDestroy()
     {

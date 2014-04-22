@@ -18,24 +18,6 @@ public class PH1_7 : Character
 		MaxHealthPoint = 1900.0f;
         HealthPoint = 1900.0f;
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        
-        if (collision.gameObject.tag == "Tag_PlayerBullet")
-        {
-            //get damage
-            float damage = collision.gameObject.GetComponent<BulletInfo>().Damage;
-            HealthPoint -= damage;
-                
-            if (HealthPoint <= 0)
-            {
-                HealthPoint = 0;
-            }
-            Destroy(collision.gameObject);
-        }
-        
-    }
     
     void OnDestroy()
     {
@@ -73,26 +55,26 @@ public class PH1_7 : Character
             }
         } else if (step == 2)
         {
-            if ((Time.time - lastTime) > 0.05f)
+            if ((Time.time - lastTime) > 0.04f)
             {
                 float angle = Random.value * 2.0f * Mathf.PI;
                 BulletX = new GameObject();
                 BulletX.transform.position = transform.position;
                 BulletX.AddComponent("PH1_7_HorseSpawn");
                 BulletX.GetComponent<PH1_7_HorseSpawn>().angle = angle;
-                BulletX.GetComponent<PH1_7_HorseSpawn>().speed = 12.0f;
+                BulletX.GetComponent<PH1_7_HorseSpawn>().speed = 13.0f;
                 BulletX.GetComponent<PH1_7_HorseSpawn>().BulletOrange = BulletOrange;
                 lastTime = Time.time;
 
-                if(j%20==0){
-                    for (int i=0; i<90; i++)
+                if(j%17==0){
+                    for (int i=0; i<72; i++)
                     {
-                        angle = (i * 4f + j * 0.05f) / 180.0f * Mathf.PI;
+                        angle = (i * 5f + j * 0.05f) / 180.0f * Mathf.PI;
                         BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                         
-                        Vector3 temp = new Vector3(14.0f * Mathf.Sin(angle), 0, 14.0f * Mathf.Cos(angle));
+                        Vector3 temp = new Vector3(6.0f * Mathf.Sin(angle), 0, 6.0f * Mathf.Cos(angle));
                         BulletX.rigidbody.velocity = temp;
-                        Destroy(BulletX.gameObject, 6.0f);
+                        Destroy(BulletX.gameObject, 8.0f);
                         BulletX.rigidbody.useGravity = false;
                     }
                 }

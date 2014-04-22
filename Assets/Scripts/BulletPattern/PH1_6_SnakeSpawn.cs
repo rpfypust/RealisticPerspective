@@ -30,7 +30,8 @@ public class PH1_6_SnakeSpawn : MonoBehaviour
             BulletX.GetComponent<PH1_6_Snake>().period = 1f;
             BulletX.GetComponent<PH1_6_Snake>().phase = phase;
             Destroy(BulletX.gameObject, 8.0f);
-            BulletX.rigidbody.useGravity = false;
+			BulletX.rigidbody.useGravity = false;
+			BulletX.GetComponent<EnemyBullet>().damage = 4.0f;
             lastTime = cTime;
             j++;
             if (j == 10)

@@ -25,24 +25,6 @@ public class PH1_5 : Character
 		MaxHealthPoint = 2000.0f;
         HealthPoint = 2000.0f;
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        
-        if (collision.gameObject.tag == "Tag_PlayerBullet")
-        {
-            //get damage
-            float damage = collision.gameObject.GetComponent<BulletInfo>().Damage;
-            HealthPoint -= damage;
-                
-            if (HealthPoint <= 0)
-            {
-                HealthPoint = 0;
-            }
-            Destroy(collision.gameObject);
-        }
-        
-    }
     
     void OnDestroy()
     {
@@ -108,7 +90,8 @@ public class PH1_5 : Character
                 BulletX.GetComponent<PH1_5_Dragon>().radius = (destPosition - spawnPosition).magnitude / 2.0f;
                 BulletX.GetComponent<PH1_5_Dragon>().moveTime = 2.0f;
                 BulletX.GetComponent<PH1_5_Dragon>().BulletBlue = BulletBlue;
-                BulletX.rigidbody.useGravity = false;
+				BulletX.rigidbody.useGravity = false;
+				BulletX.GetComponent<EnemyBullet>().damage = 10.0f;
                 j++;
                 if (j == 40)
                 {

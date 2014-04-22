@@ -54,6 +54,8 @@ public class CS1_P2P_Computer : MonoBehaviour
 				BulletX.rigidbody.velocity = 9.0f * Vector3.Normalize(temp);
 				Destroy(BulletX.gameObject, waitUntil);
 				BulletX.rigidbody.useGravity = false;
+				BulletX.GetComponent<EnemyBullet>().damage = 7.0f;
+
 				lastTime = cTime;
             }
             if(cTime - lastStepTime > 0.5f){

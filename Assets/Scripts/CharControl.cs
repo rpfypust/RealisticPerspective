@@ -38,7 +38,6 @@ public class CharControl : MonoBehaviour
 		float v = Input.GetAxis("Vertical");
 		bool slow = Input.GetButton("Slow");
 		bool jump = Input.GetButtonDown("Jump");
-//		bool jump = Input.GetButton("Jump");
 		Rotate(h, v, slow);
 		Move(h, v, slow, jump);
 	}

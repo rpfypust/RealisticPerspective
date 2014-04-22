@@ -32,7 +32,7 @@ public class PH1_7_HorseSpawn : MonoBehaviour
                 if(pattern[j,i]==1){
                 BulletX = (GameObject)Instantiate(BulletOrange, transform.position+new Vector3(0f,i*0.5f,0f), transform.rotation);
                 BulletX.rigidbody.velocity = speed * new Vector3(Mathf.Sin(angle), 0.0f, Mathf.Cos(angle));
-                Destroy(BulletX.gameObject, 8.0f);
+                Destroy(BulletX.gameObject, 6.0f);
                 BulletX.rigidbody.useGravity = false;
                 }
             }

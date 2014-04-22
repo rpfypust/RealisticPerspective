@@ -75,7 +75,7 @@ public class CS1_0 : MonoBehaviour
                     BulletX.GetComponent<CS1_0_B2>().vx = 8.0f * Mathf.Sin(angle);
                     BulletX.GetComponent<CS1_0_B2>().vz = 8.0f * Mathf.Cos(angle);
                     BulletX.GetComponent<CS1_0_B2>().oriPos = transform.position;
-                    BulletX.rigidbody.useGravity = false;
+					BulletX.rigidbody.useGravity = false;
                 }
                 lastTime = Time.time;
                 step++;
@@ -87,15 +87,15 @@ public class CS1_0 : MonoBehaviour
         { //all-direction red bullet
             if ((Time.time - lastTime) > 1 / 5.0f)
             {
-                for (int i=0; i<120; i++)
+                for (int i=0; i<90; i++)
                 {
-                    float angle = (i * 3f + step * 0.5f) / 180.0f * Mathf.PI;
+                    float angle = (i * 4f + step * 1f) / 180.0f * Mathf.PI;
                     BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                     
                     Vector3 temp = new Vector3(8.0f * Mathf.Sin(angle), 0, 8.0f * Mathf.Cos(angle));
                     BulletX.rigidbody.velocity = temp;
                     Destroy(BulletX.gameObject, 8.0f);
-                    BulletX.rigidbody.useGravity = false;
+					BulletX.rigidbody.useGravity = false;
                 }
                 lastTime = Time.time;
                 step++;
@@ -111,15 +111,15 @@ public class CS1_0 : MonoBehaviour
         { //all-direction red bullet
             if ((Time.time - lastTime) > 1 / 5.0f)
             {
-                for (int i=0; i<120; i++)
+                for (int i=0; i<90; i++)
                 {
-                    float angle = (i * 3f + step * 0.5f) / 180.0f * Mathf.PI;
+                    float angle = (i * 4f + step * 1f) / 180.0f * Mathf.PI;
                     BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                     
                     Vector3 temp = new Vector3(8.0f * Mathf.Sin(angle), 0, 8.0f * Mathf.Cos(angle));
                     BulletX.rigidbody.velocity = temp;
                     Destroy(BulletX.gameObject, 8.0f);
-                    BulletX.rigidbody.useGravity = false;
+					BulletX.rigidbody.useGravity = false;
                 }
                 lastTime = Time.time;
                 step++;

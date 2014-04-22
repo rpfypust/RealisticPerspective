@@ -41,7 +41,7 @@ public class StoryEngH : Plot {
 		dialogs.Add(new Dialog("Alpha", "Not yet, but almost."));
 		dialogs.Add(new Dialog("Alice", "Alpha, you're really working hard for Beta."));
 		dialogs.Add(new Dialog("Alpha", "Of course. She's my best friends after all."));
-		dialogs.Add(new Dialog("Alice", "Ah..."));
+		dialogs.Add(new Dialog("Alice", "Ah...")); 
 		dialogs.Add(new Dialog("Alice", "Is there anything I can help?",2));
 		dialogs.Add(new Dialog("Alpha", "Sure."));
 		dialogs.Add(new Dialog("Alpha", "Then do you know Dr. Renroh?",2));

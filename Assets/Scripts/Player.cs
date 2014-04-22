@@ -3,13 +3,23 @@ using System.Collections;
 
 public sealed class Player : Character, IDrawable {
 
-	public const float INVINCIBLE_INTERVAL = 1f;
+	public const float INVINCIBLE_INTERVAL = 1.5f;
 	private bool invincible;
 	private Renderer ren;
 
 	private Texture2D hpFore;
 	private Texture2D hpBack;
-	private Texture2D mpDummy;
+	private Texture2D mpFore;
+	private Texture2D mpBack;
+
+	public float maxMagicPoint = 50.0f;
+	private float magicPoint;
+	public float MagicPoint {
+		get {return magicPoint;}
+		set {
+			magicPoint = Mathf.Clamp(value, 0.0f, maxMagicPoint);
+		}
+	}
 
 	private GUIManager gman;
 
@@ -22,7 +32,10 @@ public sealed class Player : Character, IDrawable {
 
 		hpFore = Util.makeSolid(new Color32(0x14, 0xc8, 0x14, 0xff));
 		hpBack = Util.makeSolid(new Color32(0x0a, 0x46, 0x0a, 0xff));
-		mpDummy = Util.makeSolid(Color.black);
+		mpFore = Util.makeSolid(new Color32(0x00, 0x00, 0x99, 0xff));
+		mpBack = Util.makeSolid(new Color32(0x13, 0x22, 0x32, 0xff));
+
+		MagicPoint = maxMagicPoint;
 	}
 
 	protected override void Start() {
@@ -57,9 +70,11 @@ public sealed class Player : Character, IDrawable {
 
 	public void DrawOnGUI()
 	{
-		float length = HPPercent * 1227f;
+		float hpLength = HPPercent * 1227f;
+		float mpLength = MagicPoint / maxMagicPoint * 1227f;
 		GUI.DrawTexture(new Rect(18f, 40f, 1227f, 16f), hpBack);
-		GUI.DrawTexture(new Rect(18f, 40f, length, 16f), hpFore);
-		GUI.DrawTexture(new Rect(18f, 64f, 1227f, 16f), mpDummy);
+		GUI.DrawTexture(new Rect(18f, 40f, hpLength, 16f), hpFore);
+		GUI.DrawTexture(new Rect(18f, 64f, 1227f, 16f), mpBack);
+		GUI.DrawTexture(new Rect(18f, 64f, mpLength, 16f), mpFore);
 	}
 }

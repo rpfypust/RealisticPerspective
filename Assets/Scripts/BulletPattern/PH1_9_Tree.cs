@@ -30,7 +30,8 @@ public class PH1_9_Tree : MonoBehaviour
                     {
                         BulletX = (GameObject)Instantiate(BulletOrange, transform.position + new Vector3(m * 0.4f, j * 0.5f, n * 0.4f), transform.rotation);
                         Destroy(BulletX.gameObject, 8.0f);
-                        BulletX.rigidbody.useGravity = false;
+						BulletX.rigidbody.useGravity = false;
+						BulletX.GetComponent<EnemyBullet>().damage = 10.0f;
                     }
                 }
                 j++;
@@ -50,7 +51,8 @@ public class PH1_9_Tree : MonoBehaviour
                     float angle = i / 4f *Mathf.PI;
                     BulletX = (GameObject)Instantiate(BulletGreen, transform.position + new Vector3(j * 0.4f *Mathf.Sin(angle), 3f - j*j /20f, j * 0.4f *Mathf.Cos(angle)), transform.rotation);
                     Destroy(BulletX.gameObject, 8.0f);
-                    BulletX.rigidbody.useGravity = false;
+					BulletX.rigidbody.useGravity = false;
+					BulletX.GetComponent<EnemyBullet>().damage = 10.0f;
                 }
                 j++;
                 lastTime = cTime;

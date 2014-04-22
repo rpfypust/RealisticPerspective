@@ -23,24 +23,6 @@ public class PH1_4 : Character
 		MaxHealthPoint = 1500.0f;
         HealthPoint = 1500.0f;
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        
-        if (collision.gameObject.tag == "Tag_PlayerBullet")
-        {
-            //get damage
-            float damage = collision.gameObject.GetComponent<BulletInfo>().Damage;
-            HealthPoint -= damage;
-                
-            if (HealthPoint <= 0)
-            {
-                HealthPoint = 0;
-            }
-            Destroy(collision.gameObject);
-        }
-        
-    }
     
     void OnDestroy()
     {
@@ -57,7 +39,7 @@ public class PH1_4 : Character
                     float angle = (i * 4f + j * 1f) / 180.0f * Mathf.PI;
                     BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
                     
-                    Vector3 temp = new Vector3(12.0f * Mathf.Sin(angle), 0, 12.0f * Mathf.Cos(angle));
+                    Vector3 temp = new Vector3(9.0f * Mathf.Sin(angle), 0, 9.0f * Mathf.Cos(angle));
                     BulletX.rigidbody.velocity = temp;
                     Destroy(BulletX.gameObject, 6.0f);
                     BulletX.rigidbody.useGravity = false;

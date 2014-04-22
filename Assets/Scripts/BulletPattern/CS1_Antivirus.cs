@@ -25,7 +25,7 @@ public class CS1_Antivirus : MonoBehaviour
     private Vector3 SpawnPosition;
     private GameObject BulletX; //bullets are using this to be created
     private GameObject BossObject_TowerX;
-    private GameObject BossObject_PlatformX;
+	private GameObject BossObject_PlatformX;
     
     void Awake()
     {
@@ -59,7 +59,7 @@ public class CS1_Antivirus : MonoBehaviour
             TowerPosition = StageRefPoint + new Vector3(16.0f, -2.0f, 24.0f);
             BossObject_TowerX = (GameObject)Instantiate(BossObject_Tower, TowerPosition, new Quaternion(0, 0, 0, 0));
             step++;
-            BossObject_PlatformX = (GameObject)Instantiate(BossObject_Platform, StageRefPoint + new Vector3(16.0f, -0.5f, 24.0f), new Quaternion(0, 0, 0, 0));
+            BossObject_PlatformX = (GameObject)Instantiate(BossObject_Platform, StageRefPoint + new Vector3(16.0f, -1.2f, 24.0f), new Quaternion(0, 0, 0, 0));
         } else if (step < 2)
         { 
             if (!BossObject_TowerX.GetComponent<UniformMotionWithinTime>())
@@ -89,15 +89,30 @@ public class CS1_Antivirus : MonoBehaviour
                 BulletX.GetComponent<CS1_Error_B2>().vz = speed * Mathf.Cos(angle);
                 BulletX.GetComponent<CS1_Error_B2>().oriPos = TowerPosition;
                 Destroy(BulletX.gameObject, 5.0f);
-                BulletX.rigidbody.useGravity = false;
+				BulletX.rigidbody.useGravity = false;
+				BulletX.GetComponent<EnemyBullet>().damage = 2.0f;
             }
             j = j + angleSpeed * ((round % 2) - 0.5f) * 2.0f;
             j -= Mathf.Floor(j);
         }
         if (step == 2)
         {
-            SpawnPosition = StageRefPoint;
-            SpawnPosition += new Vector3(Random.value * 18.0f + 6.0f, -1.2f, Random.value * 24.0f + 12.0f);
+			SpawnPosition = StageRefPoint;
+			target = GameObject.FindWithTag("Player");
+			Vector2 playerV = new Vector2((target.transform.position - StageRefPoint).x,(target.transform.position - StageRefPoint).z);
+			bool isOK = false;
+			float tempX;
+			float tempZ;
+			do{
+				tempX = Random.value * 18.0f + 6.0f;
+				tempZ = Random.value * 24.0f + 12.0f;
+				Vector2 compare = new Vector2(tempX,tempZ);
+				if((Vector2.Distance(compare,new Vector2(16.0f,24.0f))>3f) &&
+				   (Vector2.Distance(compare,playerV) < 12f)&&(Vector2.Distance(compare,playerV) > 5f)){
+					isOK =true;
+					}
+			}while(!isOK);
+				SpawnPosition += new Vector3(tempX, -1.2f, tempZ);
             BossObject_PlatformX.transform.position = SpawnPosition;
             step++;
             l = 0;

@@ -317,7 +317,8 @@ public class Boss_Phoenix : MonoBehaviour
                     BulletX.AddComponent("PH1_Phoenix_FallDownBall");
                     BulletX.GetComponent<PH1_Phoenix_FallDownBall>().dest = target.transform.position;
                     BulletX.GetComponent<PH1_Phoenix_FallDownBall>().oriPos = target.transform.position + new Vector3(15f, 36f, 0f);
-                    BulletX.GetComponent<PH1_Phoenix_FallDownBall>().moveTime = 2f;
+					BulletX.GetComponent<PH1_Phoenix_FallDownBall>().moveTime = 2f;
+					BulletX.GetComponent<EnemyBullet>().damage = 7.0f;
                     Destroy(BulletX, 5f);
                     lastTime = Time.time;
                 }
