@@ -33,10 +33,10 @@ public class BGMManager : MonoBehaviour {
 
 
 
-//	void OnGUI() {
-//		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))
-//			PlayBGM(0);
-//		else if (GUI.Button(new Rect(10, 100, 50, 50), "2"))
-//			PlayBGM(1);
-//	}
+	void OnGUI() {
+		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))
+			PlayBGM(0);
+		else if (GUI.Button(new Rect(10, 100, 50, 50), "2"))
+			PlayBGM(1);
+	}
 }
