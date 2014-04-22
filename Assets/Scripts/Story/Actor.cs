@@ -9,10 +9,12 @@ public class Actor : MonoBehaviour {
 	public GameObject tunnelIcon;
 	public GameObject tunnelParticle;
 	public GameObject vanishParticle;
+	private SEManager sem;
 
 	void Awake()
 	{
 		hash = GameObject.FindGameObjectWithTag(Tags.storyController).GetComponent<HashIDs>();
+		sem = GameObject.FindGameObjectWithTag(Tags.storyController).GetComponentInChildren<SEManager>();
 	}
 
 	public IEnumerator walkWithSpeed(Transform target, float speed)
@@ -65,11 +67,12 @@ public class Actor : MonoBehaviour {
 	public IEnumerator faceTo(Transform target, float time)
 	{	
 		Quaternion rotation = Quaternion.LookRotation(target.transform.position - transform.position);
-		float step = rotation.eulerAngles.y / time;
+		float step = Mathf.Abs(rotation.eulerAngles.y - transform.rotation.eulerAngles.y) / time;
+
 		float elpasedTime = 0;
-		while(elpasedTime < time)
+		while(elpasedTime <= time)
 		{
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, step*Time.fixedDeltaTime);
+			transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, step * Time.fixedDeltaTime * 2.0f);
 			elpasedTime += Time.deltaTime;
 			yield return new WaitForFixedUpdate();
 		}
@@ -104,6 +107,7 @@ public class Actor : MonoBehaviour {
 			elapsedTime += Time.fixedDeltaTime;
 			yield return new WaitForFixedUpdate();
 		}
+		sem.PlaySoundEffect(2);
 		GameObject particle = (GameObject) Instantiate(tunnelParticle, transform.position , Quaternion.Euler(new Vector3(-90,0,0)));
 		yield return new WaitForSeconds(1.5f);
 		yield return StartCoroutine(meshTransform.ScaleWithTime(normalScale,finalScale,0.1f));
@@ -128,7 +132,6 @@ public class Actor : MonoBehaviour {
 		meshTransform.localScale = new Vector3(0, 0, 0);
 		Vector3 dest = transform.position;
 		dest.y += 0.01f;
-		
 		StartCoroutine(icon.transform.LinearMoveWithTime(icon.transform.position, dest, 1.5f));
 		float elapsedTime = 0;
 		while (elapsedTime <= 1.5f) {
@@ -136,6 +139,7 @@ public class Actor : MonoBehaviour {
 			elapsedTime += Time.fixedDeltaTime;
 			yield return new WaitForFixedUpdate();
 		}
+		sem.PlaySoundEffect(2);
 		GameObject particle = (GameObject) Instantiate(tunnelParticle, transform.position , Quaternion.Euler(new Vector3(-90,0,0)));
 		yield return new WaitForSeconds(1.5f);
 		yield return StartCoroutine(meshTransform.ScaleWithTime(normalScale,finalScale,0.1f));
@@ -157,7 +161,7 @@ public class Actor : MonoBehaviour {
 		Vector3 finalScale = new Vector3(0.7f, 0.7f, 1);
 		Vector3 pos = transform.position;
 		pos.y += 0.7f;
-
+		sem.PlaySoundEffect(4);
 		GameObject particle = (GameObject) Instantiate(vanishParticle, pos , Quaternion.Euler(new Vector3(-90,0,0)));
 		yield return StartCoroutine(meshTransform.ScaleWithTime(normalScale,finalScale,0.6f));
 		normalScale = finalScale;

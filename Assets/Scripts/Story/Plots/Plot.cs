@@ -10,13 +10,12 @@ public abstract class Plot : MonoBehaviour {
 
 	protected abstract IEnumerator sequencer();
 
-	protected IEnumerator interactToProceed()
-	{
-		bool interacted = false;
-		while (!interacted) {
-			// definition what is an interaction
-			interacted = Input.GetButton("Fire1");
-			yield return new WaitForFixedUpdate();
-		}
+//	protected IEnumerator interactToProceed()
+//	{
+//		bool interacted = false;
+//		while (!interacted) {
+//			// definition what is an interaction
+//			interacted = Input.GetButton("Fire1");
+//			yield return new WaitForFixedUpdate();
+//		}
 	}
-}

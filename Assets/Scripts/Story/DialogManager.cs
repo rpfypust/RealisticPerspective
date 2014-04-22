@@ -4,6 +4,7 @@ using System.Collections;
 public class DialogManager : MonoBehaviour, IDrawable {
 	
 	private GUIManager gman;
+	private SEManager sem;
 	private float screenHeight;
 	private float screenWidth;
 	
@@ -21,6 +22,7 @@ public class DialogManager : MonoBehaviour, IDrawable {
 	void Awake()
 	{
 		gman = GetComponent<GUIManager>();
+		sem = GetComponentInChildren<SEManager>();
 		screenHeight = GUIManager.height;
 		screenWidth = GUIManager.width;
 		
@@ -67,6 +69,17 @@ public class DialogManager : MonoBehaviour, IDrawable {
 			emotionPoint = ePt;
 			yield return new WaitForSeconds(waitInterval);
 		}
+	}
+
+	public IEnumerator interactToProceed()
+	{
+		bool interacted = false;
+		while (!interacted) {
+			// definition what is an interaction
+			interacted = Input.GetButton("Fire1");
+			yield return new WaitForFixedUpdate();
+		}
+		sem.PlaySoundEffect(5);
 	}
 	
 	public void DrawOnGUI()

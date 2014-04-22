@@ -4,11 +4,13 @@ using System.Collections;
 public class CinematicCamera : MonoBehaviour {
 
 	private GUIManager gman;
+	private SEManager sem;
 	private Fader fader;
 
 	void Awake()
 	{
 		gman = GameObject.FindGameObjectWithTag(Tags.storyController).GetComponent<GUIManager>();
+		sem = GameObject.FindGameObjectWithTag(Tags.storyController).GetComponentInChildren<SEManager>();
 		fader = GetComponent<Fader>();
 	}
 
@@ -58,6 +60,7 @@ public class CinematicCamera : MonoBehaviour {
 
 	public IEnumerator shake(float amplitude = 0.15f, float duration = 1f)
 	{
+		sem.PlaySoundEffect(3);
 		float elapsedTime = 0;
 		Vector3 originalPos = transform.position;
 		while (elapsedTime <= duration) {
@@ -90,6 +93,7 @@ public class CinematicCamera : MonoBehaviour {
 			elapsedTime += Time.fixedDeltaTime;
 			yield return new WaitForFixedUpdate();
 		}
+
 	}
 
 	public IEnumerator pan(Vector3 movement, float time)
@@ -103,5 +107,12 @@ public class CinematicCamera : MonoBehaviour {
 			elapsedTime += Time.fixedDeltaTime;
 			yield return new WaitForFixedUpdate();
 		}
+	}
+
+	public IEnumerator shift(Vector3 position, Vector3 rotation)
+	{	
+		transform.position = position;
+		transform.rotation = Quaternion.Euler(rotation);
+		yield return null;
 	}
 }
