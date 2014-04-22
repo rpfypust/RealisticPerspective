@@ -7,31 +7,34 @@ public class BGMManager : MonoBehaviour {
 	public AudioClip[] bgms;
 	public Vector2[] pairs;
 
+	private AudioSource source;
+
+	void Awake()
+	{
+		source = gameObject.AddComponent<AudioSource>();
+	}
+
 	public void PlayBGM(int index) {
-		if (audio.isPlaying)
+		if (source.isPlaying)
 			StopBGM();
 		StartCoroutine(LoopCoroutine(index));
 	}
 	
 	public void StopBGM() {
 		StopAllCoroutines();
-		audio.Stop();
+		source.Stop();
 	}
 
 	private IEnumerator LoopCoroutine(int index)
 	{
-		audio.clip = bgms[index];
-		audio.Play();
+		source.clip = bgms[index];
+		source.Play();
 		yield return new WaitForSeconds(pairs[index].y);
 		while (true) {
-			audio.time = pairs[index].x;
+			source.time = pairs[index].x;
 			yield return new WaitForSeconds(pairs[index].y - pairs[index].x);
 		}
 	}
-
-
-
-
 
 	void OnGUI() {
 		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))

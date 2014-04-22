@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(AudioSource))]
 public class SEManager : MonoBehaviour {
 
-	public AudioClip[] soundEffects;
+	public AudioClip[] ses;
+	private AudioSource[] sources;
 
-	public void PlaySoundEffect(int index) {
-		audio.PlayOneShot(soundEffects[index]);
+	void Awake()
+	{
+		sources = new AudioSource[ses.Length];
+		for (int i = 0; i < sources.Length; i++) {
+			sources[i] = gameObject.AddComponent<AudioSource>();
+			sources[i].clip = ses[i];
+		}
 	}
 
-	void Awake() {
-		DontDestroyOnLoad(transform.gameObject);
+	public void PlaySoundEffect(int i)
+	{
+		sources[i].Play(); // Play starts playing regardless of isPlaying or not
 	}
 }
