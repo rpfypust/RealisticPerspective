@@ -9,7 +9,7 @@ public class StoryEngD : Plot {
 	private DialogManager dman;
 	private CinematicCamera cam;
 	private HashIDs hash;
-
+	private BGMManager bgm;
 	private Actor alpha;
 	private Actor shadow;
 	private GameObject monster;
@@ -21,6 +21,7 @@ public class StoryEngD : Plot {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
+		bgm = GetComponentInChildren<BGMManager>();
 		hash = GameObject.FindGameObjectWithTag(Tags.storyController).GetComponent<HashIDs>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		shadow = GameObject.Find("Shadow").GetComponent<Actor>();
@@ -87,16 +88,15 @@ public class StoryEngD : Plot {
 	{	
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
-
 		dman.openDialog();
 
 		StartCoroutine(alpha.tunnelOut());
 		yield return new WaitForSeconds(.5f);
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
 		yield return new WaitForSeconds(2.5f);
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[1],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(shadow.tunnelOut());
 		StartCoroutine(shadow.faceTo(alpha.transform, 0.5f));
 		yield return StartCoroutine(alpha.faceTo(shadow.transform, 0.5f));
@@ -109,21 +109,21 @@ public class StoryEngD : Plot {
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Shadow":
 				yield return StartCoroutine(dman.display(dialogs[index],shadow.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			default:
 				yield return StartCoroutine(dman.display(dialogs[index]));;
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
-
+		bgm.audio.Play();
 		//spwan a slime and face and mvoe camera 
 		monster.SetActive(true);
 		StartCoroutine(shadow.rotate(35, 0.5f));
@@ -135,17 +135,17 @@ public class StoryEngD : Plot {
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Shadow":
 				yield return StartCoroutine(dman.display(dialogs[index],shadow.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			default:
 				yield return StartCoroutine(dman.display(dialogs[index]));;
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
@@ -180,17 +180,17 @@ public class StoryEngD : Plot {
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Shadow":
 				yield return StartCoroutine(dman.display(dialogs[index],shadow.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			default:
 				yield return StartCoroutine(dman.display(dialogs[index]));;
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
@@ -230,17 +230,17 @@ public class StoryEngD : Plot {
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Shadow":
 				yield return StartCoroutine(dman.display(dialogs[index],shadow.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			default:
 				yield return StartCoroutine(dman.display(dialogs[index]));;
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}

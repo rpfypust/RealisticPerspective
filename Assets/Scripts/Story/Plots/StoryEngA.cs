@@ -46,7 +46,7 @@ public class StoryEngA : Plot {
 		// automatically display dialogs
 		foreach (Dialog d in dialogs) {
 			yield return StartCoroutine(dman.display(d));
-			yield return StartCoroutine(base.interactToProceed());
+			yield return StartCoroutine(dman.interactToProceed());
 		}
 		dman.closeDialog();
 	}

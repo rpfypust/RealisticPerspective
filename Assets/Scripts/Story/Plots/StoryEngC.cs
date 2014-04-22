@@ -7,7 +7,8 @@ public class StoryEngC : Plot {
 	private CinematicCamera cam;
 	private DialogManager dman;
 	private List<Dialog> dialogs;
-
+	private SEManager sem;
+	private BGMManager bgm;
 	private Actor alpha;
 	private Actor shadow;
 
@@ -17,6 +18,8 @@ public class StoryEngC : Plot {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
+		sem = GetComponentInChildren<SEManager>();
+		bgm = GetComponentInChildren<BGMManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		shadow = GameObject.Find("Shadow").GetComponent<Actor>();
 		
@@ -77,13 +80,15 @@ public class StoryEngC : Plot {
 		dman.openDialog();
 
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
+		sem.PlaySoundEffect(1);
 		yield return StartCoroutine(dman.display(dialogs[1]));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
+		bgm.PlayBGM(0);
 		yield return StartCoroutine(dman.display(dialogs[2],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[3],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 
 		StartCoroutine(alpha.runWithSpeed(waypoints[1],2));
 		yield return new WaitForSeconds(1.5f);
@@ -107,7 +112,7 @@ public class StoryEngC : Plot {
 		dman.openDialog();
 
 		yield return StartCoroutine(dman.display(dialogs[4],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		StartCoroutine(alpha.rotate(-20,0.75f));
 		yield return StartCoroutine(cam.orbitMotion(waypoints[3],-20,1));
 		StartCoroutine(alpha.rotate(50,1.5f));
@@ -115,16 +120,16 @@ public class StoryEngC : Plot {
 		StartCoroutine(alpha.rotate(-25,0.75f));
 		yield return StartCoroutine(cam.orbitMotion(waypoints[3],-25,0.75f));
 		yield return StartCoroutine(dman.display(dialogs[5],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[6],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 
 		yield return StartCoroutine(dman.display(dialogs[7],alpha.EmotionPt));
 		yield return StartCoroutine(alpha.faceTo(shadow.transform, 0.5f));
 		StartCoroutine(cam.orbitMotion(waypoints[7], -135, 5));
 		StartCoroutine(shadow.alphaChange(1, 1));
 		yield return StartCoroutine(shadow.walkWithTime(waypoints[6],2));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(alpha.faceTo(shadow.transform, 0.5f));
 
 		StartCoroutine(cam.orbitMotion(waypoints[7],-200,15f));
@@ -133,17 +138,17 @@ public class StoryEngC : Plot {
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Shadow":
 				yield return StartCoroutine(dman.display(dialogs[index],shadow.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			default:
 				yield return StartCoroutine(dman.display(dialogs[index]));;
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}

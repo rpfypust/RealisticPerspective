@@ -7,26 +7,28 @@ public class StoryEngK : Plot {
 	public Transform[] wayPoints;
 	private List<Dialog> dialogs;
 	private DialogManager dman;
-	private CinematicCamera cam_0;
-	private CinematicCamera cam_1;
+	private BGMManager bgm;
+	private SEManager sem;
+	private CinematicCamera cam;
 	private Actor alpha;
 	private Actor delta;
 	private Actor renroh;
 	private GameObject stage;
 	private GameObject atrium;
+	public Material skybox;
 
 
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
-
+		bgm = GetComponentInChildren<BGMManager>();
+		sem = GetComponentInChildren<SEManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		delta = GameObject.Find("Delta").GetComponent<Actor>();
 		renroh = GameObject.Find("Renroh").GetComponent<Actor>();
 		stage = GameObject.Find("Stage");
 		atrium = GameObject.Find("Atrium");
-		cam_0 = stage.GetComponentInChildren<CinematicCamera>();
-		cam_1 = atrium.GetComponentInChildren<CinematicCamera>();
+		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
 		atrium.SetActive(false);
 
 		dialogs = new List<Dialog>();		
@@ -93,118 +95,121 @@ public class StoryEngK : Plot {
 	
 	protected override IEnumerator sequencer()
 	{	
-		yield return StartCoroutine(cam_0.SolidBlack(1f));
-		StartCoroutine(cam_0.FadeOut());
-
+		yield return StartCoroutine(cam.SolidBlack(1f));
+		StartCoroutine(cam.FadeOut());
+		bgm.PlayBGM(0);
 		yield return StartCoroutine(alpha.walkWithTime(wayPoints[0],2));
 
 		dman.openDialog();
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
-		yield return StartCoroutine(cam_0.shake());
+		yield return StartCoroutine(dman.interactToProceed());
+		sem.PlaySoundEffect(3);
+		yield return StartCoroutine(cam.shake());
 		yield return StartCoroutine(dman.display(dialogs[1],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(delta.tunnelOut());
 
-		StartCoroutine(cam_0.orbitMotion(wayPoints[0], 90, 10));
+		StartCoroutine(cam.orbitMotion(wayPoints[0], 90, 10));
 		for (int index = 2; index < 12; index++) {
 			switch(dialogs[index].Speaker)
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Delta":
 				yield return StartCoroutine(dman.display(dialogs[index],delta.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
 
 		yield return StartCoroutine(alpha.tunnelIn());
 		yield return StartCoroutine(dman.display(dialogs[12],delta.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 
-		yield return StartCoroutine(cam_0.FadeIn());
-		yield return StartCoroutine(cam_0.SolidBlack(1f));
+		yield return StartCoroutine(cam.FadeIn());
+		yield return StartCoroutine(cam.SolidBlack(1f));
 
 		//Sence Change
-
+		bgm.StopBGM();
 		Destroy(GameObject.Find ("Delta"));
 		Destroy(stage);
 		atrium.SetActive(true);
 		alpha.transform.position = wayPoints[1].position;
 		alpha.transform.rotation = wayPoints[1].rotation;
-
+		RenderSettings.skybox = skybox;
+		StartCoroutine(cam.shift(new Vector3(105,10,0), new Vector3(10,-90,0)));
 		//Sence Change
 
-		yield return StartCoroutine(cam_1.SolidBlack(1f));
-		StartCoroutine(cam_1.FadeOut());
-
-		StartCoroutine(cam_1.pan(new Vector3(-35, -8.5f,0), 3f));
+		yield return StartCoroutine(cam.SolidBlack(1f));
+		StartCoroutine(cam.FadeOut());
+		bgm.audio.clip = bgm.bgms[3];
+		bgm.audio.Play();
+		StartCoroutine(cam.pan(new Vector3(-35, -8.5f,0), 3f));
 		yield return StartCoroutine(alpha.tunnelOut());
-		yield return StartCoroutine(cam_1.orbitMotion(wayPoints[1].transform, 180 , 1f));
+		yield return StartCoroutine(cam.orbitMotion(wayPoints[1].transform, 180 , 1f));
 
 		dman.openDialog();
 		yield return StartCoroutine(dman.display(dialogs[13],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[14],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 		StartCoroutine(alpha.rotate(180,1f));
-		yield return StartCoroutine(cam_1.orbitMotion(wayPoints[1].transform, 180 , 1f));
+		yield return StartCoroutine(cam.orbitMotion(wayPoints[1].transform, 180 , 1f));
 
-		StartCoroutine(cam_1.pan(new Vector3(-3,0.3f,0),0.5f));
+		StartCoroutine(cam.pan(new Vector3(-3,0.3f,0),0.5f));
 		yield return StartCoroutine(renroh.tunnelOut());
-		StartCoroutine(cam_1.pan(new Vector3(3,0,0),0.5f));
+		StartCoroutine(cam.pan(new Vector3(3,0,0),0.5f));
 		StartCoroutine(alpha.runWithTime(wayPoints[2],1f));
-		yield return StartCoroutine(cam_1.pan(new Vector3(-3,-0.3f,0), 1f));
-		yield return StartCoroutine(cam_1.orbitMotion(wayPoints[3],90,0.5f));
+		yield return StartCoroutine(cam.pan(new Vector3(-3,-0.3f,0), 1f));
+		yield return StartCoroutine(cam.orbitMotion(wayPoints[3],90,0.5f));
 
-		StartCoroutine(cam_1.orbitMotion(wayPoints[3], 180, 25f));
+		StartCoroutine(cam.orbitMotion(wayPoints[3], 180, 25f));
 		dman.openDialog();
 		for (int index = 15; index < 43; index++) {
 			switch(dialogs[index].Speaker)
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Renroh":
 				yield return StartCoroutine(dman.display(dialogs[index],renroh.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
-		StartCoroutine(cam_1.orbitMotion(wayPoints[3], 45, .5f));
-		yield return StartCoroutine(cam_1.pan(new Vector3(0,0.3f,0), 1f));
+		StartCoroutine(cam.orbitMotion(wayPoints[3], 45, .5f));
+		yield return StartCoroutine(cam.pan(new Vector3(0,0.3f,0), 1f));
 
 		for (int index = 43; index < 47; index++) {
 			switch(dialogs[index].Speaker)
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Renroh":
 				yield return StartCoroutine(dman.display(dialogs[index],renroh.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
-		StartCoroutine(cam_1.orbitMotion(wayPoints[3], 90, .25f));
+		StartCoroutine(cam.orbitMotion(wayPoints[3], 90, .25f));
 		yield return StartCoroutine(dman.display(dialogs[47],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 
 		dman.closeDialog();
 
 		yield return StartCoroutine(renroh.tunnelIn());
 		yield return new WaitForSeconds(1);
 
-		yield return StartCoroutine(cam_1.FadeIn());
+		yield return StartCoroutine(cam.FadeIn());
 	}
 }

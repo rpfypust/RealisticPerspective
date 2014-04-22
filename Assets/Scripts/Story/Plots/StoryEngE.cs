@@ -8,16 +8,20 @@ public class StoryEngE : Plot {
 	private List<Dialog> dialogs;
 	private DialogManager dman;
 	private CinematicCamera cam;
+	private BGMManager bgm;
+	private SEManager sem;
 	private Actor alpha;
 	private Actor shadow;
 	private GameObject stage;
 	private GameObject atrium;
-
+	public Material skybox;
 
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
+		bgm = GetComponentInChildren<BGMManager>();
+		sem = GetComponentInChildren<SEManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		shadow = GameObject.Find("Shadow").GetComponent<Actor>();
 		stage = GameObject.Find("Stage");
@@ -91,47 +95,50 @@ public class StoryEngE : Plot {
 		yield return StartCoroutine(shadow.tunnelOut());
 
 		dman.openDialog();
+		bgm.PlayBGM(0);
 		StartCoroutine(cam.orbitMotion(wayPoints[0], 360, 30));
 		for (int index = 0; index < 33; index++) {
 			switch(dialogs[index].Speaker)
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Delta": case "Shadow":
 				yield return StartCoroutine(dman.display(dialogs[index],shadow.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			default:
 				yield return StartCoroutine(dman.display(dialogs[index]));;
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
 
+		sem.PlaySoundEffect(3);
 		yield return StartCoroutine(cam.shake());
 
 		yield return StartCoroutine(dman.display(dialogs[33],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[34],shadow.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[35],shadow.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[36],shadow.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[37],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[38],shadow.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		StartCoroutine(alpha.tunnelIn());
 		yield return new WaitForSeconds(1.5f);
 		yield return StartCoroutine(dman.display(dialogs[39],alpha.EmotionPt));
 		yield return new WaitForSeconds(2f);
 
 		dman.closeDialog();
+		bgm.StopBGM();
 		yield return StartCoroutine(cam.FadeIn());
 		StartCoroutine(cam.SolidBlack(2.5f));
 
@@ -142,17 +149,18 @@ public class StoryEngE : Plot {
 		cam.transform.rotation = wayPoints[1].rotation;
 		alpha.transform.position = wayPoints[2].position;
 		alpha.transform.rotation = wayPoints[2].rotation;
-
+		RenderSettings.skybox = skybox;
 		StartCoroutine(cam.FadeOut());
 
 		yield return StartCoroutine(alpha.tunnelOut());
 		dman.openDialog();
+		bgm.PlayBGM(0);
 		yield return StartCoroutine(dman.display(dialogs[40],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[41],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[42],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 		yield return StartCoroutine(cam.FadeIn());
 	}

@@ -8,6 +8,8 @@ public class StoryEngH : Plot {
 	private List<Dialog> dialogs;
 	private DialogManager dman;
 	private CinematicCamera cam;
+	private BGMManager bgm;
+	private SEManager sem;
 	private Actor alpha;
 	private Actor alice;
 	
@@ -15,6 +17,8 @@ public class StoryEngH : Plot {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
+		bgm = GetComponentInChildren<BGMManager>();
+		sem = GetComponentInChildren<SEManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		alice = GameObject.Find("Alice").GetComponent<Actor>();
 		
@@ -62,18 +66,18 @@ public class StoryEngH : Plot {
 	{	
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
-		
+		bgm.PlayBGM(0);
 		yield return StartCoroutine(alpha.tunnelOut());
 		StartCoroutine(cam.rotateY(130,2));
 		yield return StartCoroutine(alpha.walkWithTime(wayPoints[0],2));
 		
 		dman.openDialog();
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[1],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[2],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 		yield return StartCoroutine(alice.runWithTime(wayPoints[1],2));
 		StartCoroutine(cam.pan(new Vector3(0,-0.25f,0),2));
@@ -81,21 +85,19 @@ public class StoryEngH : Plot {
 		
 		dman.openDialog();
 		for (int index = 3; index < 26; index++) {
-			//			if(index == 22)
-			//			{
-			//				//play sounds
-			//			}
-			
+			if(index == 23)
+				sem.PlaySoundEffect(0);
+
 			switch(dialogs[index].Speaker)
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Alice":
 				yield return StartCoroutine(dman.display(dialogs[index],alice.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
@@ -107,7 +109,7 @@ public class StoryEngH : Plot {
 		yield return new WaitForSeconds(3.5f);
 		Destroy(GameObject.Find("Alice"));
 		yield return StartCoroutine(dman.display(dialogs[26],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 		
 		StartCoroutine(cam.FadeIn());

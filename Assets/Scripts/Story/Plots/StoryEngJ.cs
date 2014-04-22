@@ -8,6 +8,7 @@ public class StoryEngJ : Plot {
 	private List<Dialog> dialogs;
 	private DialogManager dman;
 	private CinematicCamera cam;
+	private BGMManager bgm;
 	private Actor alpha;
 	private Actor delta;
 
@@ -15,6 +16,7 @@ public class StoryEngJ : Plot {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
+		bgm = GetComponentInChildren<BGMManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		delta = GameObject.Find("Delta").GetComponent<Actor>();
 
@@ -66,16 +68,16 @@ public class StoryEngJ : Plot {
 	{	
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
-
+		bgm.PlayBGM(0);
 		yield return StartCoroutine(alpha.walkWithTime(wayPoints[1],2));
 
 		dman.openDialog();
 
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 
 		yield return StartCoroutine(delta.tunnelOut());
-		
+
 		dman.openDialog();
 		StartCoroutine(cam.orbitMotion(wayPoints[0], 360, 30));
 		for (int index = 1; index < 32; index++) {
@@ -83,12 +85,12 @@ public class StoryEngJ : Plot {
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Delta":
 				yield return StartCoroutine(dman.display(dialogs[index],delta.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
@@ -96,7 +98,7 @@ public class StoryEngJ : Plot {
 		StartCoroutine(cam.pan(new Vector3(0,0.5f,0), 1));
 		yield return StartCoroutine(alpha.tunnelIn());
 		yield return StartCoroutine(dman.display(dialogs[32],delta.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 
 		dman.closeDialog();
 

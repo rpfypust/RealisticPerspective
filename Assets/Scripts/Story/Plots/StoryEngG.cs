@@ -8,6 +8,7 @@ public class StoryEngG : Plot {
 	private List<Dialog> dialogs;
 	private DialogManager dman;
 	private CinematicCamera cam;
+	private BGMManager bgm;
 	private Actor alpha;
 	private Actor delta;
 	private Actor renroh;
@@ -18,6 +19,7 @@ public class StoryEngG : Plot {
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
+		bgm = GetComponentInChildren<BGMManager>();
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		delta = GameObject.Find("Delta").GetComponent<Actor>();
@@ -89,9 +91,10 @@ public class StoryEngG : Plot {
 
 		yield return StartCoroutine(alpha.walkWithTime(wayPoints[0],2));
 		StartCoroutine(alpha.rotate(-90, 0.5f));
+		bgm.PlayBGM(0);
 		dman.openDialog();
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 		StartCoroutine(cam.pan(new Vector3(0,0.5f,0),1));
 
@@ -103,7 +106,7 @@ public class StoryEngG : Plot {
 		yield return StartCoroutine(cam.pan(new Vector3(0,-0.5f,0),1));
 		dman.openDialog();
 		yield return StartCoroutine(dman.display(dialogs[1],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 		yield return StartCoroutine(delta.tunnelOut());
 		yield return StartCoroutine(delta.walkWithTime(wayPoints[1],2));
@@ -116,12 +119,12 @@ public class StoryEngG : Plot {
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Delta":
 				yield return StartCoroutine(dman.display(dialogs[index],delta.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
@@ -145,22 +148,22 @@ public class StoryEngG : Plot {
 			{
 			case "Renroh":
 				yield return StartCoroutine(dman.display(dialogs[index],renroh.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 				
 			case "Scientist A":
 				yield return StartCoroutine(dman.display(dialogs[index],sci_A.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 
 			case "Scientist B":
 				yield return StartCoroutine(dman.display(dialogs[index],sci_B.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 
 			case "Scientist C":
 				yield return StartCoroutine(dman.display(dialogs[index],sci_C.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
@@ -178,19 +181,19 @@ public class StoryEngG : Plot {
 			{
 			case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 
 			case "Delta":
 				yield return StartCoroutine(dman.display(dialogs[index],delta.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
 
 		yield return StartCoroutine(delta.tunnelIn());
 		yield return StartCoroutine(dman.display(dialogs[39],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 
 		StartCoroutine(cam.FadeIn());

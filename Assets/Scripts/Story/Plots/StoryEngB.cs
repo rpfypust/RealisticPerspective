@@ -5,6 +5,8 @@ public class StoryEngB : Plot {
 
 	private CinematicCamera cam;
 	private DialogManager dman;
+	private SEManager sem;
+	private BGMManager bgm;
 	private List<Dialog> dialogs;
 	private Actor alpha;
 	private Actor alice;
@@ -15,6 +17,8 @@ public class StoryEngB : Plot {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
+		sem = GetComponentInChildren<SEManager>();
+		bgm = GetComponentInChildren<BGMManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		alice = GameObject.Find("Alice").GetComponent<Actor>();
 
@@ -80,42 +84,42 @@ public class StoryEngB : Plot {
 		dman.openDialog();
 
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 
-		yield return StartCoroutine(alpha.faceTo(alice.transform,1));
-		yield return StartCoroutine(alice.faceTo(alpha.transform,1));
+		yield return StartCoroutine(alpha.faceTo(alice.transform,.5f));
+		yield return StartCoroutine(alice.faceTo(alpha.transform,.5f));
 		yield return StartCoroutine(alpha.walkWithSpeed(waypoints[3],1));
 
 		yield return StartCoroutine(cam.zoom(2f, 2));
 
 		StartCoroutine(cam.orbitMotion(waypoints[2], 180, 30));
-
+		bgm.PlayBGM(0);
 		for (int index = 1; index < 33; index++) {
 			switch(dialogs[index].Speaker)
 			{
 			case "Boy": case "Alpha":
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 
 			case "Girl": case "Alice":
 				yield return StartCoroutine(dman.display(dialogs[index],alice.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 
 			default:
 				yield return StartCoroutine(dman.display(dialogs[index]));;
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 				break;
 			}
 		}
 
 		//clock sound
-
+		sem.PlaySoundEffect(0);
 		yield return StartCoroutine(dman.display(dialogs[33],alice.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[34],alice.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 
 		StartCoroutine(cam.orbitMotion(waypoints[2], -120, 1));
 
@@ -125,7 +129,7 @@ public class StoryEngB : Plot {
 		yield return StartCoroutine(alice.faceTo(alpha.transform,1));
 
 		yield return StartCoroutine(dman.display(dialogs[35],alice.EmotionPt));
-		yield return StartCoroutine(base.interactToProceed());
+		yield return StartCoroutine(dman.interactToProceed());
 
 		//Alice run & disappear
 		StartCoroutine(alice.alphaChange(0, 5));
@@ -133,7 +137,7 @@ public class StoryEngB : Plot {
 
 		for (int index = 36; index < dialogs.Count; index++) {
 				yield return StartCoroutine(dman.display(dialogs[index],alpha.EmotionPt));
-				yield return StartCoroutine(base.interactToProceed());
+				yield return StartCoroutine(dman.interactToProceed());
 		}
 
 		dman.closeDialog();
