@@ -25,6 +25,7 @@ public sealed class Player : Character, IDrawable {
 		}
 	}
 
+	private GameController gamecon;
 	private GUIManager gman;
 
 	protected override void Awake() {
@@ -36,6 +37,8 @@ public sealed class Player : Character, IDrawable {
 		ren = GetComponentInChildren<Renderer>();
 		gman = GameObject.FindGameObjectWithTag(Tags.gameController)
 			.GetComponent<GUIManager>();
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 
 		hpFore = Util.makeSolid(new Color32(0x14, 0xc8, 0x14, 0xff));
 		hpBack = Util.makeSolid(new Color32(0x0a, 0x46, 0x0a, 0xff));
@@ -84,7 +87,7 @@ public sealed class Player : Character, IDrawable {
 		GetComponentInChildren<PlayerBomb>().enabled = false;
 		animator.SetTrigger(hash.dyingTrigger);
 		// something more
-
+		gamecon.DisplayGameOverMenu();
 	}
 
 	public void DrawOnGUI()
