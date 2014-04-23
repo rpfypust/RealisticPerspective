@@ -5,12 +5,16 @@ public sealed class Player : Character, IDrawable {
 
 	public const float INVINCIBLE_INTERVAL = 1.5f;
 	private bool invincible;
+	private bool dead;
 	private Renderer ren;
 
 	private Texture2D hpFore;
 	private Texture2D hpBack;
 	private Texture2D mpFore;
 	private Texture2D mpBack;
+
+	private Animator animator;
+	private HashIDs hash;
 
 	public float maxMagicPoint = 50.0f;
 	private float magicPoint;
@@ -26,6 +30,9 @@ public sealed class Player : Character, IDrawable {
 	protected override void Awake() {
 		base.Awake();
 		invincible = false;
+		dead = false;
+		animator = GetComponent<Animator>();
+		hash = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<HashIDs>();
 		ren = GetComponentInChildren<Renderer>();
 		gman = GameObject.FindGameObjectWithTag(Tags.gameController)
 			.GetComponent<GUIManager>();
@@ -61,11 +68,23 @@ public sealed class Player : Character, IDrawable {
 	}
 
 	public override void takeDamage(float damage) {
-		if (!invincible) {
+		if (!dead && !invincible) {
 			StartCoroutine(blink());
 			base.takeDamage(damage);
 			Debug.Log(string.Format("Player HP: {0}/{1}", HealthPoint, MaxHealthPoint));
 		}
+	}
+
+	public override void die() {
+		base.die();
+		dead = true; // no longer blink or hit by bullets
+		GetComponentInChildren<CharControl>().enabled = false;
+		GetComponentInChildren<CharAnimation>().enabled = false;
+		GetComponentInChildren<PlayerShooter>().enabled = false;
+		GetComponentInChildren<PlayerBomb>().enabled = false;
+		animator.SetTrigger(hash.dyingTrigger);
+		// something more
+
 	}
 
 	public void DrawOnGUI()
