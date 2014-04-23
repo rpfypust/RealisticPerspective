@@ -50,7 +50,8 @@ public class CharAnimation : MonoBehaviour
 
 		IEnumerator AnimationHandle (float h, float v, bool slow, bool handUp, bool handDown, float hp)
 		{
-		
+		Debug.Log(hp);
+		Debug.Log(dead);
 			if ((hp == 0f) && !dead) {
 				animator.SetBool (hash.dyingBool, true);
 				yield return new WaitForSeconds(3);

@@ -34,7 +34,6 @@ public class StoryEngD : Plot {
 		wave_1.SetActive(false);
 		wave_2.SetActive(false);
 
-
 		dialogs = new List<Dialog>();		
 
 		//Effect tgt, sound
@@ -63,7 +62,7 @@ public class StoryEngD : Plot {
 		dialogs.Add(new Dialog("Alpha", "Probably? Please be serious!",3));
 		dialogs.Add(new Dialog("Shadow", "Just try hard to visualize the attack and conjure it!"));
 		dialogs.Add(new Dialog("Alpha", "Visualize... Visualize... Attack... Attack...",1));
-		dialogs.Add(new Dialog("System", "Press Attack to shot."));
+		dialogs.Add(new Dialog("System", "Press Attack to shot and Skill to open barrier."));
 		//Battle mode without attack, 5s then paused
 		//battle camera mode
 		//HUD turn on
@@ -123,7 +122,9 @@ public class StoryEngD : Plot {
 				break;
 			}
 		}
-		bgm.audio.Play();
+
+		bgm.changeVolume(0.3f);
+		bgm.PlayBGM(4);
 		//spwan a slime and face and mvoe camera 
 		monster.SetActive(true);
 		StartCoroutine(shadow.rotate(35, 0.5f));
@@ -157,6 +158,7 @@ public class StoryEngD : Plot {
 		cam.GetComponent<StageCameraView>().enabled = true;
 		alpha.GetComponent<CharControl>().enabled = true;
 		alpha.GetComponent<Player>().enabled = true;
+		yield return new WaitForSeconds(.1f);
 		alpha.GetComponent<CharAnimation>().enabled = true;
 
 		yield return new WaitForSeconds(5f);
@@ -207,6 +209,7 @@ public class StoryEngD : Plot {
 		alpha.GetComponent<Animator>().SetBool(hash.walkingBool, true);
 		alpha.GetComponent<Animator>().SetBool(hash.runningBool, true);
 		alpha.GetComponentInChildren<PlayerShooter>().enabled = true;
+		alpha.GetComponentInChildren<PlayerBomb>().enabled = true;
 		
 		while(monster!=null)
 		{
@@ -220,6 +223,7 @@ public class StoryEngD : Plot {
 		alpha.GetComponent<Animator>().SetBool(hash.walkingBool, false);
 		alpha.GetComponent<Animator>().SetBool(hash.runningBool, false);
 		alpha.GetComponentInChildren<PlayerShooter>().enabled = false;
+		alpha.GetComponentInChildren<PlayerBomb>().enabled = false;
 
 		yield return StartCoroutine(shadow.tunnelOut());
 		StartCoroutine(alpha.faceTo(shadow.transform, 0.5f));
@@ -253,6 +257,7 @@ public class StoryEngD : Plot {
 		alpha.GetComponent<Animator>().SetBool(hash.walkingBool, true);
 		alpha.GetComponent<Animator>().SetBool(hash.runningBool, true);
 		alpha.GetComponentInChildren<PlayerShooter>().enabled = true;
+		alpha.GetComponentInChildren<PlayerBomb>().enabled = true;
 
 		wave_0.SetActive(true);
 		yield return new WaitForSeconds(0.5f);

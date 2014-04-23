@@ -17,10 +17,18 @@ public class BGMManager : MonoBehaviour {
         gui = 0;
 	}
 
-	public void PlayBGM(int index) {
+	public void LoopBGM(int index) {
 		if (source.isPlaying)
 			StopBGM();
 		StartCoroutine(LoopCoroutine(index));
+	}
+
+	public void PlayBGM(int index) {
+		if (source.isPlaying)
+			StopBGM();
+        source.time = 0f;
+		source.clip = bgms[index];
+		source.Play();
 	}
 	
 	public void StopBGM() {
@@ -43,9 +51,12 @@ public class BGMManager : MonoBehaviour {
 	void OnGUI() {
 		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))
         {
-            PlayBGM(gui);
+            LoopBGM(gui);
             gui++;
             gui %= bgms.Length;
         }
+	}
+	public void changeVolume(float volume) {
+		source.volume = volume;
 	}
 }

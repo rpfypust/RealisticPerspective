@@ -51,7 +51,8 @@ public class StoryEngF : Plot {
 	{	
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
-		bgm.PlayBGM(0);
+		bgm.changeVolume(0.3f);
+		bgm.LoopBGM(0);
 		yield return StartCoroutine(alpha.tunnelOut());
 		dman.openDialog();
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
@@ -88,7 +89,7 @@ public class StoryEngF : Plot {
 		yield return new WaitForSeconds(0.5f);
 
 		StartCoroutine(alice.faceTo(wayPoints[3],1f));
-		StartCoroutine(cam.orbitMotion(wayPoints[4],150,1));
+		StartCoroutine(cam.orbitMotion(wayPoints[4],100,1));
 		StartCoroutine(alpha.walkWithTime(wayPoints[3],2));
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(dman.display(dialogs[13],alice.EmotionPt));

@@ -61,6 +61,7 @@ public class CinematicCamera : MonoBehaviour {
 	public IEnumerator shake(float amplitude = 0.15f, float duration = 1f)
 	{
 		sem.PlaySoundEffect(3);
+		yield return new WaitForSeconds(1.0f);
 		float elapsedTime = 0;
 		Vector3 originalPos = transform.position;
 		while (elapsedTime <= duration) {

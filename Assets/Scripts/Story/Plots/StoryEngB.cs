@@ -82,7 +82,8 @@ public class StoryEngB : Plot {
 		yield return StartCoroutine(cam.orbitMotion(waypoints[2], 55, 2));
 
 		dman.openDialog();
-
+		bgm.changeVolume(0.3f);
+		bgm.LoopBGM(0);
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
 		yield return StartCoroutine(dman.interactToProceed());
 
@@ -93,7 +94,7 @@ public class StoryEngB : Plot {
 		yield return StartCoroutine(cam.zoom(2f, 2));
 
 		StartCoroutine(cam.orbitMotion(waypoints[2], 180, 30));
-		bgm.PlayBGM(0);
+
 		for (int index = 1; index < 33; index++) {
 			switch(dialogs[index].Speaker)
 			{
@@ -115,7 +116,7 @@ public class StoryEngB : Plot {
 		}
 
 		//clock sound
-		sem.PlaySoundEffect(0);
+		sem.PlaySoundEffect(5);
 		yield return StartCoroutine(dman.display(dialogs[33],alice.EmotionPt));
 		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[34],alice.EmotionPt));

@@ -161,7 +161,7 @@ public class Actor : MonoBehaviour {
 		Vector3 finalScale = new Vector3(0.7f, 0.7f, 1);
 		Vector3 pos = transform.position;
 		pos.y += 0.7f;
-		sem.PlaySoundEffect(4);
+		sem.PlaySoundEffect(2);
 		GameObject particle = (GameObject) Instantiate(vanishParticle, pos , Quaternion.Euler(new Vector3(-90,0,0)));
 		yield return StartCoroutine(meshTransform.ScaleWithTime(normalScale,finalScale,0.6f));
 		normalScale = finalScale;

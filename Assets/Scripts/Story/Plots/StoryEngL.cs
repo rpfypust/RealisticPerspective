@@ -40,7 +40,8 @@ public class StoryEngL : Plot {
 	{	
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
-		bgm.audio.Play();
+		bgm.changeVolume(0.3f);
+		bgm.PlayBGM(4);
 		StartCoroutine(alpha.runWithTime(wayPoints[0],1));
 		yield return StartCoroutine(renroh.tunnelOut());
 

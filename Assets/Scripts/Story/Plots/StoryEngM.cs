@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -31,27 +31,27 @@ public class StoryEngM : Plot {
 
 		dialogs.Add(new Dialog("Renroh", "...... You can't defect me...... "));
 		dialogs.Add(new Dialog("Alice", "Stop!",3));
-		dialogs.Add(new Dialog("Alpha", "Alice! How come you are here? It’s dangerous, go away!",3));
-		dialogs.Add(new Dialog("Renroh", "Alice, don’t get close!"));
+		dialogs.Add(new Dialog("Alpha", "Alice! How come you are here? It's dangerous, go away!",3));
+		dialogs.Add(new Dialog("Renroh", "Alice, don't get close!"));
 		dialogs.Add(new Dialog("Alice", "No! Alpha! Father!"));
 		dialogs.Add(new Dialog("Alice", "Stop! Please!"));
 		dialogs.Add(new Dialog("Alpha", "Father?",2));
-		dialogs.Add(new Dialog("Alice", "Yes, I’m daughter of Dr. Renroh."));
+		dialogs.Add(new Dialog("Alice", "Yes, I'm daughter of Dr. Renroh."));
 		dialogs.Add(new Dialog("Alice", "For me sake, stop please, Alpha..."));
 		dialogs.Add(new Dialog("Alice", "My father is not really a bad person. He did everything for me..."));
-		dialogs.Add(new Dialog("Alpha", "Wait, what’s the story?",2));
+		dialogs.Add(new Dialog("Alpha", "Wait, what's the story?",2));
 		dialogs.Add(new Dialog("Renroh", "Alice, stop that!",3));
-		dialogs.Add(new Dialog("Renroh", "I’ll definitely fulfill my promise this time, after I defeat this guy in the way..."));
+		dialogs.Add(new Dialog("Renroh", "I'll definitely fulfill my promise this time, after I defeat this guy in the way..."));
 		dialogs.Add(new Dialog("Renroh", "So just wait father some time..."));
-		dialogs.Add(new Dialog("Alice", "Father, it’s enough already..."));
-		dialogs.Add(new Dialog("Alice", "Forget the promise, it’s my willfulness..."));
-		dialogs.Add(new Dialog("Renroh", "No, I’ll not give up!",3));
+		dialogs.Add(new Dialog("Alice", "Father, it's enough already..."));
+		dialogs.Add(new Dialog("Alice", "Forget the promise, it's my willfulness..."));
+		dialogs.Add(new Dialog("Renroh", "No, I'll not give up!",3));
 		dialogs.Add(new Dialog("Renroh", "I must prove the existences of \"the Worlds\" to the world!"));
-		dialogs.Add(new Dialog("Alice", "It’s enough... It’s enough..."));
+		dialogs.Add(new Dialog("Alice", "It's enough... It's enough..."));
 		dialogs.Add(new Dialog("Alice", "In fact I understand that, even the promise is fulfilled..."));
 		dialogs.Add(new Dialog("Alice", "Even the promise is fulfilled... Mother..."));
 		dialogs.Add(new Dialog("Renroh", "Stop it!",3));
-		dialogs.Add(new Dialog("Alice", "Mother also won’t be back!"));
+		dialogs.Add(new Dialog("Alice", "Mother also won't be back!"));
 		dialogs.Add(new Dialog("Renroh", "Stop it!",3));
 		dialogs.Add(new Dialog("Alice", "Because... Mother was dead already... BooHoo..."));
 		dialogs.Add(new Dialog("Renroh", "Please... say no more..."));
@@ -66,50 +66,50 @@ public class StoryEngM : Plot {
 		dialogs.Add(new Dialog("Delta", "Opportunity seldom knocks twice but misery loves company."));
 		dialogs.Add(new Dialog("Delta", "Gamma caught a chronic disease due to overwork at that time, and passed away the next year..."));
 
-		dialogs.Add(new Dialog("Renroh", "Please stop it! It’s enough already..."));
-		dialogs.Add(new Dialog("Renroh", "It’s all world’s fault! Gamma died because she received no proper treatment!"));
-		dialogs.Add(new Dialog("Renroh", "If they hadn’t withdrawn their sponsorship... If people had believed us..."));
+		dialogs.Add(new Dialog("Renroh", "Please stop it! It's enough already..."));
+		dialogs.Add(new Dialog("Renroh", "It's all world's fault! Gamma died because she received no proper treatment!"));
+		dialogs.Add(new Dialog("Renroh", "If they hadn't withdrawn their sponsorship... If people had believed us..."));
 		
-		dialogs.Add(new Dialog("Delta", "But Renroh hadn’t stopped his research. It’s because of a lie..."));
+		dialogs.Add(new Dialog("Delta", "But Renroh hadn't stopped his research. It's because of a lie..."));
 
-		dialogs.Add(new Dialog("Alice", "No... It’s not a lie..."));
-		dialogs.Add(new Dialog("Alice", "It’s a promise that a father made to her daughter..."));
+		dialogs.Add(new Dialog("Alice", "No... It's not a lie..."));
+		dialogs.Add(new Dialog("Alice", "It's a promise that a father made to her daughter..."));
 		dialogs.Add(new Dialog("Alice", "A promise that protects his daughter from the cruel fact..."));
-		dialogs.Add(new Dialog("Alice", "I’m relying on father's promise..."));
-		dialogs.Add(new Dialog("Alice", "Believing that once father proves mother’s ideas to the world, she will be back..."));
+		dialogs.Add(new Dialog("Alice", "I'm relying on father's promise..."));
+		dialogs.Add(new Dialog("Alice", "Believing that once father proves mother's ideas to the world, she will be back..."));
 		dialogs.Add(new Dialog("Alice", "So that I can avoid a painful life of revenge..."));
 		dialogs.Add(new Dialog("Alice", "So that I can meet you, so that I can..."));
 		dialogs.Add(new Dialog("Alice", "But..."));
-		dialogs.Add(new Dialog("Alice", "But... I’m really stupid..."));
-		dialogs.Add(new Dialog("Alice", "I didn’t even notice my pain is not gone..."));
+		dialogs.Add(new Dialog("Alice", "But... I'm really stupid..."));
+		dialogs.Add(new Dialog("Alice", "I didn't even notice my pain is not gone..."));
 		dialogs.Add(new Dialog("Alice", "Father... Dad has always been bore my share of pain..."));
 		dialogs.Add(new Dialog("Alice", "Dad has been no relief... Hoo..."));
 		dialogs.Add(new Dialog("Alice", "So... Dad is okay now..."));
-		dialogs.Add(new Dialog("Alice", "You don’t need to keep your promise anymore..."));
+		dialogs.Add(new Dialog("Alice", "You don't need to keep your promise anymore..."));
 		dialogs.Add(new Dialog("Alice", "Turn back to the gentle father, okay...?"));
 		
 		dialogs.Add(new Dialog("Renroh", "Alice... You really grow up a lot without notice..."));
-		dialogs.Add(new Dialog("Renroh", "You’re even stronger then father now..."));
-		dialogs.Add(new Dialog("Renroh", "Sorry... Dad can’t keep my promise now..."));
+		dialogs.Add(new Dialog("Renroh", "You're even stronger then father now..."));
+		dialogs.Add(new Dialog("Renroh", "Sorry... Dad can't keep my promise now..."));
 		dialogs.Add(new Dialog("Renroh", "Can you forgive dad...?"));
 		dialogs.Add(new Dialog("Alice", "Hoo... Of Course...! Hoo..."));
 		dialogs.Add(new Dialog("Renroh", "Thank you..."));
-		dialogs.Add(new Dialog("Renroh", "Okay. Alice give me some time, there’s one more thing I’ve to do."));
+		dialogs.Add(new Dialog("Renroh", "Okay. Alice give me some time, there's one more thing I've to do."));
 
 		dialogs.Add(new Dialog("Alpha", "One more thing?",2));
-		dialogs.Add(new Dialog("Renroh", "Yes, I’d to expose another lie..."));
+		dialogs.Add(new Dialog("Renroh", "Yes, I'd to expose another lie..."));
 		dialogs.Add(new Dialog("Alpha", "Another lie?",2));
 		dialogs.Add(new Dialog("Renroh", "Delta, could you do it yourself?",2));
 		dialogs.Add(new Dialog("Delta", "...... ......"));
 		dialogs.Add(new Dialog("Renroh", "You couldn't... Let me do it for you then..."));
 		dialogs.Add(new Dialog("Renroh", "Let me tell you a tragic story, Alpha..."));
 		dialogs.Add(new Dialog("Renroh", "The story begins with a teenager who has been diagnosed to have a rare genetic disorder."));
-		dialogs.Add(new Dialog("Renroh", "After the surgery, the teenager didn’t regain consciousness..."));
-		dialogs.Add(new Dialog("Renroh", "Not able to accept the fact, the teenager’s friends, a girl approached \"the Reality\"..."));
+		dialogs.Add(new Dialog("Renroh", "After the surgery, the teenager didn't regain consciousness..."));
+		dialogs.Add(new Dialog("Renroh", "Not able to accept the fact, the teenager's friends, a girl approached \"the Reality\"..."));
 		dialogs.Add(new Dialog("Renroh", "Through \"the Reality\", the girl realized the existence of \"the Inner World\" and its underlying power..."));
 
 		dialogs.Add(new Dialog("Delta", "Shut up!",3));
-		dialogs.Add(new Dialog("Renroh", "No! I’ve to carry on, your time is running out..."));
+		dialogs.Add(new Dialog("Renroh", "No! I've to carry on, your time is running out..."));
 		dialogs.Add(new Dialog("Renroh", "From then on, the girl kept telling a lie..."));
 		dialogs.Add(new Dialog("Renroh", "He is not in coma... He is not in coma... He is not in coma..."));
 		dialogs.Add(new Dialog("Renroh", "The girl kept \"denying\" this fact......"));
@@ -122,57 +122,57 @@ public class StoryEngM : Plot {
 		dialogs.Add(new Dialog("Renroh", "In \"the Inner World\", the girl will gradually be forgotten by others, and eventually vanish..."));
 		dialogs.Add(new Dialog("Renroh", "Alpha, do you know the name of the teenager?",2));
 
-		dialogs.Add(new Dialog("Alpha", "... That’s me..."));
+		dialogs.Add(new Dialog("Alpha", "... That's me..."));
 		dialogs.Add(new Dialog("Renroh", "Then do you know the name of the girl?",2));
-		dialogs.Add(new Dialog("Alpha", "Eh...It’s weird..."));
+		dialogs.Add(new Dialog("Alpha", "Eh...It's weird..."));
 		dialogs.Add(new Dialog("Alpha", "I obviously should know...but I just can't think of it at the moment..."));
 		dialogs.Add(new Dialog("Alpha", "The... The..."));
-		dialogs.Add(new Dialog("Alpha", "Beta... She’s Beta..."));
+		dialogs.Add(new Dialog("Alpha", "Beta... She's Beta..."));
 		dialogs.Add(new Dialog("Renroh", "Yes... the girl is Beta."));
 		dialogs.Add(new Dialog("Alpha", "Where is Beta? You must know that, let me see her!",2));
-		dialogs.Add(new Dialog("Alpha", "I don’t want Beta to disappear!",3));
+		dialogs.Add(new Dialog("Alpha", "I don't want Beta to disappear!",3));
 		dialogs.Add(new Dialog("Renroh", "It seems that the existence of Beta has started to fade away before you ever met Delta..."));
-		dialogs.Add(new Dialog("Renroh", "At least when you met Delta, you already can’t recall Beta’s face already..."));
-		dialogs.Add(new Dialog("Alpha", "It can’t be!",3));
-		dialogs.Add(new Dialog("Alpha", "I can’t forget her face..."));
+		dialogs.Add(new Dialog("Renroh", "At least when you met Delta, you already can't recall Beta's face already..."));
+		dialogs.Add(new Dialog("Alpha", "It can't be!",3));
+		dialogs.Add(new Dialog("Alpha", "I can't forget her face..."));
 		dialogs.Add(new Dialog("Renroh", "In fact, Beta is just next to you all the time..."));
-		dialogs.Add(new Dialog("Renroh", "Delta is the one you’re looking for..."));
+		dialogs.Add(new Dialog("Renroh", "Delta is the one you're looking for..."));
 
 		dialogs.Add(new Dialog("Beta", "Enough! Why do you tell him!",3));
-		dialogs.Add(new Dialog("Beta", "I’m almost time to disappear..."));
+		dialogs.Add(new Dialog("Beta", "I'm almost time to disappear..."));
 		dialogs.Add(new Dialog("Beta", "After I've disappear, Alpha'll forget me and live on happily..."));
 		dialogs.Add(new Dialog("Beta", "Why do you still need to make Alpha sad!."));
 		dialogs.Add(new Dialog("Alpha", "Beta..."));
 		dialogs.Add(new Dialog("Alpha", "No, Beta..."));
-		dialogs.Add(new Dialog("Alpha", "Of course, I’m sad..."));
-		dialogs.Add(new Dialog("Alpha", "That’s because you are going to disappear but I still can’t think of your face..."));
-		dialogs.Add(new Dialog("Alpha", "I still can’t think of your smile..."));
+		dialogs.Add(new Dialog("Alpha", "Of course, I'm sad..."));
+		dialogs.Add(new Dialog("Alpha", "That's because you are going to disappear but I still can't think of your face..."));
+		dialogs.Add(new Dialog("Alpha", "I still can't think of your smile..."));
 		dialogs.Add(new Dialog("Alpha", "And I almost forget your name..."));
-		dialogs.Add(new Dialog("Alpha", "Which shouldn’t be forgiven at all......"));
+		dialogs.Add(new Dialog("Alpha", "Which shouldn't be forgiven at all......"));
 		dialogs.Add(new Dialog("Alpha", "But, If I just forget you without knowing this..."));
 		dialogs.Add(new Dialog("Alpha", "I must be even more sadder than now..."));
 		dialogs.Add(new Dialog("Beta", "Alpha..."));
 		dialogs.Add(new Dialog("Beta", "Woo... Woo..."));
-		dialogs.Add(new Dialog("Alpha", "Baka, don’t cry..."));
+		dialogs.Add(new Dialog("Alpha", "Baka, don't cry..."));
 		dialogs.Add(new Dialog("Beta", "..."));
 		dialogs.Add(new Dialog("Alpha", "Beta, do you still remember...?",2));
 		dialogs.Add(new Dialog("Alpha", "Every time you get into trouble, who is going to save you at the end?",2));
 		dialogs.Add(new Dialog("Beta", "You..."));
-		dialogs.Add(new Dialog("Alpha", "Correct. Then why you don’t trust me this time."));
-		dialogs.Add(new Dialog("Alpha", "I’m just sleeping..."));
+		dialogs.Add(new Dialog("Alpha", "Correct. Then why you don't trust me this time."));
+		dialogs.Add(new Dialog("Alpha", "I'm just sleeping..."));
 		dialogs.Add(new Dialog("Alpha", "If you get into trouble again..."));
-		dialogs.Add(new Dialog("Alpha", "I promise you, I’ll be at your side."));
+		dialogs.Add(new Dialog("Alpha", "I promise you, I'll be at your side."));
 		dialogs.Add(new Dialog("Beta", "Promise?"));
 		dialogs.Add(new Dialog("Alpha", "Yes, I promise."));
-		dialogs.Add(new Dialog("Alpha", "So you’ve to accept the fact..."));
+		dialogs.Add(new Dialog("Alpha", "So you've to accept the fact..."));
 		dialogs.Add(new Dialog("Beta", "No, I don't want t-..."));
 		dialogs.Add(new Dialog("Alpha", "Beta, sometime the reality is cruel..."));
 		dialogs.Add(new Dialog("Alpha", "Cruel enough that it forces you to just \"deny\" it..."));
-		dialogs.Add(new Dialog("Alpha", "But if you just keep \"denying\", nothing is going to be solved. We’ll just lose more at the end..."));
-		dialogs.Add(new Dialog("Alpha", "A world that without you... I won’t be ever live happily..."));
-		dialogs.Add(new Dialog("Alpha", "So you can’t \"deny\" the reality..."));
-		dialogs.Add(new Dialog("Alpha", "We’ve to \"accept\" the reality, so everything we did won’t come to naught..."));
-		dialogs.Add(new Dialog("Alpha", "We’re need to \"accept\" the reality, so that we can take a step to the future."));
+		dialogs.Add(new Dialog("Alpha", "But if you just keep \"denying\", nothing is going to be solved. We'll just lose more at the end..."));
+		dialogs.Add(new Dialog("Alpha", "A world that without you... I won't be ever live happily..."));
+		dialogs.Add(new Dialog("Alpha", "So you can't \"deny\" the reality..."));
+		dialogs.Add(new Dialog("Alpha", "We've to \"accept\" the reality, so everything we did won't come to naught..."));
+		dialogs.Add(new Dialog("Alpha", "We're need to \"accept\" the reality, so that we can take a step to the future."));
 		dialogs.Add(new Dialog("Alpha", "Therefore, \"accept\" the reality, please?"));
 		dialogs.Add(new Dialog("Beta", "Woo... Woo..."));
 		dialogs.Add(new Dialog("Beta", "You really will wake up...?",2));
@@ -199,7 +199,8 @@ public class StoryEngM : Plot {
 	
 	protected override IEnumerator sequencer()
 	{	
-		bgm.PlayBGM(0);
+		bgm.changeVolume(0.3f);
+		bgm.PlayBGM(1);
 		StartCoroutine(renroh.crouch());
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
@@ -221,6 +222,7 @@ public class StoryEngM : Plot {
 
 			if(index == 11) // Alice talks with Renroh
 			{
+				bgm.PlayBGM(2);
 				StartCoroutine(alice.faceTo(renroh.transform, 0.5f));
 				StartCoroutine(renroh.faceTo(alice.transform, 0.5f));
 
