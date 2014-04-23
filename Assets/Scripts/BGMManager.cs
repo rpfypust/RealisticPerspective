@@ -14,10 +14,17 @@ public class BGMManager : MonoBehaviour {
 		source = gameObject.AddComponent<AudioSource>();
 	}
 
-	public void PlayBGM(int index) {
+	public void LoopBGM(int index) {
 		if (source.isPlaying)
 			StopBGM();
 		StartCoroutine(LoopCoroutine(index));
+	}
+
+	public void PlayBGM(int index) {
+		if (source.isPlaying)
+			StopBGM();
+		source.clip = bgms[index];
+		source.Play();
 	}
 	
 	public void StopBGM() {
@@ -36,10 +43,14 @@ public class BGMManager : MonoBehaviour {
 		}
 	}
 
-	void OnGUI() {
-		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))
-			PlayBGM(0);
-		else if (GUI.Button(new Rect(10, 100, 50, 50), "2"))
-			PlayBGM(1);
+	public void changeVolume(float volume) {
+		source.volume = volume;
 	}
+
+//	void OnGUI() {
+//		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))
+//			PlayBGM(0);
+//		else if (GUI.Button(new Rect(10, 100, 50, 50), "2"))
+//			PlayBGM(1);
+//	}
 }

@@ -1,4 +1,12 @@
-﻿using UnityEngine;
+﻿/*StoryMode SE List
+ * 0 click
+ * 1 select
+ * 2 vanish
+ * 3 shake
+ * 4 phone_virbrate
+ * 5 ringbell
+ */
+using UnityEngine;
 using System.Collections;
 
 public class SEManager : MonoBehaviour {

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -97,7 +97,8 @@ public class StoryEngK : Plot {
 	{	
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
-		bgm.PlayBGM(0);
+		bgm.changeVolume(0.3f);
+		bgm.LoopBGM(0);
 		yield return StartCoroutine(alpha.walkWithTime(wayPoints[0],2));
 
 		dman.openDialog();
@@ -146,8 +147,7 @@ public class StoryEngK : Plot {
 
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
-		bgm.audio.clip = bgm.bgms[3];
-		bgm.audio.Play();
+		bgm.PlayBGM(3);
 		StartCoroutine(cam.pan(new Vector3(-35, -8.5f,0), 3f));
 		yield return StartCoroutine(alpha.tunnelOut());
 		yield return StartCoroutine(cam.orbitMotion(wayPoints[1].transform, 180 , 1f));

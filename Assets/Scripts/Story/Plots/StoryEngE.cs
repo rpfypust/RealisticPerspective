@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -95,7 +95,8 @@ public class StoryEngE : Plot {
 		yield return StartCoroutine(shadow.tunnelOut());
 
 		dman.openDialog();
-		bgm.PlayBGM(0);
+		bgm.changeVolume(0.3f);
+		bgm.LoopBGM(0);
 		StartCoroutine(cam.orbitMotion(wayPoints[0], 360, 30));
 		for (int index = 0; index < 33; index++) {
 			switch(dialogs[index].Speaker)
@@ -117,7 +118,6 @@ public class StoryEngE : Plot {
 			}
 		}
 
-		sem.PlaySoundEffect(3);
 		yield return StartCoroutine(cam.shake());
 
 		yield return StartCoroutine(dman.display(dialogs[33],alpha.EmotionPt));
@@ -154,7 +154,8 @@ public class StoryEngE : Plot {
 
 		yield return StartCoroutine(alpha.tunnelOut());
 		dman.openDialog();
-		bgm.PlayBGM(0);
+		bgm.changeVolume(0.3f);
+		bgm.LoopBGM(0);
 		yield return StartCoroutine(dman.display(dialogs[40],alpha.EmotionPt));
 		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[41],alpha.EmotionPt));

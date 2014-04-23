@@ -81,10 +81,9 @@ public class StoryEngC : Plot {
 
 		yield return StartCoroutine(dman.display(dialogs[0],alpha.EmotionPt));
 		yield return StartCoroutine(dman.interactToProceed());
-		sem.PlaySoundEffect(1);
+		sem.PlaySoundEffect(4);
 		yield return StartCoroutine(dman.display(dialogs[1]));
 		yield return StartCoroutine(dman.interactToProceed());
-		bgm.PlayBGM(0);
 		yield return StartCoroutine(dman.display(dialogs[2],alpha.EmotionPt));
 		yield return StartCoroutine(dman.interactToProceed());
 		yield return StartCoroutine(dman.display(dialogs[3],alpha.EmotionPt));
@@ -104,6 +103,8 @@ public class StoryEngC : Plot {
 		cam.transform.position = waypoints[4].position;
 		cam.transform.rotation = waypoints[4].rotation;
 
+		bgm.changeVolume(0.4f);
+		bgm.LoopBGM(0);
 		StartCoroutine(alpha.runWithSpeed(waypoints[3],2));
 		yield return StartCoroutine(cam.transform.LinearMoveWithTime(waypoints[4].position, waypoints[5].position, 4));
 		StartCoroutine(alpha.rotate(-180,2));

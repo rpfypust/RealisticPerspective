@@ -29,7 +29,7 @@ public class StoryEngH : Plot {
 		dialogs.Add(new Dialog("Alpha", "I better go for the next base as soon as possible to rescue Beta.",1));
 		//Alice WalkIn
 		dialogs.Add(new Dialog("Alice", "Alpha, you skip class again!",3));
-		dialogs.Add(new Dialog("Alice", "You will be suffering in “the Reeducation camp” soon or later."));
+		dialogs.Add(new Dialog("Alice", "You will be suffering in \"the Reeducation camp\" soon or later."));
 		dialogs.Add(new Dialog("Alpha", "No, I'm just free only..."));
 		dialogs.Add(new Dialog("Alice", "Then what are you sneaking around here for?",2));
 		dialogs.Add(new Dialog("Alpha", "I'm investigating..."));
@@ -66,7 +66,8 @@ public class StoryEngH : Plot {
 	{	
 		yield return StartCoroutine(cam.SolidBlack(1f));
 		StartCoroutine(cam.FadeOut());
-		bgm.PlayBGM(0);
+		bgm.changeVolume(0.3f);
+		bgm.LoopBGM(0);
 		yield return StartCoroutine(alpha.tunnelOut());
 		StartCoroutine(cam.rotateY(130,2));
 		yield return StartCoroutine(alpha.walkWithTime(wayPoints[0],2));

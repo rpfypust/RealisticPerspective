@@ -67,6 +67,7 @@ public class DialogManager : MonoBehaviour, IDrawable {
 		for (int i = 0; i <= d.Content.Length; i++) {
 			content = d.Content.Substring(0, i);
 			emotionPoint = ePt;
+
 			yield return new WaitForSeconds(waitInterval);
 		}
 	}
@@ -79,7 +80,7 @@ public class DialogManager : MonoBehaviour, IDrawable {
 			interacted = Input.GetButton("Fire1");
 			yield return new WaitForFixedUpdate();
 		}
-		sem.PlaySoundEffect(5);
+		sem.PlaySoundEffect(0);
 	}
 	
 	public void DrawOnGUI()
