@@ -27,12 +27,15 @@ public class GUIManager : MonoBehaviour {
 	private int priority(IDrawable idrawable)
 	{
 		if (idrawable.GetType() == typeof(Player)
-		    || idrawable.GetType() == typeof(DummyBoss)) {
+		    || idrawable.GetType() == typeof(DummyBoss)
+		    || idrawable.GetType() == typeof(Boss)) {
 			return 0;
 		} else if (idrawable.GetType() == typeof(HUD)) {
 			return 1;
-		} else {
+		} else if (idrawable.GetType() == typeof(Fader)) {
 			return 2;
+		} else {
+			return 3;
 		}
 	}
 
