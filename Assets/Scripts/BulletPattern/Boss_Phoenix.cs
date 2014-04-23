@@ -36,10 +36,12 @@ public class Boss_Phoenix : MonoBehaviour
     private GameObject[] Laser = new GameObject[5];
     private float radius = 31f;
     private Vector3 tempPos;
-    private GameObject target;
+	private GameObject target;
+	private SEManager sem;
 
     void Awake()
-    {
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
         startTime = Time.time;
         j = 0;
     }
@@ -209,7 +211,8 @@ public class Boss_Phoenix : MonoBehaviour
                     j = 0;
                     step++;
                 } else
-                {
+				{
+					sem.PlaySoundEffect(0);
                     tempPos = StageRefPoint + radius * new Vector3(Mathf.Sin(j * 144f / 180f * Mathf.PI), 0.5f / radius, Mathf.Cos(j * 144f / 180f * Mathf.PI));
                     if (j == 0)
                     {

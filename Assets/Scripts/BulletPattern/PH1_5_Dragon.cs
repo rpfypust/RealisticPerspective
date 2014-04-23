@@ -12,7 +12,13 @@ public class PH1_5_Dragon : MonoBehaviour
     private float angle;
     private float lastTime = 0.0f;
     private float deltaTime = 0.0f;
-    private GameObject BulletX; //bullets are using this to be created
+	private GameObject BulletX; //bullets are using this to be created
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+	}
 
     void FixedUpdate()
     {
@@ -34,7 +40,8 @@ public class PH1_5_Dragon : MonoBehaviour
                 BulletX.rigidbody.velocity = new Vector3(speed * Mathf.Sin(angle), 0.0f, speed * Mathf.Cos(angle));
                 Destroy(BulletX.gameObject, 8.0f);
                 BulletX.rigidbody.useGravity = false;
-            }
+			}
+			sem.PlaySoundEffect(2);
             GameObject.Destroy(gameObject);
         }
 

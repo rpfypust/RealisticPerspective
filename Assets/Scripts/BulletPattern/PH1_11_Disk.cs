@@ -8,7 +8,13 @@ public class PH1_11_Disk : MonoBehaviour
     public int j = 0;
     private float lastTime = 0.0f;
     private float deltaTime = 0.0f;
-    private GameObject BulletX; //bullets are using this to be created
+	private GameObject BulletX; //bullets are using this to be created
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+	}
 
     void FixedUpdate()
     {
@@ -19,7 +25,8 @@ public class PH1_11_Disk : MonoBehaviour
         {
             rigidbody.velocity = new Vector3(0f, rigidbody.velocity.y, 0f);
             if ((cTime - lastTime) > 0.15f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<8; i++)
                 {
                     float angle = (i * 45f + j * 10f) / 180.0f * Mathf.PI;

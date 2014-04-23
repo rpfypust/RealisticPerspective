@@ -108,7 +108,7 @@ public sealed class Turret : Monster {
 		Vector2 p = target.toVector2XZ() - transform.position.toVector2XZ();
 		Vector2 v = predictedVelocity.toVector2XZ();
 		float a = Vector2.Dot(v, v) - bulletSpeed * bulletSpeed;
-		float b = Vector2.Dot(p, v);
+		float b = 2.0f * Vector2.Dot(p, v);
 		float c = Vector2.Dot(p, p);
 		float r1, r2;
 		if (Util.solveQuadratic(a, b, c, out r1, out r2) >= 0f

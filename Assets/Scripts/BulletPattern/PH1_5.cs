@@ -17,10 +17,12 @@ public class PH1_5 : Character
     private float radius = 5f;
     private Vector3 spawnPosition;
     private Vector3 destPosition;
-    private GameObject BulletX; //bullets are using this to be created
-    
-    void Awake()
-    {
+	private GameObject BulletX; //bullets are using this to be created
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
 		startTime = Time.time;
 		MaxHealthPoint = 2000.0f;
         HealthPoint = 2000.0f;
@@ -35,7 +37,8 @@ public class PH1_5 : Character
         if (step == 0)
         {
             if ((Time.time - lastTime) > 1 / 6.0f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<90; i++)
                 {
                     float angle = (i * 4f + j * 1f) / 180.0f * Mathf.PI;
@@ -70,7 +73,8 @@ public class PH1_5 : Character
                     angleD = (Random.value * 360f) / 180f * Mathf.PI;
                     spawnPosition = transform.position + new Vector3(radius * Mathf.Sin(angleS), 0f, radius * Mathf.Cos(angleS));
                     destPosition = transform.position + new Vector3(radius * Mathf.Sin(angleD), 0f, radius * Mathf.Cos(angleD));
-                    ;
+					;
+					sem.PlaySoundEffect(2);
                     for (int i=0; i<36; i++)
                     {
                         float angle = (i * 10f) / 180.0f * Mathf.PI;

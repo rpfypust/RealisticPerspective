@@ -319,7 +319,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
                     BossObject_Phoenix_X[7].AddComponent("PH1_7");
                     BossObject_Phoenix_X[7].GetComponent<PH1_7>().StageRefPoint = StageRefPoint;
                     BossObject_Phoenix_X[7].GetComponent<PH1_7>().BulletRed = BulletRed;
-                    BossObject_Phoenix_X[7].GetComponent<PH1_7>().BulletOrange = BulletOrange;
+					BossObject_Phoenix_X[7].GetComponent<PH1_7>().BulletOrange = BulletOrange;
 					BossObject_Phoenix_X[7].tag = "Tag_Enemy";
                     bossState = 7;
                 }

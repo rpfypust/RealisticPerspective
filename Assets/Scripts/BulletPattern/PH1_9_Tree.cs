@@ -13,7 +13,13 @@ public class PH1_9_Tree : MonoBehaviour
     private float deltaTime = 0.0f;
     private GameObject BulletX; //bullets are using this to be created
     private GameObject target;
-    private Vector3 speed;
+	private Vector3 speed;
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+	}
 
     void FixedUpdate()
     {
@@ -23,7 +29,8 @@ public class PH1_9_Tree : MonoBehaviour
         if (step == 0)
         {
             if ((cTime - lastTime) > 0.1f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int m=0; m<2; m++)
                 {
                     for (int n=0; n<2; n++)
@@ -45,7 +52,8 @@ public class PH1_9_Tree : MonoBehaviour
         } else if (step == 1)
         {
             if ((cTime - lastTime) > 0.1f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<8; i++)
                 {
                     float angle = i / 4f *Mathf.PI;
@@ -64,7 +72,8 @@ public class PH1_9_Tree : MonoBehaviour
         } else if (step == 2)
         {
             if ((cTime - lastTime) > 0.1f)
-            {
+			{
+				sem.PlaySoundEffect(3);
                 target = GameObject.FindWithTag("Player");
                 speed = (target.transform.position - transform.position).normalized * (Random.value * 5f + 5f);
                 speed.y = 0f;

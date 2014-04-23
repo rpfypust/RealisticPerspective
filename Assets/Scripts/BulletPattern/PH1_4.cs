@@ -15,10 +15,12 @@ public class PH1_4 : Character
     private float angle;
     
     private GameObject BulletX; //bullets are using this to be created
-    private GameObject LaserX; //bullets are using this to be created
-    
-    void Awake()
-    {
+	private GameObject LaserX; //bullets are using this to be created
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
 		startTime = Time.time;
 		MaxHealthPoint = 1500.0f;
         HealthPoint = 1500.0f;
@@ -33,7 +35,8 @@ public class PH1_4 : Character
         if (step == 0)
         {
             if ((Time.time - lastTime) > 1 / 5.0f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<90; i++)
                 {
                     float angle = (i * 4f + j * 1f) / 180.0f * Mathf.PI;
@@ -62,7 +65,7 @@ public class PH1_4 : Character
         {
             if ((Time.time - lastTime) > 0.05f)
             {
-                
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<=1; i++)
                 {
                 angle = Random.value * 2.0f * Mathf.PI;

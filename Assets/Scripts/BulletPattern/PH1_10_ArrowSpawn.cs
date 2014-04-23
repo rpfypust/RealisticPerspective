@@ -17,14 +17,14 @@ public class PH1_10_ArrowSpawn : MonoBehaviour
         float cTime = Time.time - startTime;
         deltaTime = cTime - lastTime;
         
-        if ((cTime - lastTime) > 0.03f)
+        if ((cTime - lastTime) > 0.031f)
         {
             for (int i=-1; i<3; i+=2)
             {
                 Vector3 displace = new Vector3(-Mathf.Cos(angle), 0.0f, Mathf.Sin(angle)) * j / 3f * i;
                 BulletX = (GameObject)Instantiate(BulletOrange, transform.position + displace, transform.rotation);
                 BulletX.rigidbody.velocity = speed * new Vector3(Mathf.Sin(angle), 0.0f, Mathf.Cos(angle));
-                Destroy(BulletX.gameObject, 8.0f);
+                Destroy(BulletX.gameObject, 7.0f);
                 BulletX.rigidbody.useGravity = false;
             }
             lastTime = cTime;

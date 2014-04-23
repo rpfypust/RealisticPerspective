@@ -11,13 +11,15 @@ public class PH1_2 : Character
     private float startTime = 0.0f;
     private float lastTime = 0.0f;
     public int j = 0; //angle/bullet counter
-    public int step = 0; //step counter
+	public int step = 0; //step counter
     
     private GameObject BulletX; //bullets are using this to be created
-    private GameObject LaserX; //bullets are using this to be created
+	private GameObject LaserX; //bullets are using this to be created
+	private SEManager sem;
     
     void Awake()
-    {
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
 		startTime = Time.time;
 		MaxHealthPoint = 1500.0f;
         HealthPoint = 1500.0f;
@@ -33,7 +35,8 @@ public class PH1_2 : Character
         if (step == 0)
         {
             if ((Time.time - lastTime) > 1 / 5.0f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<90; i++)
                 {
                     float angle = (i * 4f + j * 1f) / 180.0f * Mathf.PI;
@@ -61,7 +64,8 @@ public class PH1_2 : Character
         } else if (step == 2)
         {
             if ((Time.time - lastTime) > 1.3f)
-            {
+			{
+				sem.PlaySoundEffect(1);
                 LaserX = (GameObject)Instantiate(LaserPurple, transform.position, transform.rotation);
                 LaserX.AddComponent("PH1_2_Laser");
                 LaserX.GetComponent<PH1_2_Laser>().angle = 180.0f * j;
@@ -85,7 +89,8 @@ public class PH1_2 : Character
         } else if (step == 4)
         {
             if ((Time.time - lastTime) > 0.15f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<8; i++)
                 {
                     float angle = (i * 30f + j * 6.8f) / 180.0f * Mathf.PI;

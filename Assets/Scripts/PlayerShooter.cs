@@ -13,11 +13,17 @@ public class PlayerShooter : MonoBehaviour
     private GameObject bulletX;
     private Vector3 temp;
     private float tempF;
+	private SEManager sem;
+
+	void Awake(){
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+	}
 
     void FixedUpdate()
     {
         if (Input.GetButton("Fire1") && Time.time > nextShootTime_normal)
         {
+			sem.PlaySoundEffect(0);
             for (int i=-1; i<=1; i+=2)
             { 
                 temp = transform.forward.normalized;

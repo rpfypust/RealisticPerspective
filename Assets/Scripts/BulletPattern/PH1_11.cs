@@ -12,10 +12,12 @@ public class PH1_11 : Character
     private float lastTime = 0.0f;
     public int j = 0; //angle/bullet counter
     public int step = 0; //step counter
-    private GameObject BulletX; //bullets are using this to be created
-    
-    void Awake()
-    {
+	private GameObject BulletX; //bullets are using this to be created
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
 		startTime = Time.time;
 		MaxHealthPoint = 1999.0f;
         HealthPoint = 1999.0f;
@@ -30,7 +32,8 @@ public class PH1_11 : Character
         if (step == 0)
         {
             if ((Time.time - lastTime) > 1 / 9.0f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<90; i++)
                 {
                     float angle = (i * 4f + j * 1f) / 180.0f * Mathf.PI;
@@ -58,7 +61,8 @@ public class PH1_11 : Character
         } else if (step == 2)
         {
             if ((Time.time - lastTime) > 0.3f)
-            {
+			{
+				sem.PlaySoundEffect(4);
                 float angle = Random.value * 2.0f * Mathf.PI;
                 float speed = Random.value * 10.0f + 6.0f;
                 BulletX = (GameObject)Instantiate(BulletDisk, transform.position + new Vector3(0f, 1f, 0f), transform.rotation);
