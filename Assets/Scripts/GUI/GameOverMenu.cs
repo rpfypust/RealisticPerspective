@@ -7,7 +7,7 @@ public class GameOverMenu : MonoBehaviour, IDrawable {
 	private GUIManager gman;
 	private Rect buttonRect;
 
-	private bool interacted;
+	private int choice;
 
 	void Awake()
 	{
@@ -19,14 +19,24 @@ public class GameOverMenu : MonoBehaviour, IDrawable {
 
 	public void DisplayMenu()
 	{
-		interacted = false;
+		choice = 0;
 		gman.register(this);
 	}
 
 	void Update()
 	{
-		if (interacted)
+		if (choice != 0) {
+			switch (choice) {
+			case 1:
+				gamecon.LoadLevel(Application.loadedLevel);
+				break;
+			case 2:
+				gamecon.LoadLevel(SceneIndice.TITLE);
+				break;
+			}
+			choice = 0;
 			gman.unregister(this);
+		}
 	}
 
 	public void DrawOnGUI()
@@ -38,12 +48,10 @@ public class GameOverMenu : MonoBehaviour, IDrawable {
 		GUILayout.BeginVertical();
 
 		if (GUILayout.Button("Retry", style, GUILayout.ExpandHeight(true))) {
-			interacted = true;
-			gamecon.ReloadLevel();
+			choice = 1;
 		}
 		if (GUILayout.Button("Back to Title", style, GUILayout.ExpandHeight(true))) {
-			interacted = true;
-			// load title
+			choice = 2;
 		}
 
 		GUILayout.EndVertical();

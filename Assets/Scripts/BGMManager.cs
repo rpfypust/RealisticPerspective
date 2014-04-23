@@ -48,14 +48,14 @@ public class BGMManager : MonoBehaviour {
 		}
 	}
 
-	void OnGUI() {
-		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))
-        {
-            LoopBGM(gui);
-            gui++;
-            gui %= bgms.Length;
-        }
-	}
+//	void OnGUI() {
+//		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))
+//        {
+//            LoopBGM(gui);
+//            gui++;
+//            gui %= bgms.Length;
+//        }
+//	}
 	public void changeVolume(float volume) {
 		source.volume = volume;
 	}

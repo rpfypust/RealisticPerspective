@@ -29,25 +29,11 @@ public sealed class GameController : MonoBehaviour {
 
 	private IEnumerator LoadLevelCoroutine(int index)
 	{
-		gman.register(fader);
-		yield return StartCoroutine(fader.Fade(0f, 1f, 1f));
-		Application.LoadLevel(index);
-		yield return StartCoroutine(fader.Fade(1f, 0f, 1f));
-		gman.unregister(fader);
-	}
-
-	public void ReloadLevel()
-	{
-		StartCoroutine(ReloadLevelCoroutine());
-	}
-
-	private IEnumerator ReloadLevelCoroutine()
-	{
 		if (!gman.isRegistered(fader)) {
 			gman.register(fader);
 			yield return StartCoroutine(fader.Fade(0f, 1f, 1f));
 		}
-		Application.LoadLevel(Application.loadedLevel);
+		Application.LoadLevel(index);
 		yield return StartCoroutine(fader.Fade(1f, 0f, 1f));
 		gman.unregister(fader);
 	}
