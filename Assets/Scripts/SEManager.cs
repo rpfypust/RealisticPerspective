@@ -19,4 +19,15 @@ public class SEManager : MonoBehaviour {
 	{
 		sources[i].Play(); // Play starts playing regardless of isPlaying or not
 	}
+
+    public void LoopSoundEffect(int i) // Only for long looping SE
+    {
+        sources[i].loop = true;
+        sources[i].Play();
+    }
+
+    public void StopSoundEffect(int i) // Only for long looping SE
+    {
+        sources[i].Stop();
+    }
 }

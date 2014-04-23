@@ -38,9 +38,11 @@ public class Boss_Phoenix_12balls : MonoBehaviour
     private int bossState;
 
     private GameObject[] BossObject_Phoenix_X = new GameObject[13];
+    private SEManager sem;
     
     void Awake()
     {
+        sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
         startTime = Time.time;
         bossState = 0;
         //status = transform.parent.gameObject.GetComponent<BossStatus>();
@@ -124,12 +126,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -1:
                 if (!BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[1].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[1].transform.position.y - 6.5f;
                     BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[1].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[1].AddComponent("PH1_1");
                     BossObject_Phoenix_X[1].GetComponent<PH1_1>().StageRefPoint = StageRefPoint;
@@ -142,6 +146,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 1:
                 if (BossObject_Phoenix_X[1].GetComponent<PH1_1>().HealthPoint <= 0.0f)
                 {
+                    sem.PlaySoundEffect(7);
                     if (BossObject_Phoenix_X[1].GetComponent<PH1_1>())
                     {
                         Destroy(BossObject_Phoenix_X[1].GetComponent<PH1_1>());
@@ -154,12 +159,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -2:
                 if (!BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[2].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[2].transform.position.y - 6.5f;
                     BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[2].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[2].AddComponent("PH1_2");
                     BossObject_Phoenix_X[2].GetComponent<PH1_2>().StageRefPoint = StageRefPoint;
@@ -174,6 +181,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 2:
                 if (BossObject_Phoenix_X[2].GetComponent<PH1_2>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[2].GetComponent<PH1_2>())
                     {
                         Destroy(BossObject_Phoenix_X[2].GetComponent<PH1_2>());
@@ -186,12 +194,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -3:
                 if (!BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[3].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[3].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[3].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[3].AddComponent("PH1_3");
                     BossObject_Phoenix_X[3].GetComponent<PH1_3>().StageRefPoint = StageRefPoint;
@@ -204,6 +214,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 3:
                 if (BossObject_Phoenix_X[3].GetComponent<PH1_3>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[3].GetComponent<PH1_3>())
                     {
                         Destroy(BossObject_Phoenix_X[3].GetComponent<PH1_3>());
@@ -216,12 +227,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -4:
                 if (!BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[4].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[4].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>().moveTime = 6.0f;
                     BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[4].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[4].AddComponent("PH1_4");
                     BossObject_Phoenix_X[4].GetComponent<PH1_4>().StageRefPoint = StageRefPoint;
@@ -235,6 +248,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 4:
                 if (BossObject_Phoenix_X[4].GetComponent<PH1_4>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[4].GetComponent<PH1_4>())
                     {
                         Destroy(BossObject_Phoenix_X[4].GetComponent<PH1_4>());
@@ -247,12 +261,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -5:
                 if (!BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[5].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[5].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[5].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[5].AddComponent("PH1_5");
                     BossObject_Phoenix_X[5].GetComponent<PH1_5>().StageRefPoint = StageRefPoint;
@@ -267,6 +283,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 5:
                 if (BossObject_Phoenix_X[5].GetComponent<PH1_5>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[5].GetComponent<PH1_5>())
                     {
                         Destroy(BossObject_Phoenix_X[5].GetComponent<PH1_5>());
@@ -279,12 +296,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -6:
                 if (!BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[6].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[6].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>().moveTime = 6.5f;
                     BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[6].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[6].AddComponent("PH1_6");
                     BossObject_Phoenix_X[6].GetComponent<PH1_6>().StageRefPoint = StageRefPoint;
@@ -297,6 +316,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 6:
                 if (BossObject_Phoenix_X[6].GetComponent<PH1_6>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[6].GetComponent<PH1_6>())
                     {
                         Destroy(BossObject_Phoenix_X[6].GetComponent<PH1_6>());
@@ -309,12 +329,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -7:
                 if (!BossObject_Phoenix_X[7].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[7].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[7].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[7].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[7].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[7].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[7].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[7].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[7].AddComponent("PH1_7");
                     BossObject_Phoenix_X[7].GetComponent<PH1_7>().StageRefPoint = StageRefPoint;
@@ -327,6 +349,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 7:
                 if (BossObject_Phoenix_X[7].GetComponent<PH1_7>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[7].GetComponent<PH1_7>())
                     {
                         Destroy(BossObject_Phoenix_X[7].GetComponent<PH1_7>());
@@ -339,12 +362,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -8:
                 if (!BossObject_Phoenix_X[8].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[8].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[8].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[8].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[8].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[8].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[8].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[8].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[8].AddComponent("PH1_8");
                     BossObject_Phoenix_X[8].GetComponent<PH1_8>().StageRefPoint = StageRefPoint;
@@ -357,6 +382,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 8:
                 if (BossObject_Phoenix_X[8].GetComponent<PH1_8>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[8].GetComponent<PH1_8>())
                     {
                         Destroy(BossObject_Phoenix_X[8].GetComponent<PH1_8>());
@@ -369,12 +395,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -9:
                 if (!BossObject_Phoenix_X[9].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[9].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[9].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[9].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[9].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[9].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[9].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[9].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[9].AddComponent("PH1_9");
                     BossObject_Phoenix_X[9].GetComponent<PH1_9>().StageRefPoint = StageRefPoint;
@@ -389,6 +417,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 9:
                 if (BossObject_Phoenix_X[9].GetComponent<PH1_9>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[9].GetComponent<PH1_9>())
                     {
                         Destroy(BossObject_Phoenix_X[9].GetComponent<PH1_9>());
@@ -401,12 +430,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -10:
                 if (!BossObject_Phoenix_X[10].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[10].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[10].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[10].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[10].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[10].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[10].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[10].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[10].AddComponent("PH1_10");
                     BossObject_Phoenix_X[10].GetComponent<PH1_10>().StageRefPoint = StageRefPoint;
@@ -419,6 +450,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 10:
                 if (BossObject_Phoenix_X[10].GetComponent<PH1_10>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[10].GetComponent<PH1_10>())
                     {
                         Destroy(BossObject_Phoenix_X[10].GetComponent<PH1_10>());
@@ -431,12 +463,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -11:
                 if (!BossObject_Phoenix_X[11].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[11].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[11].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[11].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[11].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[11].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[11].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[11].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[11].AddComponent("PH1_11");
                     BossObject_Phoenix_X[11].GetComponent<PH1_11>().StageRefPoint = StageRefPoint;
@@ -451,6 +485,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 11:
                 if (BossObject_Phoenix_X[11].GetComponent<PH1_11>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[11].GetComponent<PH1_11>())
                     {
                         Destroy(BossObject_Phoenix_X[11].GetComponent<PH1_11>());
@@ -463,12 +498,14 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case -12:
                 if (!BossObject_Phoenix_X[12].GetComponent<BossMoveToSpecPosY>())
                 {
+                    sem.LoopSoundEffect(6);
                     BossObject_Phoenix_X[12].AddComponent("BossMoveToSpecPosY");
                     BossObject_Phoenix_X[12].GetComponent<BossMoveToSpecPosY>().y = BossObject_Phoenix_X[12].transform.position.y - 6.5f;
 					BossObject_Phoenix_X[12].GetComponent<BossMoveToSpecPosY>().moveTime = 5.5f;
                     BossObject_Phoenix_X[12].GetComponent<BossMoveToSpecPosY>().oriPos = transform.position;
                 } else if (BossObject_Phoenix_X[12].GetComponent<BossMoveToSpecPosY>().isFinished)
                 {
+                    sem.StopSoundEffect(6);
                     Destroy(BossObject_Phoenix_X[12].GetComponent<BossMoveToSpecPosY>());
                     BossObject_Phoenix_X[12].AddComponent("PH1_12");
                     BossObject_Phoenix_X[12].GetComponent<PH1_12>().StageRefPoint = StageRefPoint;
@@ -495,6 +532,7 @@ public class Boss_Phoenix_12balls : MonoBehaviour
             case 12:
                 if (BossObject_Phoenix_X[12].GetComponent<PH1_12>().HealthPoint <= 0.0f)
                 {
+                    sem.StopSoundEffect(6);
                     if (BossObject_Phoenix_X[12].GetComponent<PH1_12>())
                     {
                         Destroy(BossObject_Phoenix_X[12].GetComponent<PH1_12>());

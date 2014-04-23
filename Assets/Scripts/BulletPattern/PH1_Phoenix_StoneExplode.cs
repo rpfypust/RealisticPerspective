@@ -7,7 +7,13 @@ public class PH1_Phoenix_StoneExplode : MonoBehaviour
 	public GameObject Bullet;
     public float waitTime;
 	private float lastTime = 0.0f;
-	private GameObject BulletX; //bullets are using this to be created
+    private GameObject BulletX; //bullets are using this to be created
+    private SEManager sem;
+    
+    void Awake()
+    {
+        sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+    }
     
     void FixedUpdate()
     {
@@ -23,6 +29,7 @@ public class PH1_Phoenix_StoneExplode : MonoBehaviour
 				Destroy(BulletX.gameObject, 8.5f);
 				BulletX.rigidbody.useGravity = false;
             }
+            sem.PlaySoundEffect(8);
             Time.timeScale = 1f;
             Destroy(gameObject);
 		}

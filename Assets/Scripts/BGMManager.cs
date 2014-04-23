@@ -7,11 +7,14 @@ public class BGMManager : MonoBehaviour {
 	public AudioClip[] bgms;
 	public Vector2[] pairs;
 
-	private AudioSource source;
+    private AudioSource source;
+
+    private int gui;
 
 	void Awake()
 	{
 		source = gameObject.AddComponent<AudioSource>();
+        gui = 0;
 	}
 
 	public void PlayBGM(int index) {
@@ -27,6 +30,7 @@ public class BGMManager : MonoBehaviour {
 
 	private IEnumerator LoopCoroutine(int index)
 	{
+        source.time = 0f;
 		source.clip = bgms[index];
 		source.Play();
 		yield return new WaitForSeconds(pairs[index].y);
@@ -38,8 +42,10 @@ public class BGMManager : MonoBehaviour {
 
 	void OnGUI() {
 		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))
-			PlayBGM(0);
-		else if (GUI.Button(new Rect(10, 100, 50, 50), "2"))
-			PlayBGM(1);
+        {
+            PlayBGM(gui);
+            gui++;
+            gui %= bgms.Length;
+        }
 	}
 }

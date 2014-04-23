@@ -212,7 +212,7 @@ public class Boss_Phoenix : MonoBehaviour
                     step++;
                 } else
 				{
-					sem.PlaySoundEffect(0);
+					sem.PlaySoundEffect(1);
                     tempPos = StageRefPoint + radius * new Vector3(Mathf.Sin(j * 144f / 180f * Mathf.PI), 0.5f / radius, Mathf.Cos(j * 144f / 180f * Mathf.PI));
                     if (j == 0)
                     {
@@ -377,7 +377,8 @@ public class Boss_Phoenix : MonoBehaviour
             BossObjectWaterX.AddComponent("PH1_Phoenix_StoneExplode");
             BossObjectWaterX.GetComponent<PH1_Phoenix_StoneExplode>().waitTime = 6f;
             BossObjectWaterX.GetComponent<PH1_Phoenix_StoneExplode>().Bullet = BulletBlue;
-            transform.position -= new Vector3(0f,-25f,0f);
+            transform.position -= new Vector3(0f,-30f,0f);
+            sem.PlaySoundEffect(8);
             Destroy(gameObject,20f);
             step++;
             

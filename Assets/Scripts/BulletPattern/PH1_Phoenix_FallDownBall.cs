@@ -9,6 +9,12 @@ public class PH1_Phoenix_FallDownBall : MonoBehaviour
     public float moveTime;
     private float lastTime = 0.0f;
     private float deltaTime = 0.0f;
+    private SEManager sem;
+    
+    void Awake()
+    {
+        sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+    }
 
     void FixedUpdate()
     {
@@ -19,8 +25,9 @@ public class PH1_Phoenix_FallDownBall : MonoBehaviour
         transform.position = oriPos + ratio * (dest-oriPos);
 
 		if(cTime>moveTime){
-			transform.position = new Vector3(transform.position.x,0f,transform.position.z);
-			GameObject.Destroy(gameObject.GetComponent<PH1_Phoenix_FallDownBall>());
+            transform.position = new Vector3(transform.position.x,0f,transform.position.z);
+            sem.PlaySoundEffect(9);
+            GameObject.Destroy(gameObject.GetComponent<PH1_Phoenix_FallDownBall>());
 		}
 
         lastTime = cTime;
