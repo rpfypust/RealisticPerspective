@@ -18,9 +18,13 @@ public class Boss_CS : MonoBehaviour
 	private Boss status;
 	private Transform boss;
 	private int bossState;
-
+	private SEManager sem;
+	private BGMManager bgm;
+	
 	void Awake()
 	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
 		startTime = Time.time;
 		bossState = 0;
 		status = transform.parent.gameObject.GetComponent<Boss>();
@@ -37,6 +41,7 @@ public class Boss_CS : MonoBehaviour
 			case 0:
 				if (!boss.gameObject.GetComponent<BossMoveToSpecPos>())
 				{
+					bgm.LoopBGM(2);
 					boss.gameObject.AddComponent("BossMoveToSpecPos");
 					boss.gameObject.GetComponent<BossMoveToSpecPos>().x = StageRefPoint.x + 16.0f;
 					boss.gameObject.GetComponent<BossMoveToSpecPos>().z = StageRefPoint.z + 30.0f;
@@ -186,6 +191,7 @@ public class Boss_CS : MonoBehaviour
                     {
                         Destroy(gameObject.GetComponent<CS1_P2P>());
                     }
+					bgm.StopBGM();
                     status.isInvicible = true;
                     bossState = -6;
                 }
