@@ -17,10 +17,12 @@ public class ElecStageMechanics : MonoBehaviour {
 	private bool blueDoorsOpen;
 
 	private CutSceneManager cman;
+	private BGMManager bgm;
 
 	void Awake()
 	{
 		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
+		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
 
 		blackDoors = blackDoorsParent.GetComponentsInChildren<ElecDoor>();
 		blueDoors = blueDoorsParent.GetComponentsInChildren<ElecDoor>();
@@ -39,6 +41,10 @@ public class ElecStageMechanics : MonoBehaviour {
 	void OnDisable()
 	{
 		ElecSwitch.OnElecSwitchPressed -= SwitchHandler;
+	}
+
+	void Start() {		
+		bgm.LoopBGM(1);
 	}
 
 	private void SwitchHandler(ElecSwitch elecSwitch, ElecSwitchColor color)
