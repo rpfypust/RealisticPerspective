@@ -7,7 +7,12 @@ public sealed class GameController : MonoBehaviour {
 
 	private GameOverMenu gameover;
 	private Fader fader;
+	private PauseScreen pauseScreen;
 	private GUIManager gman;
+	private BGMManager bgmm;
+	private BGMManager storybgmm;
+
+	private bool paused;
 
 	void Awake()
 	{
@@ -20,6 +25,41 @@ public sealed class GameController : MonoBehaviour {
 		gameover = GetComponent<GameOverMenu>();
 		fader = GetComponent<Fader>();
 		gman = GetComponent<GUIManager>();
+		pauseScreen = GetComponent<PauseScreen>();
+		bgmm = GetComponent<BGMManager>();
+
+		GameObject storyController = GameObject.FindGameObjectWithTag(Tags.storyController);
+		if (storyController != null) {
+			storybgmm = storyController.GetComponent<BGMManager>();
+		}
+
+		paused = false;
+	}
+
+	private void LateUpdate()
+	{
+		if (Input.GetButtonDown("Pause")) {
+			paused = !paused;
+			if (paused) {
+				if (bgmm.IsPlayingBGM()) {
+					bgmm.PauseBGM();
+				}
+				if (storybgmm != null && storybgmm.IsPlayingBGM()) {
+					storybgmm.PauseBGM();
+				}
+				Time.timeScale = 0f;
+				gman.register(pauseScreen);
+			} else {
+				if (bgmm.IsPaused()) {
+					bgmm.ResumeBGM();
+				}
+				if (storybgmm != null && storybgmm.IsPaused()) {
+					storybgmm.ResumeBGM();
+				}
+				Time.timeScale = 1f;
+				gman.unregister(pauseScreen);
+			}
+		}
 	}
 
 	public void LoadLevel(int index)

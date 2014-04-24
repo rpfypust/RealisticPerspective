@@ -34,6 +34,8 @@ public class GUIManager : MonoBehaviour {
 			return 1;
 		} else if (idrawable.GetType() == typeof(Fader)) {
 			return 2;
+		} else if (idrawable.GetType() == typeof(PauseScreen)) {
+			return 4;
 		} else {
 			return 3;
 		}

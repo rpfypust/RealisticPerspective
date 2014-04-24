@@ -8,13 +8,15 @@ public class BGMManager : MonoBehaviour {
 	public Vector2[] pairs;
 
     private AudioSource source;
+	private bool paused;
 
-    private int gui;
+//    private int gui;
 
 	void Awake()
 	{
 		source = gameObject.AddComponent<AudioSource>();
-        gui = 0;
+		paused = false;
+//        gui = 0;
 	}
 
 	public void LoopBGM(int index) {
@@ -29,6 +31,31 @@ public class BGMManager : MonoBehaviour {
         source.time = 0f;
 		source.clip = bgms[index];
 		source.Play();
+	}
+
+	public bool IsPlayingBGM()
+	{
+		return source.isPlaying;
+	}
+
+	public bool IsPaused()
+	{
+		return paused;
+	}
+
+	public void PauseBGM()
+	{
+		if (IsPlayingBGM()) {
+			paused = true;
+			source.Pause();
+		}
+	}
+
+	public void ResumeBGM()
+	{
+		if (paused) {
+			source.Play();
+		}
 	}
 	
 	public void StopBGM() {
