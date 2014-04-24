@@ -12,6 +12,8 @@ public class StoryEngC : Plot {
 	private Actor alpha;
 	private Actor shadow;
 
+	private GameController gamecon;
+
 	public Transform[] waypoints;
 
 	private void Awake () {
@@ -22,6 +24,9 @@ public class StoryEngC : Plot {
 		bgm = GetComponentInChildren<BGMManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		shadow = GameObject.Find("Shadow").GetComponent<Actor>();
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 		
 		dialogs = new List<Dialog>();		
 		
@@ -159,7 +164,8 @@ public class StoryEngC : Plot {
 
 		dman.closeDialog();
 
-		yield return StartCoroutine(cam.FadeIn());
+//		yield return StartCoroutine(cam.FadeIn());
 
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }

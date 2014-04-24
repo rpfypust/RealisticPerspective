@@ -7,9 +7,13 @@ public class StoryEngA : Plot {
 	private List<Dialog> dialogs;
 	private DialogManager dman;
 
+	private GameController gamecon;
+
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 
 		dialogs = new List<Dialog>();		
 
@@ -49,5 +53,7 @@ public class StoryEngA : Plot {
 			yield return StartCoroutine(dman.interactToProceed());
 		}
 		dman.closeDialog();
+		
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }

@@ -15,6 +15,8 @@ public class StoryEngG : Plot {
     private Actor sci_A;
     private Actor sci_B;
     private Actor sci_C;
+
+	private GameController gamecon;
     
     private void Awake () {
         // initialize reference to dman
@@ -27,6 +29,9 @@ public class StoryEngG : Plot {
         sci_A = GameObject.Find("ScientistA").GetComponent<Actor>();
         sci_B = GameObject.Find("ScientistB").GetComponent<Actor>();
         sci_C = GameObject.Find("ScientistC").GetComponent<Actor>();
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
         
         dialogs = new List<Dialog>();		
         
@@ -195,6 +200,7 @@ public class StoryEngG : Plot {
         yield return StartCoroutine(dman.interactToProceed());
         dman.closeDialog();
         
-        StartCoroutine(cam.FadeIn());
+//        StartCoroutine(cam.FadeIn());
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
     }
 }

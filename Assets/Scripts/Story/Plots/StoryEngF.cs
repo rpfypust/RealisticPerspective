@@ -11,6 +11,8 @@ public class StoryEngF : Plot {
 	private BGMManager bgm;
 	private Actor alpha;
 	private Actor alice;
+
+	private GameController gamecon;
 	
 	private void Awake () {
 		// initialize reference to dman
@@ -19,6 +21,9 @@ public class StoryEngF : Plot {
 		bgm = GetComponentInChildren<BGMManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		alice = GameObject.Find("Alice").GetComponent<Actor>();
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 		
 		dialogs = new List<Dialog>();		
 
@@ -101,6 +106,7 @@ public class StoryEngF : Plot {
 		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 
-		StartCoroutine(cam.FadeIn());
+//		StartCoroutine(cam.FadeIn());
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }

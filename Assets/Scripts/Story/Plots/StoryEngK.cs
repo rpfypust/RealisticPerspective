@@ -17,6 +17,7 @@ public class StoryEngK : Plot {
 	private GameObject atrium;
 	public Material skybox;
 
+	private GameController gamecon;
 
 	private void Awake () {
 		// initialize reference to dman
@@ -30,6 +31,9 @@ public class StoryEngK : Plot {
 		atrium = GameObject.Find("Atrium");
 		cam = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CinematicCamera>();
 		atrium.SetActive(false);
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 
 		dialogs = new List<Dialog>();		
 
@@ -210,6 +214,7 @@ public class StoryEngK : Plot {
 		yield return StartCoroutine(renroh.tunnelIn());
 		yield return new WaitForSeconds(1);
 
-		yield return StartCoroutine(cam.FadeIn());
+//		yield return StartCoroutine(cam.FadeIn());
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }

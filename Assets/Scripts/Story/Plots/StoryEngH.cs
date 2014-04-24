@@ -12,6 +12,8 @@ public class StoryEngH : Plot {
 	private SEManager sem;
 	private Actor alpha;
 	private Actor alice;
+
+	private GameController gamecon;
 	
 	private void Awake () {
 		// initialize reference to dman
@@ -21,6 +23,9 @@ public class StoryEngH : Plot {
 		sem = GetComponentInChildren<SEManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		alice = GameObject.Find("Alice").GetComponent<Actor>();
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 		
 		dialogs = new List<Dialog>();		
 		
@@ -113,7 +118,8 @@ public class StoryEngH : Plot {
 		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 		
-		StartCoroutine(cam.FadeIn());
+//		StartCoroutine(cam.FadeIn());
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }
 

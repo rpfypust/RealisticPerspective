@@ -35,7 +35,8 @@ public class MainMenu : MonoBehaviour, IDrawable {
 	{
 		switch (choice) {
 		case 1:
-			gamecon.LoadLevel(SceneIndice.DEFAULT);
+			Flag.GetInstance().NewProgress = Flag.StoryProgress.A;
+			gamecon.LoadLevel(SceneIndice.TRANSITION);
 			gman.unregister(this);
 			choice = 0;
 			break;

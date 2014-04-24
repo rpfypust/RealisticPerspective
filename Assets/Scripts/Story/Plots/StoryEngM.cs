@@ -14,6 +14,8 @@ public class StoryEngM : Plot {
 	private Actor renroh;
 	private Actor alice;
 	private GameObject particle;
+
+	private GameController gamecon;
 	
 	private void Awake () {
 		// initialize reference to dman
@@ -26,6 +28,10 @@ public class StoryEngM : Plot {
 		alice = GameObject.Find("Alice").GetComponent<Actor>();
 		particle = GameObject.Find("VanishEffect");
 		particle.SetActive(false);
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
+
 
 		dialogs = new List<Dialog>();		
 
@@ -379,5 +385,7 @@ public class StoryEngM : Plot {
 		yield return StartCoroutine(cam.FadeIn());
 
 		yield return StartCoroutine(cam.SolidBlack(100f));
+
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }

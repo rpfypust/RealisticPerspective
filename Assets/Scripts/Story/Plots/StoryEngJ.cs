@@ -12,6 +12,8 @@ public class StoryEngJ : Plot {
 	private Actor alpha;
 	private Actor delta;
 
+	private GameController gamecon;
+
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
@@ -19,6 +21,9 @@ public class StoryEngJ : Plot {
 		bgm = GetComponentInChildren<BGMManager>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		delta = GameObject.Find("Delta").GetComponent<Actor>();
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 
 		dialogs = new List<Dialog>();		
 		
@@ -102,6 +107,6 @@ public class StoryEngJ : Plot {
 		yield return StartCoroutine(dman.interactToProceed());
 
 		dman.closeDialog();
-
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }

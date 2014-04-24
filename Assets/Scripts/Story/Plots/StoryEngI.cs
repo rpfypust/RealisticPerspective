@@ -13,6 +13,8 @@ public class StoryEngI : Plot {
 	private Actor delta;
 	private Actor doctor;
 	private Actor girl;
+
+	private GameController gamecon;
 	
 	private void Awake () {
 		// initialize reference to dman
@@ -23,6 +25,9 @@ public class StoryEngI : Plot {
 		delta = GameObject.Find("Delta").GetComponent<Actor>();
 		doctor = GameObject.Find("Doctor").GetComponent<Actor>();
 		girl = GameObject.Find("Girl").GetComponent<Actor>();
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 
 		dialogs = new List<Dialog>();		
 		
@@ -108,6 +113,7 @@ public class StoryEngI : Plot {
 		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
 
-		yield return StartCoroutine(cam.FadeIn());
+//		yield return StartCoroutine(cam.FadeIn());
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }

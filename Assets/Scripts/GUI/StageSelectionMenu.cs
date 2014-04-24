@@ -50,6 +50,9 @@ public class StageSelectionMenu : MonoBehaviour, IDrawable {
 			case 3:
 				gamecon.LoadLevel(SceneIndice.ELEC);
 				break;
+			case 5:
+				gamecon.LoadLevel(SceneIndice.BOSS_ATRIUM);
+				break;
 			}
 			choice = 0;
 			gman.unregister(this);
@@ -78,6 +81,11 @@ public class StageSelectionMenu : MonoBehaviour, IDrawable {
 		if (!flag.ElecCleared
 		    && GUILayout.Button("ELEC", style, GUILayout.ExpandHeight(true))) {
 			choice = 3;
+		}
+
+		if (flag.ClearedStageCount() >= 3
+		    && GUILayout.Button("????", style, GUILayout.ExpandHeight(true))) {
+			choice = 5;
 		}
 
 		if (GUILayout.Button("Cancel", style, GUILayout.ExpandHeight(true))) {

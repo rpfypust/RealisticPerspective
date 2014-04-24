@@ -19,4 +19,5 @@
 	public static int MECH = 17;
 	public static int BOSS_COMP = 18;
 	public static int BOSS_ATRIUM = 19;
+	public static int TRANSITION = 20;
 }

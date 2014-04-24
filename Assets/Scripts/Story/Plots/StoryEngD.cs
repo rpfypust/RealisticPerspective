@@ -17,6 +17,8 @@ public class StoryEngD : Plot {
 	private GameObject wave_1;
 	private GameObject wave_2;
 
+	private GameController gamecon;
+
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
@@ -33,6 +35,9 @@ public class StoryEngD : Plot {
 		wave_0.SetActive(false);
 		wave_1.SetActive(false);
 		wave_2.SetActive(false);
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 
 		dialogs = new List<Dialog>();		
 
@@ -280,6 +285,8 @@ public class StoryEngD : Plot {
 			yield return new WaitForSeconds(0.5f);
 		}
 		Destroy(wave_2);
-		yield return StartCoroutine(cam.FadeIn());
+//		yield return StartCoroutine(cam.FadeIn());
+		
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }

@@ -16,6 +16,8 @@ public class StoryEngE : Plot {
 	private GameObject atrium;
 	public Material skybox;
 
+	private GameController gamecon;
+
 	private void Awake () {
 		// initialize reference to dman
 		dman = GetComponent<DialogManager>();
@@ -27,6 +29,9 @@ public class StoryEngE : Plot {
 		stage = GameObject.Find("Stage");
 		atrium = GameObject.Find("Atrium");
 		atrium.SetActive(false);
+
+		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
+			.GetComponent<GameController>();
 
 		dialogs = new List<Dialog>();		
 		
@@ -163,6 +168,9 @@ public class StoryEngE : Plot {
 		yield return StartCoroutine(dman.display(dialogs[42],alpha.EmotionPt));
 		yield return StartCoroutine(dman.interactToProceed());
 		dman.closeDialog();
-		yield return StartCoroutine(cam.FadeIn());
+
+//		yield return StartCoroutine(cam.FadeIn());
+		
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }
