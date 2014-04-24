@@ -21,10 +21,12 @@ public class CS1_WhileTrue : MonoBehaviour
     private float temp0; // temp value for the 3rd skill
     private float theta; // temp value for the 3rd skill
     
-    private GameObject BulletX; //bullets are using this to be created
-    
-    void Awake()
-    {
+	private GameObject BulletX; //bullets are using this to be created
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
         startTime = Time.time;
         j = 0;
         l = 960;
@@ -71,7 +73,8 @@ public class CS1_WhileTrue : MonoBehaviour
             {
                 //setting the bullet
                 while (j*2.0f * Mathf.PI/120.0f<=boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().currentAngular)
-                {
+				{
+					sem.PlaySoundEffect(2);
                     Vector3 bulletPos = new Vector3(16.0f * Mathf.Sin(j * 2.0f * Mathf.PI / 120.0f), 0, 16.0f * Mathf.Cos(j * 2.0f * Mathf.PI / 120.0f));
                     bulletPos = boss.gameObject.GetComponent<CS1_WhileTrue_Boss>().center + bulletPos;
                     float temp = j * 2.0f * Mathf.PI / 120.0f / (2.0f * Mathf.PI);

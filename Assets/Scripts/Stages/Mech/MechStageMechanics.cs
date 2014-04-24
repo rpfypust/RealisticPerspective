@@ -63,7 +63,7 @@ public class MechStageMechanics : MonoBehaviour {
 	{
 		togglePuzzle(false);
 		spawner.OnMonsterClear += monsterClearHandler;
-		bgm.LoopBGM(1);
+		bgm.LoopBGM(3);
 	}
 
 	private void monsterClearHandler()

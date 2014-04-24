@@ -38,10 +38,12 @@ public class Boss_Phoenix : MonoBehaviour
     private Vector3 tempPos;
 	private GameObject target;
 	private SEManager sem;
+	private BGMManager bgm;
 
     void Awake()
 	{
 		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
         startTime = Time.time;
         j = 0;
     }
@@ -378,7 +380,8 @@ public class Boss_Phoenix : MonoBehaviour
             BossObjectWaterX.GetComponent<PH1_Phoenix_StoneExplode>().waitTime = 6f;
             BossObjectWaterX.GetComponent<PH1_Phoenix_StoneExplode>().Bullet = BulletBlue;
             transform.position -= new Vector3(0f,-30f,0f);
-            sem.PlaySoundEffect(8);
+			sem.PlaySoundEffect(8);
+			bgm.StopBGM();
             Destroy(gameObject,20f);
             step++;
             

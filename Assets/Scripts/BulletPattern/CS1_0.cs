@@ -17,10 +17,12 @@ public class CS1_0 : MonoBehaviour
     public int j = 0; //angle/bullet counter
     public int step = 0; //step counter
 
-    private GameObject BulletX; //bullets are using this to be created
-
-    void Awake()
-    {
+	private GameObject BulletX; //bullets are using this to be created
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
         startTime = Time.time;
         j = 0;
     }
@@ -39,7 +41,8 @@ public class CS1_0 : MonoBehaviour
         if (step <= 23)
         { //first red bullet
             if ((Time.time - lastTime) > 1 / 25.0f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 float temp = Mathf.Sin(Time.frameCount / 50.0f);
                 float angle = (temp * 1640.0f + 90.0f) / 180.0f * Mathf.PI;
                 for (int i=0; i<6; i++)
@@ -64,7 +67,8 @@ public class CS1_0 : MonoBehaviour
         } else if (step <= 38)
         { //player-homing green laser
             if ((Time.time - lastTime) > 1 / 60.0f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=-3; i<=3; i++)
                 {
                     float angle = (i * 20.0f) / 180.0f * Mathf.PI;
@@ -86,7 +90,8 @@ public class CS1_0 : MonoBehaviour
         } else if (step <= 76)
         { //all-direction red bullet
             if ((Time.time - lastTime) > 1 / 5.0f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<90; i++)
                 {
                     float angle = (i * 4f + step * 1f) / 180.0f * Mathf.PI;
@@ -110,7 +115,8 @@ public class CS1_0 : MonoBehaviour
         } else if (step <= 80)
         { //all-direction red bullet
             if ((Time.time - lastTime) > 1 / 5.0f)
-            {
+			{
+				sem.PlaySoundEffect(2);
                 for (int i=0; i<90; i++)
                 {
                     float angle = (i * 4f + step * 1f) / 180.0f * Mathf.PI;

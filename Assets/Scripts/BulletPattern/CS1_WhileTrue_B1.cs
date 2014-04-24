@@ -10,6 +10,12 @@ public class CS1_WhileTrue_B1 : MonoBehaviour
 	public Vector3 oriPos;
 	private float lastTime = 0.0f;
 	private float deltaTime = 0.0f;
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+	}
 	
 	void FixedUpdate ()
 	{
@@ -17,6 +23,7 @@ public class CS1_WhileTrue_B1 : MonoBehaviour
 		//deltaTime = cTime - lastTime;
 		
 		if(cTime >= startAfter){
+			sem.PlaySoundEffect(2);
 			Vector3 speed = new Vector3 (vx, 0, vz);
 			rigidbody.velocity = speed;
 			rigidbody.useGravity = true;

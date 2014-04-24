@@ -69,6 +69,7 @@ public class Boss_CS : MonoBehaviour
 					{
 						Destroy(gameObject.GetComponent<CS1_0>());
 					}
+					sem.PlaySoundEffect(7);
 					status.isInvicible = true;
 					bossState = -1;
 				}
@@ -103,6 +104,7 @@ public class Boss_CS : MonoBehaviour
 					{
 						Destroy(gameObject.GetComponent<CS1_Error>());
 					}
+					sem.PlaySoundEffect(7);
 					status.isInvicible = true;
 					bossState = -2;
 				}
@@ -137,6 +139,7 @@ public class Boss_CS : MonoBehaviour
 					{
 						Destroy(gameObject.GetComponent<CS1_WhileTrue>());
 					}
+					sem.PlaySoundEffect(7);
 					status.isInvicible = true;
 					bossState = -3;
 				}
@@ -164,6 +167,7 @@ public class Boss_CS : MonoBehaviour
 					{
 						Destroy(gameObject.GetComponent<CS1_Antivirus>());
 					}
+					sem.PlaySoundEffect(7);
 					boss.rigidbody.MovePosition(StageRefPoint + new Vector3(16.0f, 0.5f, 24.0f));
 					GameObject.FindWithTag("Tag_LostFocusEnemy").tag = "Tag_Enemy";
 					status.isInvicible = true;
@@ -190,7 +194,8 @@ public class Boss_CS : MonoBehaviour
                     if (gameObject.GetComponent<CS1_P2P>())
                     {
                         Destroy(gameObject.GetComponent<CS1_P2P>());
-                    }
+					}
+					sem.PlaySoundEffect(8);
 					bgm.StopBGM();
                     status.isInvicible = true;
                     bossState = -6;

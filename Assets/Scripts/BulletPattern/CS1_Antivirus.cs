@@ -26,9 +26,11 @@ public class CS1_Antivirus : MonoBehaviour
     private GameObject BulletX; //bullets are using this to be created
     private GameObject BossObject_TowerX;
 	private GameObject BossObject_PlatformX;
-    
-    void Awake()
-    {
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
         startTime = Time.time;
         lastTime = 0.0f;
         target = GameObject.FindWithTag("Player");
@@ -63,7 +65,8 @@ public class CS1_Antivirus : MonoBehaviour
         } else if (step < 2)
         { 
             if (!BossObject_TowerX.GetComponent<UniformMotionWithinTime>())
-            {
+			{
+				sem.LoopSoundEffect(6);
                 BossObject_TowerX.AddComponent("UniformMotionWithinTime");
                 BossObject_TowerX.GetComponent<UniformMotionWithinTime>().x = TowerPosition.x;
                 BossObject_TowerX.GetComponent<UniformMotionWithinTime>().y = TowerPosition.y + 4.0f;
@@ -72,12 +75,14 @@ public class CS1_Antivirus : MonoBehaviour
                 BossObject_TowerX.GetComponent<UniformMotionWithinTime>().oriPos = TowerPosition;
             } else if (BossObject_TowerX.GetComponent<UniformMotionWithinTime>().isFinished)
             {
+				sem.StopSoundEffect(6);
                 Destroy(BossObject_TowerX.GetComponent<UniformMotionWithinTime>());
                 TowerPosition = StageRefPoint + new Vector3(16.0f, 0.5f, 24.0f);
                 step++;
             }
         } else if (step < 10)
-        {
+		{
+			sem.PlaySoundEffect(2);
             for (int i=0; i<=2; i++)
             {
                 float angle = (j + i / 3.0f) * 2.0f * Mathf.PI;
@@ -119,7 +124,8 @@ public class CS1_Antivirus : MonoBehaviour
         } else if (step == 3)
         {
             if (!BossObject_PlatformX.GetComponent<UniformMotionWithinTime>())
-            {
+			{
+				sem.LoopSoundEffect(6);
                 BossObject_PlatformX.AddComponent("UniformMotionWithinTime");
                 BossObject_PlatformX.GetComponent<UniformMotionWithinTime>().x = SpawnPosition.x;
                 BossObject_PlatformX.GetComponent<UniformMotionWithinTime>().y = SpawnPosition.y + 1.5f;
@@ -127,7 +133,8 @@ public class CS1_Antivirus : MonoBehaviour
                 BossObject_PlatformX.GetComponent<UniformMotionWithinTime>().moveTime = 3.0f;
                 BossObject_PlatformX.GetComponent<UniformMotionWithinTime>().oriPos = SpawnPosition;
             } else if (BossObject_PlatformX.GetComponent<UniformMotionWithinTime>().isFinished)
-            {
+			{
+				sem.StopSoundEffect(6);
                 Destroy(BossObject_PlatformX.GetComponent<UniformMotionWithinTime>());
                 lastTime = cTime;
                 step++;
@@ -136,7 +143,8 @@ public class CS1_Antivirus : MonoBehaviour
         } else if (step == 4)
         {
             if ((cTime - lastTime) > 1.5f * 4.0f / (4.0f + round))
-            {
+			{
+				sem.PlaySoundEffect(10);
                 for (int i=0; i<32; i++)
                 {
                     float angle = i / 32.0f * 2.0f * Mathf.PI;

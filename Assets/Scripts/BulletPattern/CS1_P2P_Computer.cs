@@ -17,9 +17,11 @@ public class CS1_P2P_Computer : MonoBehaviour
 	public int step = 0; //step counter
 
 	private GameObject BulletX; //bullets are using this to be created
+	private SEManager sem;
 	
 	void Awake()
 	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
 		startTime = Time.time;
 		lastTime = 0.0f;
 	}
@@ -32,6 +34,7 @@ public class CS1_P2P_Computer : MonoBehaviour
 		{ 
 			if (!gameObject.GetComponent<UniformMotionWithinTime>())
 			{
+				sem.LoopSoundEffect(6);
 				gameObject.AddComponent("UniformMotionWithinTime");
 				gameObject.GetComponent<UniformMotionWithinTime>().x = transform.position.x;
 				gameObject.GetComponent<UniformMotionWithinTime>().y = 0.0f;
@@ -40,6 +43,7 @@ public class CS1_P2P_Computer : MonoBehaviour
 				gameObject.GetComponent<UniformMotionWithinTime>().oriPos = transform.position;
 			} else if (gameObject.GetComponent<UniformMotionWithinTime>().isFinished)
 			{
+				sem.StopSoundEffect(6);
 				Destroy(gameObject.GetComponent<UniformMotionWithinTime>());
 				step++;
 				lastStepTime = cTime;
@@ -47,6 +51,7 @@ public class CS1_P2P_Computer : MonoBehaviour
 			}
 		}else if (step == 1){
 			if(cTime - lastTime > 0.04f){
+				sem.PlaySoundEffect(3);
 				BulletX = (GameObject)Instantiate(BulletRed, transform.position+new Vector3(0f,0.5f,0f), transform.rotation);
 
 				Vector3 temp = faceTo.position - transform.position;
@@ -68,6 +73,7 @@ public class CS1_P2P_Computer : MonoBehaviour
 				lastStepTime = cTime;
             }
 		}else if (step == 3){
+			sem.PlaySoundEffect(2);
 			for (int i=0; i<16; i++)
 			{
 				float angle = (i * 22.5f + step * 0.5f) / 180.0f * Mathf.PI;

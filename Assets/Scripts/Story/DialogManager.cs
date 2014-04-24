@@ -53,23 +53,27 @@ public class DialogManager : MonoBehaviour, IDrawable {
 	{
 		speaker = d.Speaker;
 		emotion = d.Emotion;
+		sem.LoopSoundEffect(6);
 		for (int i = 0; i <= d.Content.Length; i++) {
 			content = d.Content.Substring(0, i);
 			emotion = -1;
 			yield return new WaitForSeconds(waitInterval);
 		}
+		sem.StopSoundEffect(6);
 	}
 
 	public IEnumerator display(Dialog d, Transform ePt)
 	{
 		speaker = d.Speaker;
 		emotion = d.Emotion;
+		sem.LoopSoundEffect(6);
 		for (int i = 0; i <= d.Content.Length; i++) {
 			content = d.Content.Substring(0, i);
 			emotionPoint = ePt;
 
 			yield return new WaitForSeconds(waitInterval);
 		}
+		sem.StopSoundEffect(6);
 	}
 
 	public IEnumerator interactToProceed()

@@ -38,11 +38,13 @@ public class Boss_Phoenix_12balls : MonoBehaviour
     private int bossState;
 
     private GameObject[] BossObject_Phoenix_X = new GameObject[13];
-    private SEManager sem;
+	private SEManager sem;
+	private BGMManager bgm;
     
     void Awake()
     {
-        sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
+		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
         startTime = Time.time;
         bossState = 0;
         //status = transform.parent.gameObject.GetComponent<BossStatus>();
@@ -57,7 +59,8 @@ public class Boss_Phoenix_12balls : MonoBehaviour
     {
         switch (bossState)
         {
-            case 0:
+			case 0:
+				bgm.LoopBGM(5);
                 int angle = 0;
                 Quaternion face = Quaternion.identity;
                 face.eulerAngles = new Vector3(0, 115, 0);

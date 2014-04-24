@@ -2,8 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 public class StoryEngA : Plot {
-	
-	public Transform[] targets;
+
 	private List<Dialog> dialogs;
 	private DialogManager dman;
 

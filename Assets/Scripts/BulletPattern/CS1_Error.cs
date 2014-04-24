@@ -18,10 +18,12 @@ public class CS1_Error : MonoBehaviour
     
     private GameObject BulletX; //bullets are using this to be created
 
-    private GameObject BulletSet_Error; //trigger area
-    
-    void Awake()
-    {
+	private GameObject BulletSet_Error; //trigger area
+	private SEManager sem;
+	
+	void Awake()
+	{
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
         startTime = Time.time;
         j = 0;
     }
@@ -71,7 +73,8 @@ public class CS1_Error : MonoBehaviour
             step++;
             
         } else if (step < 2)
-        { //Drawing the circle
+		{ //Drawing the circle
+			sem.PlaySoundEffect(2);
             float angle = (j * -10.0f) / 180.0f * Mathf.PI;
             BulletX = (GameObject)Instantiate(BulletBlue, transform.position, transform.rotation);
             BulletX.transform.parent = BulletSet_Error.transform;
@@ -91,7 +94,8 @@ public class CS1_Error : MonoBehaviour
                 j = 0;
             }
         } else if (step < 3)
-        { // drawing the X
+		{ // drawing the X
+			sem.PlaySoundEffect(2);
             float distance = Mathf.Sqrt(6.125f) - 2 * Mathf.Sqrt(6.125f) * j / 16.0f;
             
             BulletX = (GameObject)Instantiate(BulletRed, transform.position, transform.rotation);
@@ -147,7 +151,8 @@ public class CS1_Error : MonoBehaviour
 			Debug.Log(Time.time+" "+step);
             
         } else if (step < 95)
-        { // start random bullet
+		{ // start random bullet
+			sem.PlaySoundEffect(2);
             for (int i=0; i<=1; i++)
             {
                 float angle = Random.value * 2.0f * Mathf.PI;

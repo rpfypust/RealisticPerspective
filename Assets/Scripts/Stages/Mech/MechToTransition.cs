@@ -5,6 +5,7 @@ public class MechToTransition : MonoBehaviour {
 
 	private GameController gamecon;
 	private Layers layer;
+	private BGMManager bgm;
 	
 	void Awake()
 	{
@@ -12,6 +13,7 @@ public class MechToTransition : MonoBehaviour {
 			.GetComponent<Layers>();
 		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
 			.GetComponent<GameController>();
+		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
 	}
 	
 	void OnTriggerEnter(Collider other)
@@ -20,6 +22,7 @@ public class MechToTransition : MonoBehaviour {
 		    || other.gameObject.layer == layer.playerHitArea) {
 			collider.enabled = false;
 			Flag.GetInstance().MechCleared = true;
+			bgm.StopBGM();
 			gamecon.LoadLevel(SceneIndice.TRANSITION);
 		}
 	}

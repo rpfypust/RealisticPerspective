@@ -5,6 +5,7 @@ public class ElecToTransition : MonoBehaviour {
 	
 	private GameController gamecon;
 	private Layers layer;
+	private BGMManager bgm;
 	
 	void Awake()
 	{
@@ -12,6 +13,7 @@ public class ElecToTransition : MonoBehaviour {
 			.GetComponent<Layers>();
 		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
 			.GetComponent<GameController>();
+		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
 	}
 	
 	void OnTriggerEnter(Collider other)
@@ -20,6 +22,7 @@ public class ElecToTransition : MonoBehaviour {
 		    || other.gameObject.layer == layer.playerHitArea) {
 			collider.enabled = false;
 			Flag.GetInstance().ElecCleared = true;
+			bgm.StopBGM();
 			gamecon.LoadLevel(SceneIndice.TRANSITION);
 		}
 	}
