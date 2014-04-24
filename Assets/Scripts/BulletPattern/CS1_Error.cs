@@ -20,6 +20,8 @@ public class CS1_Error : MonoBehaviour
 
 	private GameObject BulletSet_Error; //trigger area
 	private SEManager sem;
+
+	CapsuleCollider BulletSetTriggerArea;
 	
 	void Awake()
 	{
@@ -57,12 +59,6 @@ public class CS1_Error : MonoBehaviour
             BulletSet_Error.AddComponent("CS1_Error_BulletSet");
             BulletSet_Error.GetComponent<CS1_Error_BulletSet>().velocity = 4.0f;
             BulletSet_Error.GetComponent<CS1_Error_BulletSet>().boss = gameObject;
-            
-            CapsuleCollider BulletSetTriggerArea = new CapsuleCollider();
-            BulletSetTriggerArea = BulletSet_Error.AddComponent("CapsuleCollider") as CapsuleCollider;
-            BulletSetTriggerArea.isTrigger = true;
-            BulletSetTriggerArea.height = 20;
-            BulletSetTriggerArea.radius = 5;
             
             Rigidbody BulletSetRigidbody = new Rigidbody();
             BulletSetRigidbody = BulletSet_Error.AddComponent("Rigidbody") as Rigidbody;
@@ -136,6 +132,12 @@ public class CS1_Error : MonoBehaviour
         { //move the bullet, wait for the bullet leave boss
             BulletSet_Error.name = "BulletSet_Error";
             BulletSet_Error.GetComponent<CS1_Error_BulletSet>().canStartMoving = true;
+			if(BulletSetTriggerArea == null) {
+				BulletSetTriggerArea = BulletSet_Error.AddComponent("CapsuleCollider") as CapsuleCollider;
+				BulletSetTriggerArea.isTrigger = true;
+				BulletSetTriggerArea.height = 20;
+				BulletSetTriggerArea.radius = 5;
+			}
             if (!boss.gameObject.GetComponent<BossRandomMoveInArea>())
             {
                 boss.gameObject.AddComponent("BossRandomMoveInArea");
