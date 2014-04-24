@@ -10,6 +10,7 @@ public class MechStageMechanics : MonoBehaviour {
 
 	private CutSceneManager cman;
 	private BGMManager bgm;
+	private SEManager sem;
 	public GameObject door;
 	public GameObject block;
 	public int setNum;
@@ -31,6 +32,7 @@ public class MechStageMechanics : MonoBehaviour {
 	{
 		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
 		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
 
 		switches = GetComponentsInChildren<MechSwitch>();
 		blocks = GetComponentsInChildren<MechBlock>();
@@ -204,6 +206,7 @@ public class MechStageMechanics : MonoBehaviour {
 		yield return StartCoroutine(cman.moveCamera(door.transform.position,
 		                                            CutSceneManager.SHORT_DELAY));
 		yield return new WaitForSeconds(CutSceneManager.SHORT_DELAY);
+		sem.PlaySoundEffect(11);
 		Destroy(door);
 		yield return new WaitForSeconds(CutSceneManager.SHORT_DELAY);
 		yield return StartCoroutine(cman.moveCamera(targetBackup,

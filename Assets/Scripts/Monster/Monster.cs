@@ -29,9 +29,11 @@ public class Monster : Character {
 	public float patrolIntervalTimer;
 	protected float attackIntervalTimer;
 	private Vector3 scheduledTargetPosition;
+	private SEManager sem;
 
 	protected override void Awake() {
 		agent = GetComponent<NavMeshAgent>();
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
 	}
 
 	protected override void Start() {
@@ -140,6 +142,7 @@ public class Monster : Character {
 	public override void die() {
 		if (OnMonsterDie != null)
 			OnMonsterDie(this);
+		sem.PlaySoundEffect(7);
 		Destroy(gameObject);
 	}
 

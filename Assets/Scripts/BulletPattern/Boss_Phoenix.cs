@@ -379,7 +379,8 @@ public class Boss_Phoenix : MonoBehaviour
             BossObjectWaterX.AddComponent("PH1_Phoenix_StoneExplode");
             BossObjectWaterX.GetComponent<PH1_Phoenix_StoneExplode>().waitTime = 6f;
             BossObjectWaterX.GetComponent<PH1_Phoenix_StoneExplode>().Bullet = BulletBlue;
-            transform.position -= new Vector3(0f,-30f,0f);
+			transform.position = new Vector3(0f,-30f,0f);
+			gameObject.tag = "Tag_LostFocusEnemy";
 			sem.PlaySoundEffect(8);
 			bgm.StopBGM();
             Destroy(gameObject,20f);

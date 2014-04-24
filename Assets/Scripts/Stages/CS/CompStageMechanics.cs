@@ -10,6 +10,7 @@ public class CompStageMechanics : MonoBehaviour {
 	private readonly Vector2 offset = new Vector2(1f, 1f);
 	private const float unitLength = 2f;
 	private BGMManager bgm;
+	private SEManager sem;
 
     public GameObject[] doors;
 
@@ -22,6 +23,7 @@ public class CompStageMechanics : MonoBehaviour {
 
     void Awake() {
 		obstaclePrefab = Resources.Load("comp_block");
+		sem = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<SEManager>();
         cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
 		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
 
@@ -103,11 +105,13 @@ public class CompStageMechanics : MonoBehaviour {
 	private IEnumerator ClearObstacles()
 	{
 		if (obstaclesParent != null) {
+			sem.LoopSoundEffect(6);
 			yield return StartCoroutine(obstaclesParent
 			                            .transform
 			                            .LinearMoveWithTime(Vector3.zero,
 			                                        Vector3.down * 2f,
 			                                        CutSceneManager.SHORT_DELAY));
+			sem.StopSoundEffect(6);
 			Destroy(obstaclesParent);
 			obstaclesParent = null;
 		}
@@ -122,12 +126,13 @@ public class CompStageMechanics : MonoBehaviour {
 			GameObject o = (GameObject) putObstacle(v);
 			o.transform.parent = obstaclesParent.transform;
 		}
-
+		sem.LoopSoundEffect(6);
 		yield return StartCoroutine(obstaclesParent
 		                            .transform
 		                            .LinearMoveWithTime(Vector3.down * 2f,
 		                                        Vector3.zero,
 		                                        CutSceneManager.SHORT_DELAY));
+		sem.StopSoundEffect(6);
     }
 
 	private void SwitchHandler(CompSwitch cs, CompSwitchLabel cwl)
@@ -161,6 +166,7 @@ public class CompStageMechanics : MonoBehaviour {
 		                                            .toVector2XZ()
 		                                            .toVector3XZ()
 		                                            , CutSceneManager.SHORT_DELAY));
+		sem.PlaySoundEffect(11);
 		Destroy(door);
 		yield return new WaitForSeconds(CutSceneManager.SHORT_DELAY);
 
