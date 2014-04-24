@@ -5,7 +5,6 @@ public class CompToTransition : MonoBehaviour {
 	
 	public GameObject bossObj;
 	private Boss boss;
-	private bool exiting;
 	private GameController gamecon;
 
 	void Awake()
@@ -13,12 +12,11 @@ public class CompToTransition : MonoBehaviour {
 		boss = bossObj.GetComponent<Boss>();
 		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
 			.GetComponent<GameController>();
-		exiting = false;
 	}
 
 	void Update () {
-		if (!exiting && boss.HealthPoint <= 0.0f) {
-			exiting = true;
+		if (boss.HealthPoint <= 0.0f) {
+			enabled = false;
 			Flag.GetInstance().CompCleared = true;
 			gamecon.LoadLevel(SceneIndice.TRANSITION);
 		}
