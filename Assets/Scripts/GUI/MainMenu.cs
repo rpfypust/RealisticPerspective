@@ -29,8 +29,6 @@ public class MainMenu : MonoBehaviour, IDrawable {
 		width = GUIManager.width;
 		height = GUIManager.height;
 		gman.register(this);
-
-		Debug.Log("in title");
 	}
 
 	void Update()

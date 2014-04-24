@@ -10,7 +10,8 @@ public sealed class GameController : MonoBehaviour {
 	private PauseScreen pauseScreen;
 	private GUIManager gman;
 	private BGMManager bgmm;
-	private BGMManager storybgmm;
+	private SEManager semm;
+	private SEManager storysemm;
 
 	private bool paused;
 
@@ -27,10 +28,10 @@ public sealed class GameController : MonoBehaviour {
 		gman = GetComponent<GUIManager>();
 		pauseScreen = GetComponent<PauseScreen>();
 		bgmm = GetComponent<BGMManager>();
-
+		semm = GetComponent<SEManager>();
 		GameObject storyController = GameObject.FindGameObjectWithTag(Tags.storyController);
 		if (storyController != null) {
-			storybgmm = storyController.GetComponent<BGMManager>();
+			storysemm = storyController.GetComponent<SEManager>();
 		}
 
 		paused = false;
@@ -44,18 +45,18 @@ public sealed class GameController : MonoBehaviour {
 				if (bgmm.IsPlayingBGM()) {
 					bgmm.PauseBGM();
 				}
-				if (storybgmm != null && storybgmm.IsPlayingBGM()) {
-					storybgmm.PauseBGM();
-				}
+					semm.PauseSE();
+				if (storysemm != null) 
+					storysemm.PauseSE();
 				Time.timeScale = 0f;
 				gman.register(pauseScreen);
 			} else {
 				if (bgmm.IsPaused()) {
 					bgmm.ResumeBGM();
 				}
-				if (storybgmm != null && storybgmm.IsPaused()) {
-					storybgmm.ResumeBGM();
-				}
+					semm.ResumeSE();
+				if (storysemm != null) 
+					storysemm.ResumeSE();
 				Time.timeScale = 1f;
 				gman.unregister(pauseScreen);
 			}

@@ -13,6 +13,7 @@ public class SEManager : MonoBehaviour {
 
 	public AudioClip[] ses;
 	private AudioSource[] sources;
+	private bool[] paused;
 
 	void Awake()
 	{
@@ -21,6 +22,7 @@ public class SEManager : MonoBehaviour {
 			sources[i] = gameObject.AddComponent<AudioSource>();
 			sources[i].clip = ses[i];
 		}
+		paused = new bool[sources.Length];
 	}
 
 	public void PlaySoundEffect(int i)
@@ -38,4 +40,41 @@ public class SEManager : MonoBehaviour {
     {
         sources[i].Stop();
     }
+
+	public void StopAllSoundEffect() // For skipping sences
+	{
+		foreach (AudioSource s in sources) {
+			s.Stop();
+		}
+	}
+
+	public bool IsPlayingSE(int index)
+	{
+		return sources[index].isPlaying;
+	}
+	
+	public bool IsPaused(int index)
+	{
+		return paused[index];
+	}
+	
+	public void PauseSE()
+	{
+		for (int i = 0; i < sources.Length; i++) {
+			if (IsPlayingSE(i)) {
+				paused[i] = true;
+				sources[i].Pause();
+			}
+		}
+	}
+	
+	public void ResumeSE()
+	{
+		for (int i = 0; i < sources.Length; i++) {
+			if (paused[i]) {
+				sources[i].Play();
+			}
+		}
+
+	}
 }
