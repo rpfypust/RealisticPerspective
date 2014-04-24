@@ -9,6 +9,7 @@ public class CompStageMechanics : MonoBehaviour {
 	private readonly Vector2 iceRinkCenter = new Vector2(-7f, 14f);
 	private readonly Vector2 offset = new Vector2(1f, 1f);
 	private const float unitLength = 2f;
+	private BGMManager bgm;
 
     public GameObject[] doors;
 
@@ -22,6 +23,7 @@ public class CompStageMechanics : MonoBehaviour {
     void Awake() {
 		obstaclePrefab = Resources.Load("comp_block");
         cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
+		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
 
 		currentSetNumber = 0;
 
@@ -74,6 +76,10 @@ public class CompStageMechanics : MonoBehaviour {
 
 		StartCoroutine(InitializeObstacles());
     }
+
+	void Start() {		
+		bgm.LoopBGM(0);
+	}
 
 	void OnEnable()
 	{

@@ -9,6 +9,7 @@ public class MechStageMechanics : MonoBehaviour {
 	public Transform playerStartPoint;
 
 	private CutSceneManager cman;
+	private BGMManager bgm;
 	public GameObject door;
 	public GameObject block;
 	public int setNum;
@@ -29,6 +30,7 @@ public class MechStageMechanics : MonoBehaviour {
 	void Awake()
 	{
 		cman = GameObject.FindGameObjectWithTag(Tags.mainCamera).GetComponent<CutSceneManager>();
+		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
 
 		switches = GetComponentsInChildren<MechSwitch>();
 		blocks = GetComponentsInChildren<MechBlock>();
@@ -61,6 +63,7 @@ public class MechStageMechanics : MonoBehaviour {
 	{
 		togglePuzzle(false);
 		spawner.OnMonsterClear += monsterClearHandler;
+		bgm.LoopBGM(1);
 	}
 
 	private void monsterClearHandler()
