@@ -69,7 +69,7 @@ public sealed class Wizard : Monster {
 		stopMoving();
 
 		Vector3 p = transform.position;
-		p.y = 0.5f;
+		p.y = 0.5f + transform.position.y;
 		Vector3 v = (latestTargetPosition.toVector2XZ() - p.toVector2XZ())
 			.toVector3XZ().normalized * bulletSpeed;
 		UniformMotion um = BulletFactory.CreateUniformMotionBullet(p, v, bulletLife);

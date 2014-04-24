@@ -54,7 +54,7 @@ public class MonsterSpawning : MonoBehaviour {
 	public virtual void spawn() {
 		while (monsters.Count < maxNumMonsters) {
 			GameObject obj = MonsterFactory.createMonster(monsterPrefab,
-			                                              randomPosition(),
+			                                              randomPosition() + Vector3.up * transform.position.y,
 			                                              randomOrientation(),
 			                                              spawningRect);
 			Monster monster = obj.GetComponent<Monster>();

@@ -78,7 +78,7 @@ public sealed class Turret : Monster {
 
 	public override void attack(Vector3 target) {
 		Vector3 position = transform.position;
-		position.y = 1f;
+		position.y = 1f + transform.position.y;
 		Vector3 velocity;
 
 		/* We need to find the velocity(direction) which can

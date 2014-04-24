@@ -213,7 +213,7 @@ public class StoryEngM : Plot {
 		yield return StartCoroutine(renroh.tunnelOut());
 
 		dman.openDialog();
-		for (int index = 0; index < 148; index++) {
+		for (int index = 147; index < 148; index++) {
 
 			if(index == 1) //Alice comes out
 			{
@@ -384,7 +384,7 @@ public class StoryEngM : Plot {
 
 		yield return StartCoroutine(cam.FadeIn());
 
-		yield return StartCoroutine(cam.SolidBlack(100f));
+		yield return StartCoroutine(cam.SolidBlack(5f));
 
 		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}

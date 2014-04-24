@@ -21,7 +21,7 @@ public class UFO : Monster {
 	private IEnumerator attackCoroutine(Vector2 initDir)
 	{
 		Vector3 p = transform.position;
-		p.y = 1f;
+		p.y = 1f + transform.position.y;
 
 		int n = bulletsPerAttack;
 		float waitInterval = attackDuration / n;

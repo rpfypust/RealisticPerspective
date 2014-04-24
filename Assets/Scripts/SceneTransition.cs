@@ -58,7 +58,7 @@ public class SceneTransition : MonoBehaviour {
 			}
 			break;
 		case StoryProgress.M:
-			gamecon.LoadLevel(SceneIndice.TITLE);
+			flag.NewProgress = StoryProgress.M;
 			break;
 		}
 
@@ -100,7 +100,7 @@ public class SceneTransition : MonoBehaviour {
 				gamecon.LoadLevel(SceneIndice.L);
 				break;
 			case StoryProgress.M:
-				gamecon.LoadLevel(SceneIndice.M);
+				gamecon.LoadLevel(SceneIndice.TITLE);
 				break;
 			}
 		} else {

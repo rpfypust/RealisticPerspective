@@ -1,5 +1,6 @@
 ﻿public static class SceneIndice {
-	public static int TITLE = 0;
+	public static int BOOTSTRAP = 0;
+	public static int TITLE = 21;
 	public static int DEFAULT = 1;
 	public static int A = 2;
 	public static int B = 3;

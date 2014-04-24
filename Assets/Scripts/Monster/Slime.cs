@@ -27,7 +27,7 @@ public class Slime : Monster {
 
 	public override void attack(Vector3 target) {
 		Vector3 p = transform.position;
-		p.y = 0.5f;
+		p.y = 0.5f + transform.position.y;
 		Vector3 v = (target.toVector2XZ() - p.toVector2XZ())
 			.toVector3XZ().normalized * bulletSpeed;
 		StartCoroutine(attackCoroutine(p, v));

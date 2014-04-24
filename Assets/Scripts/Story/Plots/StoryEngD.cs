@@ -165,6 +165,7 @@ public class StoryEngD : Plot {
 		alpha.GetComponent<Player>().enabled = true;
 		yield return new WaitForSeconds(.1f);
 		alpha.GetComponent<CharAnimation>().enabled = true;
+		cam.GetComponent<HUD>().enabled = true;
 
 		yield return new WaitForSeconds(5f);
 
