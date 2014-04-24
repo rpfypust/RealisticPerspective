@@ -14,6 +14,8 @@ public class StoryEngD : Plot
 	private GameObject wave_1;
 	private GameObject wave_2;
 
+	private StageController stagecon;
+
 	private void Awake()
 	{
 		gamecon = GameObject.FindGameObjectWithTag(Tags.gameController)
@@ -23,6 +25,7 @@ public class StoryEngD : Plot
 		bgm = GameObject.FindGameObjectWithTag(Tags.gameController)
 			.GetComponent<BGMManager>();
 		hash = GameObject.FindGameObjectWithTag(Tags.storyController).GetComponent<HashIDs>();
+		stagecon = GameObject.Find("StageController").GetComponent<StageController>();
 		alpha = GameObject.Find("Alpha").GetComponent<Actor>();
 		shadow = GameObject.Find("Shadow").GetComponent<Actor>();
 		monster = GameObject.Find("Monster");
@@ -132,7 +135,7 @@ public class StoryEngD : Plot
 				yield return new WaitForSeconds(.1f);
 				alpha.GetComponent<CharAnimation>().enabled = true;
 				cam.GetComponent<HUD>().enabled = true;
-				
+				stagecon.enabled = true;
 				yield return new WaitForSeconds(5f);
 				
 				monster.GetComponent<MonsterAI>().enabled = false;
