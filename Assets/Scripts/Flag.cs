@@ -1,4 +1,6 @@
-﻿public class Flag {
+﻿using UnityEngine;
+
+public class Flag {
 
 	private static Flag instance;
 
@@ -33,6 +35,11 @@
 		return instance;
 	}
 
+	public static void SetInstance(Flag f)
+	{
+		instance = f;
+	}
+
 	public int ClearedStageCount()
 	{
 		int count = 0;
@@ -42,7 +49,47 @@
 		return count;
 	}
 
-	private Flag()
+	public void LogFlags()
+	{
+		Debug.Log("Current progress: " + CurrentProgress);
+		Debug.Log("NewProgress: " + NewProgress);
+		Debug.Log("CompCleared: " + CompCleared);
+		Debug.Log("MechCleared: " + MechCleared);
+		Debug.Log("ElecCleared: " + ElecCleared);
+		Debug.Log("PhoenixCleared: " + PhoenixCleared);
+	}
+
+	public Flag(StoryProgress c,
+	            StoryProgress n,
+	            bool p,
+	            bool q,
+	            bool r,
+	            bool s)
+	{
+		CurrentProgress = c;
+		NewProgress = n;
+		CompCleared = p;
+		MechCleared = q;
+		ElecCleared = r;
+		PhoenixCleared = s;
+	}
+
+//	public Flag(StoryProgress c = StoryProgress.NONE,
+//	            StoryProgress n = StoryProgress.NONE,
+//	            bool p = false,
+//	            bool q = false,
+//	            bool r = false,
+//	            bool s = false)
+//	{
+//		CurrentProgress = c;
+//		NewProgress = n;
+//		CompCleared = p;
+//		MechCleared = q;
+//		ElecCleared = r;
+//		PhoenixCleared = s;
+//	}
+
+	public Flag()
 	{
 		CurrentProgress = StoryProgress.NONE;
 		NewProgress = StoryProgress.NONE;

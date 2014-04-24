@@ -35,12 +35,21 @@ public class MainMenu : MonoBehaviour, IDrawable {
 	{
 		switch (choice) {
 		case 1:
+			Flag.SetInstance(new Flag());
 			Flag.GetInstance().NewProgress = Flag.StoryProgress.A;
 			gamecon.LoadLevel(SceneIndice.TRANSITION);
 			gman.unregister(this);
 			choice = 0;
 			break;
+		case 2:
+			Flag.SetInstance(XMLUtil.LoadXML<Flag>(Application.persistentDataPath + "/save.data"));
+			Flag.GetInstance().LogFlags();
+			gamecon.LoadLevel(SceneIndice.TRANSITION);
+			gman.unregister(this);
+			choice = 0;
+			break;
 		}
+
 	}
 
 	public void DrawOnGUI()
@@ -55,10 +64,7 @@ public class MainMenu : MonoBehaviour, IDrawable {
 			choice = 1;
 		}
 		if (GUILayout.Button("Continue", style, GUILayout.ExpandHeight(true))) {
-			// get current progress from permanent storage
-			// load the atrium scene
 			choice = 2;
-			//gamecon.LoadLevel(0);
 		}
 		if (GUILayout.Button("Exit", style, GUILayout.ExpandHeight(true))) {
 			Application.Quit();

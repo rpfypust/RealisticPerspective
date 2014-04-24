@@ -15,6 +15,9 @@ public class SceneTransition : MonoBehaviour {
 	void Start () {
 		Flag flag = Flag.GetInstance();
 
+		Debug.Log(Application.persistentDataPath);
+		XMLUtil.SaveXML(Application.persistentDataPath+"/save.data", flag);
+
 		switch (flag.CurrentProgress) {
 		case StoryProgress.A:
 			flag.NewProgress = StoryProgress.B;
@@ -50,11 +53,12 @@ public class SceneTransition : MonoBehaviour {
 			flag.NewProgress = StoryProgress.L;
 			break;
 		case StoryProgress.L:
-			if (flag.PhoenixCleared)
+			if (flag.PhoenixCleared) {
 				flag.NewProgress = StoryProgress.M;
+			}
 			break;
 		case StoryProgress.M:
-			// ed
+			gamecon.LoadLevel(SceneIndice.TITLE);
 			break;
 		}
 

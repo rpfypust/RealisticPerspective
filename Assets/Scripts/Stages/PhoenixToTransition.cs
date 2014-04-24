@@ -19,7 +19,14 @@ public class PhoenixToTransition : MonoBehaviour {
 	void Update () {
 		if (!exiting && boss.HealthPoint <= 0.0f) {
 			exiting = true;
-			gamecon.LoadLevel(SceneIndice.TRANSITION);
+			Flag.GetInstance().PhoenixCleared = true;
+			StartCoroutine(Aftershock());
 		}
+	}
+
+	private IEnumerator Aftershock()
+	{
+		yield return new WaitForSeconds(20.0f);
+		gamecon.LoadLevel(SceneIndice.TRANSITION);
 	}
 }
