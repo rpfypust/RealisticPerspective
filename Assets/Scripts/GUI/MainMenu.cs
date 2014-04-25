@@ -3,10 +3,12 @@
 public class MainMenu : MonoBehaviour, IDrawable {
 
 	private Rect buttonRect;
+	private Rect titleRect;
 	private GameController gamecon;
 	private GUIManager gman;
 
 	private Texture2D bgimg;
+	private Texture2D titleimg;
 	private float width;
 	private float height;
 
@@ -19,8 +21,10 @@ public class MainMenu : MonoBehaviour, IDrawable {
 		gman = GameObject.FindGameObjectWithTag(Tags.gameController)
 			.GetComponent<GUIManager>();
 		bgimg = Resources.Load<Texture2D>("cover_1920x1080");
+		titleimg = Resources.Load<Texture2D>("title_name");
 
-		buttonRect = new Rect(640, 216, 640, 648);
+		buttonRect = new Rect(700, 480, 640, 600);
+		titleRect = new Rect(100, 20, 1800, 400);
 		choice = 0;
 	}
 
@@ -55,18 +59,22 @@ public class MainMenu : MonoBehaviour, IDrawable {
 	public void DrawOnGUI()
 	{
 		GUI.DrawTexture(new Rect(0, 0, width, height), bgimg);
+		GUI.DrawTexture(titleRect, titleimg);
 		GUIStyle style = new GUIStyle(GUI.skin.button);
-		style.fontSize = 43;
+		style.fontSize = 180;
+		style.font = GetComponent<TextMesh>().font;
+		style.hover.textColor  = Color.gray;
+		GUI.backgroundColor = Color.clear;
 
 		GUILayout.BeginArea(buttonRect);
 		GUILayout.BeginVertical();
-		if (GUILayout.Button("New Game", style, GUILayout.ExpandHeight(true))) {
+		if (GUILayout.Button("New Game", style, GUILayout.Height(160))) {
 			choice = 1;
 		}
-		if (GUILayout.Button("Continue", style, GUILayout.ExpandHeight(true))) {
+		if (GUILayout.Button("Continue", style, GUILayout.Height(160))) {
 			choice = 2;
 		}
-		if (GUILayout.Button("Exit", style, GUILayout.ExpandHeight(true))) {
+		if (GUILayout.Button("Exit", style, GUILayout.Height(160))) {
 			Application.Quit();
 		}
 		GUILayout.EndVertical();
