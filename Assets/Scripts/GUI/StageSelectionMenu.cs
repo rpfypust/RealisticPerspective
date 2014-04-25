@@ -63,7 +63,10 @@ public class StageSelectionMenu : MonoBehaviour, IDrawable {
 	public void DrawOnGUI()
 	{
 		GUIStyle style = new GUIStyle(GUI.skin.button);
-		style.fontSize = 43;
+		style.fontSize = 150;
+		style.font = GetComponent<TextMesh>().font;
+		style.hover.textColor  = Color.gray;
+		GUI.backgroundColor = Color.clear;
 		
 		GUILayout.BeginArea(buttonRect);
 		GUILayout.BeginVertical();
