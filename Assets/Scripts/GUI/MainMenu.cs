@@ -6,6 +6,7 @@ public class MainMenu : MonoBehaviour, IDrawable {
 	private Rect titleRect;
 	private GameController gamecon;
 	private GUIManager gman;
+	private BGMManager bgm;
 
 	private Texture2D bgimg;
 	private Texture2D titleimg;
@@ -20,6 +21,7 @@ public class MainMenu : MonoBehaviour, IDrawable {
 			.GetComponent<GameController>();
 		gman = GameObject.FindGameObjectWithTag(Tags.gameController)
 			.GetComponent<GUIManager>();
+		bgm = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<BGMManager>();
 		bgimg = Resources.Load<Texture2D>("cover_1920x1080");
 		titleimg = Resources.Load<Texture2D>("title_name");
 
@@ -33,6 +35,11 @@ public class MainMenu : MonoBehaviour, IDrawable {
 		width = GUIManager.width;
 		height = GUIManager.height;
 		gman.register(this);
+		bgm.PlayBGM(7);
+	}
+
+	void OnDestroy(){
+		bgm.StopBGM();
 	}
 
 	void Update()

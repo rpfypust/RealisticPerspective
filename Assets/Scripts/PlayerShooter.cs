@@ -34,7 +34,7 @@ public class PlayerShooter : MonoBehaviour
                 bulletX = (GameObject)Instantiate(bullet_normal, transform.position + 0.3f * temp * i, transform.rotation);
                 bulletX.gameObject.rigidbody.velocity = bulletSpeed * transform.forward.normalized;
                 bulletX.gameObject.AddComponent("BulletInfo");
-                bulletX.gameObject.GetComponent<BulletInfo>().Damage = 1.0f;
+                bulletX.gameObject.GetComponent<BulletInfo>().Damage = 3.0f;
 
                 bulletX = (GameObject)Instantiate(bullet_normal, transform.position + 0.3f * temp * i, transform.rotation);
                 temp = transform.forward.normalized;
@@ -42,7 +42,7 @@ public class PlayerShooter : MonoBehaviour
                 temp.z = temp.x * Mathf.Sin(i * 2f / 180.0f * Mathf.PI) + temp.z * Mathf.Cos(i * 2f / 180.0f * Mathf.PI);
                 bulletX.gameObject.rigidbody.velocity = bulletSpeed * temp;
                 bulletX.gameObject.AddComponent("BulletInfo");
-                bulletX.gameObject.GetComponent<BulletInfo>().Damage = 1.0f;
+                bulletX.gameObject.GetComponent<BulletInfo>().Damage = 3.0f;
             }
 
             nextShootTime_normal = shootInterval_normal + Time.time;
@@ -61,7 +61,7 @@ public class PlayerShooter : MonoBehaviour
                 
                 bulletX.gameObject.GetComponent<PlayerBullet_Homing>().direction = temp.normalized;
                 bulletX.gameObject.AddComponent("BulletInfo");
-                bulletX.gameObject.GetComponent<BulletInfo>().Damage = 1.0f;
+                bulletX.gameObject.GetComponent<BulletInfo>().Damage = 3.0f;
             }
             
             nextShootTime_homing = shootInterval_homing + Time.time;

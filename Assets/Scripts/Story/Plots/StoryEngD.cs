@@ -116,7 +116,7 @@ public class StoryEngD : Plot
 
 			if (index == 8) {
 				bgm.changeVolume(0.5f);
-				bgm.PlayBGM(1);
+				bgm.PlayBGM(3);
 				//spwan a slime and face and mvoe camera 
 				monster.SetActive(true);
 				StartCoroutine(shadow.rotate(35, 0.5f));
