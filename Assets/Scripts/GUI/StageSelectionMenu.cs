@@ -72,17 +72,17 @@ public class StageSelectionMenu : MonoBehaviour, IDrawable {
 		GUILayout.BeginVertical();
 
 		if (!flag.CompCleared
-		    && GUILayout.Button("COMP", style, GUILayout.ExpandHeight(true))) {
+		    && GUILayout.Button("Comp", style, GUILayout.ExpandHeight(true))) {
 			choice = 1;
 		}
 
 		if (!flag.MechCleared
-		    && GUILayout.Button("MECH", style, GUILayout.ExpandHeight(true))) {
+		    && GUILayout.Button("Mech", style, GUILayout.ExpandHeight(true))) {
 			choice = 2;
 		}
 
 		if (!flag.ElecCleared
-		    && GUILayout.Button("ELEC", style, GUILayout.ExpandHeight(true))) {
+		    && GUILayout.Button("Elec", style, GUILayout.ExpandHeight(true))) {
 			choice = 3;
 		}
 

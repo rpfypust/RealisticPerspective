@@ -23,8 +23,8 @@ public class MainMenu : MonoBehaviour, IDrawable {
 		bgimg = Resources.Load<Texture2D>("cover_1920x1080");
 		titleimg = Resources.Load<Texture2D>("title_name");
 
-		buttonRect = new Rect(700, 480, 640, 600);
-		titleRect = new Rect(100, 20, 1800, 400);
+		buttonRect = new Rect(700, 500, 640, 600);
+		titleRect = new Rect(100, 0, 1800, 400);
 		choice = 0;
 	}
 
@@ -61,7 +61,7 @@ public class MainMenu : MonoBehaviour, IDrawable {
 		GUI.DrawTexture(new Rect(0, 0, width, height), bgimg);
 		GUI.DrawTexture(titleRect, titleimg);
 		GUIStyle style = new GUIStyle(GUI.skin.button);
-		style.fontSize = 180;
+		style.fontSize = 140;
 		style.font = GetComponent<TextMesh>().font;
 		style.hover.textColor  = Color.gray;
 		GUI.backgroundColor = Color.clear;
