@@ -80,7 +80,7 @@ public class CompStageMechanics : MonoBehaviour {
     }
 
 	void Start() {		
-		bgm.LoopBGM(0);
+		bgm.LoopBGM(8);
 	}
 
 	void OnEnable()

@@ -97,6 +97,12 @@ public sealed class Player : Character, IDrawable {
 		GUI.DrawTexture(new Rect(18f, 40f, 1227f, 16f), hpBack);
 		GUI.DrawTexture(new Rect(18f, 40f, hpLength, 16f), hpFore);
 		GUI.DrawTexture(new Rect(18f, 64f, 1227f, 16f), mpBack);
-		GUI.DrawTexture(new Rect(18f, 64f, mpLength, 16f), mpFore);
+        GUI.DrawTexture(new Rect(18f, 64f, mpLength, 16f), mpFore);
+
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 20;
+        style.normal.textColor = Color.white;
+        GUI.Label(new Rect(20f, 38f, 300f, 20f), string.Format("{0:f0} / {0:f0}", HealthPoint,MaxHealthPoint),style);
+        GUI.Label(new Rect(20f, 62f, 300f, 20f), string.Format("{0:f0} / {0:f0}", MagicPoint,maxMagicPoint),style);
 	}
 }

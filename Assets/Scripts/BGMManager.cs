@@ -5,10 +5,12 @@ public class BGMManager : MonoBehaviour {
 
 	/* references to all BGMs */
 	public AudioClip[] bgms;
-	public Vector2[] pairs;
+    public Vector2[] pairs;
+    public string[] songTitle;
 
     private AudioSource source;
 	private bool paused;
+    private int showTitleIndex;
 
 //    private int gui;
 
@@ -16,21 +18,24 @@ public class BGMManager : MonoBehaviour {
 	{
 		source = gameObject.AddComponent<AudioSource>();
 		paused = false;
+        showTitleIndex = -1;
 //        gui = 0;
 	}
 
 	public void LoopBGM(int index) {
 		if (source.isPlaying)
-			StopBGM();
-		StartCoroutine(LoopCoroutine(index));
+            StopBGM();
+        StartCoroutine(LoopCoroutine(index));
+        StartCoroutine(ShowGUI(index,6f));
 	}
 
 	public void PlayBGM(int index) {
 		if (source.isPlaying)
 			StopBGM();
+        source.clip = bgms[index];
         source.time = 0f;
-		source.clip = bgms[index];
-		source.Play();
+        source.Play();
+        StartCoroutine(ShowGUI(index,6f));
 	}
 
 	public bool IsPlayingBGM()
@@ -65,15 +70,33 @@ public class BGMManager : MonoBehaviour {
 
 	private IEnumerator LoopCoroutine(int index)
 	{
+        source.clip = bgms[index];
         source.time = 0f;
-		source.clip = bgms[index];
 		source.Play();
-		yield return new WaitForSeconds(pairs[index].y);
+        yield return new WaitForSeconds(pairs[index].y);
 		while (true) {
 			source.time = pairs[index].x;
-			yield return new WaitForSeconds(pairs[index].y - pairs[index].x);
+            yield return new WaitForSeconds(pairs[index].y - pairs[index].x);
 		}
 	}
+
+    private IEnumerator ShowGUI(int index, float showTime)
+    {
+        showTitleIndex = index;
+        yield return new WaitForSeconds(showTime);
+        showTitleIndex = -1;
+    }
+
+    void OnGUI() {
+        if(showTitleIndex != -1){
+            GUIStyle style = new GUIStyle();
+            style.fontSize = 14;
+            style.normal.textColor = Color.red;
+            GUI.Label(new Rect(6f, 45f, 300f, 20f), ("BGM: " + songTitle[showTitleIndex]),style);
+            style.normal.textColor = Color.white;
+            GUI.Label(new Rect(4f, 43f, 300f, 20f), ("BGM: " + songTitle[showTitleIndex]),style);
+        }
+    }
 
 //	void OnGUI() {
 //		if (GUI.Button(new Rect(10, 10, 50, 50), "1"))
