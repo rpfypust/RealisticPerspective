@@ -194,7 +194,8 @@ public class Boss_CS : MonoBehaviour
                     if (gameObject.GetComponent<CS1_P2P>())
                     {
                         Destroy(gameObject.GetComponent<CS1_P2P>());
-					}
+                    }
+                    sem.StopAllSoundEffect();
 					sem.PlaySoundEffect(8);
 					bgm.StopBGM();
                     status.isInvicible = true;

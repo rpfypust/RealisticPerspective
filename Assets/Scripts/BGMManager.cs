@@ -72,6 +72,7 @@ public class BGMManager : MonoBehaviour {
 	{
         source.clip = bgms[index];
         source.time = 0f;
+        source.loop = true;
 		source.Play();
         yield return new WaitForSeconds(pairs[index].y);
 		while (true) {
@@ -92,9 +93,9 @@ public class BGMManager : MonoBehaviour {
             GUIStyle style = new GUIStyle();
             style.fontSize = 14;
             style.normal.textColor = Color.red;
-            GUI.Label(new Rect(6f, 45f, 300f, 20f), ("BGM: " + songTitle[showTitleIndex]),style);
+            GUI.Label(new Rect(6f, 70f, 300f, 20f), ("BGM: " + songTitle[showTitleIndex]),style);
             style.normal.textColor = Color.white;
-            GUI.Label(new Rect(4f, 43f, 300f, 20f), ("BGM: " + songTitle[showTitleIndex]),style);
+            GUI.Label(new Rect(4f, 68f, 300f, 20f), ("BGM: " + songTitle[showTitleIndex]),style);
         }
     }
 

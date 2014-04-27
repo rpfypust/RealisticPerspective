@@ -15,10 +15,16 @@ public class CompToTransition : MonoBehaviour {
 	}
 
 	void Update () {
-		if (boss.HealthPoint <= 0.0f) {
+        if (boss.HealthPoint <= 0.0f) {
 			enabled = false;
-			Flag.GetInstance().CompCleared = true;
-			gamecon.LoadLevel(SceneIndice.TRANSITION);
+            Flag.GetInstance().CompCleared = true;
+            StartCoroutine(Wait());
 		}
-	}
+    }
+    
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(5.0f);
+        gamecon.LoadLevel(SceneIndice.TRANSITION);
+    }
 }
