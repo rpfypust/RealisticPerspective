@@ -127,6 +127,7 @@ public sealed class MonsterAI : MonoBehaviour {
 	}
 
 	public Vector3 randomPositionInBounds() {
-		return Util.randomInsideRect(movementBounds).toVector3XZ();
+		Vector2 v2 = Util.randomInsideRect(movementBounds);
+		return new Vector3(v2.x, transform.position.y, v2.y);
 	}
 }
